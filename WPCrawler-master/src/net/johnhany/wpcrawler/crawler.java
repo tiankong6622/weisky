@@ -28,7 +28,7 @@ public class crawler {
 	
 	public static void main(String args[]) throws Exception {
 		String frontpage = "http://johnhany.net/";
-		Connection conn = null;  
+		Connection conn = null;     
 		
 		//connect the MySQL database
 		try {
