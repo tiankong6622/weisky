@@ -31,7 +31,7 @@ public class crawler {
 		Connection conn = null;     
 		
 		//connect the MySQL database
-		try {
+		try {  
 			Class.forName("com.mysql.jdbc.Driver");
 			String dburl = "jdbc:mysql://localhost:3306?useUnicode=true&characterEncoding=utf8";
 			conn = DriverManager.getConnection(dburl, "root", "root");
