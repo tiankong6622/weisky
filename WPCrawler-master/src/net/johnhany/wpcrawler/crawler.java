@@ -37,7 +37,7 @@ public class crawler {
 			conn = DriverManager.getConnection(dburl, "root", "root");
 			System.out.println("connection built");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();   
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
