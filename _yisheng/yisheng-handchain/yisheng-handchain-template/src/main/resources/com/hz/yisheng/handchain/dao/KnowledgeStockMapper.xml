@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.handchain.dao.KnowledgeStockMapper">
+
+	<resultMap id="KnowledgeStockMap"
+		type="com.hz.yisheng.handchain.orm.KnowledgeStockBean">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="subtitle" column="subtitle" />
+		<result property="sicktime" column="sicktime" />
+		<result property="summary" column="summary" />
+		<result property="sicktype" column="sicktype" />
+		<result property="content" column="content" />
+		<result property="creator" column="creator" />
+		<result property="createTime" column="create_time" />
+		<result property="updater" column="updater" />
+		<result property="updateTime" column="update_time" />
+		<result property="isDeleted" column="is_deleted" />
+		<result property="plateId" column="plate_id" />
+	</resultMap>
+	<!-- 查询所有记录 -->
+	<select id="findKnowledge" parameterType="java.lang.String" resultMap="KnowledgeStockMap">
+		select * FROM knowledge_stock where 1=1
+		<if test="title!=null and title!=''">
+			<![CDATA[ and title like CONCAT('%',#{title},'%')]]>
+		</if>
+		<if test="sicktype != null and sicktype != ''">
+			<![CDATA[and  sicktype like CONCAT('%',#{sicktype},'%') ]]>
+		</if>
+		<if test="sicktime != null and sicktime != '' ">
+			<![CDATA[ and sicktime like CONCAT('%',#{sicktime},'%') ]]>
+		</if>
+		order by create_time desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+		
+	</select>
+	<!-- 通过id查找记录 -->
+	<select id="findById" resultMap="KnowledgeStockMap"
+		parameterType="long">
+		select * FROM knowledge_stock where id = #{id}
+	</select>
+	<!-- 查询记录条数 -->
+	<select id="findCount" resultType="java.lang.Long" parameterType="String">
+		select COUNT(*)FROM knowledge_stock where 1=1
+		<if test="title!=null and title!=''">
+			<![CDATA[ and title like CONCAT('%',#{title},'%')]]>
+		</if>
+		<if test="sicktype != null and sicktype != ''">
+			<![CDATA[and  sicktype like CONCAT('%',#{sicktype},'%') ]]>
+		</if>
+		<if test="sicktime != null and sicktime != '' ">
+			<![CDATA[ and sicktime like CONCAT('%',#{sicktime},'%') ]]>
+		</if>
+	</select>
+	<!-- 添加记录 -->
+	<insert id="insert" parameterType="com.hz.yisheng.handchain.orm.KnowledgeStockBean"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		knowledge_stock(title,subtitle,summary,sicktype,sicktime,content,creator,create_time,is_deleted,plate_id)VALUES(#{title},#{subtitle},#{summary},
+		#{sicktype},#{sicktime},#{content}, #{creator},now(),1,#{plateId})
+	</insert>
+	<!-- 编辑记录 -->
+	<update id="update" parameterType="com.hz.yisheng.handchain.orm.KnowledgeStockBean">
+		update knowledge_stock SET update_time = NOW()
+		<if test="subtitle!=null and subtitle!=''">
+			<![CDATA[ , subtitle=#{subtitle} ]]>
+		</if>
+		<if test="title!=null and title!=''">
+			<![CDATA[ , title=#{title} ]]>
+		</if>
+		<if test="sicktime!=null and sicktime!=''">
+			<![CDATA[ , sicktime=#{sicktime} ]]>
+		</if>
+		<if test="summary!=null and summary!=''">
+			<![CDATA[ , summary=#{summary} ]]>
+		</if>
+		<if test="sicktype!=null and sicktype!=''">
+			<![CDATA[ , sicktype=#{sicktype} ]]>
+		</if>
+		<if test="content!=null and content!=''">
+			<![CDATA[ , content=#{content} ]]>
+		</if>
+		<if test="updater!=null and updater!=''">
+			<![CDATA[ , updater=#{updater} ]]>
+		</if>
+		where id =#{id}
+	</update>
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from knowledge_stock
+		where id = #{id}
+	</delete>
+
+	<!-- 知识库阶段与板块 -->
+	<select id="list" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select id,name,IFNULL(parent_id,0) AS
+		_parentId,plate,
+		IFNULL(parent_id,0) AS parentId
+		from state_plate where 1=1
+		<if test="id!=null">
+			<![CDATA[ and id=#{id}]]>
+		</if>
+		<if test="name!=null and name!=''">
+			<![CDATA[ and name like CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="_parentId!=null">
+			<![CDATA[ and parent_id=#{_parentId}]]>
+		</if>
+		<if test="plate!=null">
+			<![CDATA[ and plate=#{plate}]]>
+		</if>
+	</select>
+	<insert id="insertStage" parameterType="com.hz.yisheng.handchain.orm.StagePlate"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		state_plate(id,name,parent_id,plate)
+		values(id,#{name},#{_parentId},#{plate})
+	</insert>
+
+	<select id="getMenuByName" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select
+		id,name,IFNULL(parent_id,0) AS
+		_parentId,plate,IFNULL(parent_id,0) AS
+		parentId from state_plate
+		where name=#{name}
+	</select>
+
+	<select id="getParentMenu" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select
+		id,name,IFNULL(parent_id,0) AS
+		_parentId,plate,IFNULL(parent_id,0) AS
+		parentId from state_plate
+		where id=#{id}
+	</select>
+	<select id="getMaxSort" resultType="java.lang.String">
+		select max(sort) from
+		state_plate where parent_id=#{parentId}
+	</select>
+
+	<update id="updateStage" parameterType="com.hz.yisheng.handchain.orm.StagePlate">
+		update state_plate set
+		<if test="name!=null and name!=''">
+			<![CDATA[name=#{name}]]>
+		</if>
+		<if test="plate!=null">
+			<![CDATA[ , plate=#{plate}]]>
+		</if>
+		where id=#{id}
+	</update>
+	<!-- 删除 -->
+	<delete id="deleteStage" parameterType="java.lang.Long">
+		delete from state_plate
+		where
+		id=#{id} or parent_id=#{id}
+	</delete>
+	<!-- 通过parentid找到父节点 -->
+	<select id="listByParentid" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select id,name from
+		state_plate where id = #{id}
+	</select>
+	<!-- 通过name判断父菜单是否存在 -->
+	<select id="listByFname" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select * from state_plate
+		where name = #{name} and parent_id = 0
+	</select>
+	<!-- 通过子节点名称及其parent_id判断该节点是否存在 -->
+	<select id="listByFid" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select * from state_plate
+		where name = #{name} and parent_id =#{parentId}
+	</select>
+
+	<!-- 获取知识库所有阶段信息 -->
+	<select id="listStageInfo" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select id,name from
+		state_plate where parent_id = 0
+	</select>
+	<!-- 根据知识库阶段信息获取所有板块信息 -->
+	<select id="listPlateInfo" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select id,name from
+		state_plate where parent_id = #{parentId}
+	</select>
+	<!-- 通过id查找父亲菜单的名称 -->
+	<select id="findFname" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select name from state_plate
+		where id = #{id}
+	</select>
+
+	<!-- 根据父亲节点name获取所有子节点信息 -->
+	<select id="findSonInfoByFname" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select * from
+		state_plate where plate =#{plate} and parent_id is not NULL
+	</select>
+	
+	<!-- 根据板块id查询板块信息 -->
+	<select id="childlist" resultType="com.hz.yisheng.handchain.orm.StagePlate">
+		select s.id,s.name,IFNULL(s.parent_id,0) AS _parentId,s.plate,IFNULL(s.parent_id,0) AS parentId,a.path,a.file_name from state_plate s
+		left join attachement a on a.obj_id = s.id and is_del="n" and type="stage"
+		where s.id=#{id}
+	</select>
+</mapper>
+   

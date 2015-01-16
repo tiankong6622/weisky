@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.handchain.dao.FriendCircleMapper">
+	<resultMap id="Attachement_result" type="com.hz.yisheng.handchain.orm.AttachmentBean">
+		<id property="id" column="id" />
+		<result property="objId" column="obj_id" />
+		<result property="path" column="path" />
+		<result property="type" column="type" />
+		<result property="fileName" column="file_name" />
+		<result property="creator" column="creater_id" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+	<resultMap type="com.hz.yisheng.handchain.orm.friendCircleBean"
+		id="FRIEND_RESULT">
+		<id property="id" column="id" />
+		<result property="pic" column="pic" />
+		<result property="title" column="title" />
+		<result property="link" column="link" />
+		<result property="content" column="content" />
+		<result property="creator" column="creator" />
+		<result property="createTime" column="create_time" />
+		<result property="updater" column="updater" />
+		<result property="updateTime" column="update_time" />
+		<result property="isDeleted" column="is_deleted" />
+		<result property="discussCount" column="discussCount" />
+		<result property="praiseCount" column="praiseCount" />
+	</resultMap>
+
+	<sql id="FRIEND_SQL">
+		pic,title,link,content,creator,create_time,updater,update_time,is_deleted,discussCount,praiseCount
+	</sql>
+
+	<insert id="insertFriend" parameterType="com.hz.yisheng.handchain.orm.friendCircleBean"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into friendcircle(
+		<include refid="FRIEND_SQL" />
+		)
+		values(#{pic},#{title},#{link},#{content},#{creator},now(),#{updater},#{updateTime},1,#{discussCount},#{praiseCount})
+	</insert>
+
+	<!-- 查询记录 -->
+	<select id="findFriendList" parameterType="java.util.HashMap"
+		resultMap="FRIEND_RESULT">
+		select id,<include refid="FRIEND_SQL" /> FROM friendcircle where 1=1
+		<if test="title!=null and title!=''">
+			<![CDATA[ and title  like CONCAT('%',#{title},'%')]]>
+		</if>
+		<if test="content != null and content!= ''">
+			<![CDATA[ and content like CONCAT('%',#{content},'%') ]]>
+		</if>
+		<if test="createTime!=null and createTime!=''">
+			<![CDATA[ and create_time  like CONCAT('%',#{createTime},'%')]]>
+		</if>
+		order by create_time desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+<!-- 根据id查询记录 -->
+	<select id="findFriendById" parameterType="java.lang.Long"
+		resultMap="FRIEND_RESULT">
+		select id,<include refid="FRIEND_SQL" /> FROM friendcircle where id=#{id}
+	</select>
+	
+	<select id="findCount"  resultType="java.lang.Long" >
+		select COUNT(*) FROM friendcircle 
+		<where>
+			<if test="title!=null and title!=''">
+				<![CDATA[ and title  like CONCAT('%',#{title},'%')]]>
+			</if>
+			<if test="content != null and content!= ''">
+				<![CDATA[ and content like CONCAT('%',#{content},'%') ]]>
+			</if>
+		</where>
+	</select>
+
+	<update id="updateFriend" parameterType="com.hz.yisheng.handchain.orm.friendCircleBean">
+		update friendcircle SET update_time = NOW()
+		<if test="title!=null and title!=''">
+			<![CDATA[ , title=#{title} ]]>
+		</if>
+		<if test="pic!=null and pic!=''">
+			<![CDATA[ , pic=#{pic} ]]>
+		</if>
+		<if test="content!=null and content!=''">
+			<![CDATA[ , content=#{content} ]]>
+		</if>
+		<if test="updater!=null and updater!=''">
+			<![CDATA[ , updater=#{updater} ]]>
+		</if>
+		<if test="discussCount!=null and discussCount!=''">
+			<![CDATA[ , discussCount=#{discussCount} ]]>
+		</if>
+		<if test="praiseCount!=null and praiseCount!=''">
+			<![CDATA[ , praiseCount=#{praiseCount} ]]>
+		</if>
+		where id =#{id}
+	</update>
+
+	<delete id="deleteFriend" parameterType="java.lang.Long">
+		delete from friendcircle
+		where id = #{id} and is_deleted=1
+	</delete>
+	
+	<!-- 根据相关记录进行评论和点赞 -->
+	<sql id="DISCUSS_SQL">
+		friendId,content,mark,creator,username,createTime
+	</sql>
+	<insert id="insertDiscuss" parameterType="com.hz.yisheng.handchain.orm.DiscussInfoBean"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into discussinfo(
+		<include refid="DISCUSS_SQL" />
+		)
+		values(#{friendId},#{content},#{mark},#{creator},#{username},now())
+	</insert>
+	
+<!-- 依据id查找活动 -->
+	<select id="findDiscussById" resultType="com.hz.yisheng.handchain.orm.DiscussInfoBean">
+		select id,<include refid="DISCUSS_SQL" />
+		FROM discussinfo where friendId = #{friendId} and mark=#{mark}
+	</select>
+	<!-- 依据friendid查找附表中评论条数、点赞条数 -->
+	<select id="findCountByFriendId" resultType="java.lang.Long">
+		select count(id)
+		FROM discussinfo where friendId = #{friendId} and mark=#{mark}
+	</select>
+	<!-- 依据friendid删除评论、点赞相关记录 -->
+	<delete id="deleteDiscussByFriendId" parameterType="java.lang.Long">
+		delete from discussinfo
+		where friendId = #{friendId} 
+	</delete>
+	<!-- 附件相关sql -->
+	<sql id="Attachement_SQL">
+		obj_id,path,type,file_name,creater_id,create_time
+	</sql>
+	<insert id="insertAttachement">
+		insert into attachement(
+		<include refid="Attachement_SQL" />
+		) values
+		<foreach item="item" index="index" collection="list"
+			separator=",">
+			(#{item.objId},#{item.path},#{item.type},#{item.fileName},#{item.creator},now())
+		</foreach>
+	</insert>
+
+	<delete id="deleteAll" parameterType="java.lang.Long">
+		delete from attachement
+	</delete>
+
+	<delete id="deleteAttachmentById">
+		delete from attachement where id=#{id}
+	</delete>
+	<delete id="deleteAttachmentByobjIdAndType">
+			delete from attachement where obj_id=#{objId} and
+		type=#{type}
+	</delete>
+	<delete id="deleteAttachmentByobjIdAndpath">
+		delete from attachement where obj_id=#{objId} and
+		path=#{path}
+	</delete>
+<!-- 通过objid和path确定图片 -->
+<select id="getAttachmentByobjIdAndPath" resultMap="Attachement_result">
+		select id,
+		<include refid="Attachement_SQL" />
+		from attachement where
+		obj_id=#{objId} and path=#{path}
+	</select>
+	
+	<!-- 通过objid和type确定图片 -->
+<select id="getAttachmentByobjIdAndType" resultMap="Attachement_result">
+		select id,
+		<include refid="Attachement_SQL" />
+		from attachement where
+		obj_id=#{objId} and type=#{type}
+	</select>
+
+
+	<select id="getAttachmentByobjId" resultMap="Attachement_result">
+		select id,
+		<include refid="Attachement_SQL" />
+		from attachement where
+		obj_id=#{objId}
+	</select>
+
+	<select id="getAttachmentByobjIdList" resultMap="Attachement_result">
+		select id,
+		<include refid="Attachement_SQL" />
+		from attachement where
+		objId in
+		<foreach index="index" item="item" collection="list"
+			separator=",">
+			#{item}
+		</foreach>
+	</select>
+</mapper>

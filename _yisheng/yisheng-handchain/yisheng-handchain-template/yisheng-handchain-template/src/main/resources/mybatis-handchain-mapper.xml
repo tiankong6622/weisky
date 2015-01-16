@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-lazy-init="true">
+	
+ 	<bean id="customerMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.handchain.dao.CustomerMapper" />
+		<property name="sqlSessionFactory" ref="handchainSessionFactory" />
+	</bean>
+	<bean id="childHealthMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.handchain.dao.ChildHealthMapper" />
+		<property name="sqlSessionFactory" ref="handchainSessionFactory" />
+	</bean>
+	
+	<bean id="customerDeviceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.handchain.dao.CustomerDeviceMapper" />
+		<property name="sqlSessionFactory" ref="handchainSessionFactory" />
+	</bean>
+	
+	<bean id="knowledgeStockMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.handchain.dao.KnowledgeStockMapper" />
+		<property name="sqlSessionFactory" ref="handchainSessionFactory" />
+	</bean>
+	
+	<bean id="adminHandBookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.handchain.dao.AdminHandBookMapper" />
+		<property name="sqlSessionFactory" ref="handchainSessionFactory" />
+	</bean>
+	
+	
+
+</beans>	

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.handchain.dao.KnowledgeStockMapper">
+
+	<resultMap id="KnowledgeStockMap"
+		type="com.hz.yisheng.handchain.orm.KnowledgeStockBean">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="subtitle" column="subtitle" />
+		<result property="sicktime" column="sicktime" />
+		<result property="summary" column="summary" />
+		<result property="sicktype" column="sicktype" />
+		<result property="content" column="content" />
+		<result property="creator" column="creator" />
+		<result property="createTime" column="create_time" />
+		<result property="updater" column="updater" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	<!-- 查询所有记录 -->
+	<select id="findKnowledge" resultMap="KnowledgeStockMap">
+		select * FROM knowledge_stock where 1=1
+			<if test="title!=null and title!=''">
+			<![CDATA[ and title like CONCAT('%',#{title},'%')]]>
+			</if>
+			<if test="sicktype != null and sicktype != ''">
+			<![CDATA[and  sicktype like CONCAT('%',#{sicktype},'%') ]]>
+			</if>
+			<if test="sicktime != null and sicktime != ''">
+			<![CDATA[ and sicktime like CONCAT('%',#{sicktime},'%') ]]>
+			</if>
+	</select>
+	<!-- 通过id查找记录 -->
+	<select id="findById" resultMap="KnowledgeStockMap"
+		parameterType="long">
+		select * FROM knowledge_stock where id = #{id}
+	</select>
+	<!-- 查询记录条数 -->
+	<select id="findCount" resultType="java.lang.Long"
+		parameterType="String">
+		select COUNT(*)FROM knowledge_stock
+	</select>
+	<!-- 添加记录 -->
+	<insert id="insert" parameterType="com.hz.yisheng.handchain.orm.KnowledgeStockBean"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		knowledge_stock(title,subtitle,summary,sicktype,sicktime,content,creator,create_time)VALUES(#{title},#{subtitle},#{summary},
+		#{sicktype},#{sicktime},#{content}, #{creator},now())
+	</insert>
+	<!-- 编辑记录 -->
+	<update id="update" parameterType="com.hz.yisheng.handchain.orm.KnowledgeStockBean">
+		update knowledge_stock SET update_time = NOW()
+		<if test="subtitle!=null and subtitle!=''">
+			<![CDATA[ , subtitle=#{subtitle} ]]>
+		</if>
+		<if test="title!=null and title!=''">
+			<![CDATA[ , title=#{title} ]]>
+		</if>
+		<if test="sicktime!=null and sicktime!=''">
+			<![CDATA[ , sicktime=#{sicktime} ]]>
+		</if>
+		<if test="summary!=null and summary!=''">
+			<![CDATA[ , summary=#{summary} ]]>
+		</if>
+		<if test="sicktype!=null and sicktype!=''">
+			<![CDATA[ , sicktype=#{sicktype} ]]>
+		</if>
+		<if test="content!=null and content!=''">
+			<![CDATA[ , content=#{content} ]]>
+		</if>
+		where id =#{id}
+	</update>
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from knowledge_stock
+		where id = #{id}
+	</delete>
+</mapper>
+   

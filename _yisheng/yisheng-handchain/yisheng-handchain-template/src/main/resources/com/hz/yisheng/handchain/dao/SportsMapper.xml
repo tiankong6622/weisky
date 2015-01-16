@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hz.yisheng.handchain.dao.SportsMapper">
+	<resultMap type="com.hz.yisheng.handchain.orm.Sports" id="SPORTS_RESULT">
+		<id property="id" column="id"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="type" column="type"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="creator" column="creator"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updater" column="updater"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>	
+	
+	<sql id="SPORTS_SQL">
+		customer_id,type,start_time,end_time,creator,create_time,updater,update_time,is_deleted
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.yisheng.handchain.orm.Sports" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into sports(id,<include refid="SPORTS_SQL"/>) values(id,#{customerId},#{type},#{startTime},#{endTime},#{creator},now(),#{updater},#{updateTime},1)
+	</insert>
+	
+	<update id="update" parameterType="com.hz.yisheng.handchain.orm.Sports">
+		update sports set id=#{id}
+		<if test="customerId != null and customerId != ''">
+			<![CDATA[,customer_id =#{customerId}]]>
+		</if>
+		where id=#{id} and is_deleted=1
+	</update>
+	
+	<select id="list" parameterType="java.util.HashMap" resultMap="SPORTS_RESULT">
+		SELECT s.id,s.customer_id,s.type,s.start_time,s.end_time,c.`name` from sports  s
+		left join customer_base c on c.id = s.customer_id and c.is_deleted=1
+		where s.is_deleted=1
+		<if test="id != null and id != ''">
+			<![CDATA[ and s.id =#{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and c.name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		order by s.create_time desc,s.id DESC
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if> 
+	</select>
+	
+	<select id="count" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		SELECT count(s.id) from sports  s
+		left join customer_base c on c.id = s.customer_id and c.is_deleted=1
+		where s.is_deleted=1
+		<if test="id != null and id != ''">
+			<![CDATA[ and s.id =#{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and c.name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+	</select>
+	
+	<select id="getSportsByCustomerId" parameterType="java.lang.Long" resultMap="SPORTS_RESULT">
+		select id,<include refid="SPORTS_SQL"/> from sports where customer_id = #{customerId} and is_deleted = 1
+	</select>
+</mapper>

@@ -1,0 +1,328 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+	  <groupId>org.javafans</groupId>
+	  <artifactId>javafans-parent</artifactId>
+	  <version>1.0</version>
+	  <relativePath>../yisheng-core/parent/pom.xml</relativePath>
+  </parent>
+  <groupId>com.hz.yisheng.handchain</groupId>
+  <artifactId>yisheng-handchain-template</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+  <name>yisheng-handchain-template 易盛母婴手环模块</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+  	<dependency>
+		<groupId>com.hz.yisheng.solr</groupId>
+	    <artifactId>yisheng-solr-template</artifactId>
+	    <version>1.0</version>
+	</dependency>
+    <dependency>
+		<groupId>org.javafans</groupId>
+		<artifactId>javafans-common</artifactId>
+		<version>1.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.javafans</groupId>
+		<artifactId>javafans-framework</artifactId>
+		<version>1.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.javafans</groupId>
+		<artifactId>javafans-partner</artifactId>
+		<version>1.0</version>
+	</dependency>
+	<dependency>
+		<groupId>com.hz.yisheng</groupId>
+		<artifactId>yisheng-common-webdata</artifactId>
+		<version>1.0</version>
+	</dependency>
+	<dependency>
+		<groupId>com.hz.yisheng</groupId>
+		<artifactId>yisheng-common-data</artifactId>
+		<version>1.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+	    <version>5.1.15</version>
+    </dependency>
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+	</dependency>
+	<!-- PERSISTENCE end -->
+	<!-- spring begin -->
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+	</dependency>
+	
+	<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+		</dependency>
+
+	
+	<!--  chenjunhui2012-8-1 -->
+	 <dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+	</dependency>
+	<!-- spring tx -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+	</dependency>
+	<!-- spring end -->
+
+	<!-- WEB begin -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>servlet-api</artifactId>
+	</dependency>
+	<!-- WEB end -->
+
+	<!-- REST begin -->
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-server</artifactId>
+	</dependency>
+	<!-- REST end -->
+
+	<!-- UTILS begin -->
+	<dependency>
+		<groupId>com.google.guava</groupId>
+		<artifactId>guava</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+	</dependency>
+
+	 <dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+	 </dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+	</dependency>
+	<dependency>
+	  <groupId>com.fasterxml.jackson.module</groupId>
+	  <artifactId>jackson-module-jaxb-annotations</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.dozer</groupId>
+		<artifactId>dozer</artifactId>
+	</dependency>
+	<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+	</dependency>
+	<dependency>   
+		<groupId>org.apache.velocity</groupId>
+		<artifactId>velocity-tools</artifactId>
+	</dependency> 
+	<dependency>
+		<groupId>commons-digester</groupId>  
+		<artifactId>commons-digester</artifactId>  
+	</dependency>
+	<!-- UTILS end -->
+	
+	<!-- xml -->
+	<dependency>
+		<groupId>dom4j</groupId>
+		<artifactId>dom4j</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>jaxen</groupId>
+		<artifactId>jaxen</artifactId>
+	</dependency>
+
+	<!-- LOGGING begin -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+	</dependency>
+	<!-- LOGGING end -->
+	
+	<!-- cache start -->
+	<dependency>
+	  <groupId>com.google.code.simple-spring-memcached</groupId>
+	  <artifactId>spymemcached</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>net.sf.ehcache</groupId>
+		<artifactId>ehcache-core</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+	</dependency>
+	<!-- cache end -->
+		
+	<!-- TEST begin -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.mockito</groupId>
+		<artifactId>mockito-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.powermock</groupId>
+		<artifactId>powermock-module-junit4</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.powermock</groupId>
+		<artifactId>powermock-api-mockito</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+	</dependency>
+  </dependencies>
+  
+  <build>
+  		<finalName>yisheng-handchain-template</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			
+			<!-- Eclipse plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>none</wtpversion>
+				</configuration>
+			</plugin>
+			<!-- eclipse plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+			</plugin>
+
+			<!-- source attach plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- 跳过测试 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

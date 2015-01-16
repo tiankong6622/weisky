@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hz.yisheng.handchain.dao.CustomerMapper">
+	<resultMap type="com.hz.yisheng.handchain.orm.Customer" id="CUSTOMER_RESULT">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="sex" column="sex"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<result property="inHospitalTime" column="in_hospital_time"/>
+		<result property="outHospitalTime" column="out_hospital_time"/>
+		<result property="bornTime" column="born_time"/>
+		<result property="weight" column="weight"/>
+		<result property="number" column="number"/>
+		<result property="bedNumber" column="bed_number"/>
+		<result property="age" column="age"/>
+		<result property="father" column="father"/>
+		<result property="parentId" column="parent_id"/>
+		<result property="type" column="type"/>
+		<result property="leve" column="leve"/>
+		<result property="creator" column="creator"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updater" column="updater"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>	
+	
+	<sql id="CUSTOMER_SQL">
+		name,password,sex,phone,address,in_hospital_time,out_hospital_time,born_time,weight,number,bed_number,age,father,parent_id,type,leve,creator,create_time,updater,update_time
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.yisheng.handchain.orm.Customer" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into customer_base(id,<include refid="CUSTOMER_SQL"/>) values(id,#{name},#{password},#{sex},#{phone},
+		#{address},#{inHospitalTime},#{outHospitalTime},#{bornTime},#{weight},#{number},#{bedNumber},#{age},#{father},#{parentId},#{type},#{leve},#{creator},now(),#{updater},#{updateTime})
+	</insert>
+	
+	<update id="update" parameterType="com.hz.yisheng.handchain.orm.Customer">
+		update customer_base set id=#{id}
+		<if test="name != null and name != ''">
+			<![CDATA[,name =#{name}]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ ,password =#{password}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ ,age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ ,phone =#{phone}]]>
+		</if>
+		<if test="sex != null and sex != 0">
+			<![CDATA[ ,sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ ,address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[,in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[,out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[,born_time=#{bornTime}]]>
+		</if>
+		<if test="weight != null and weight != ''">
+		    <![CDATA[,weight=#{weight}]]>
+		</if>
+		<if test="number != null and number != ''">
+		    <![CDATA[,number=#{number}]]>
+		</if>
+		<if test="bedNumber != null and bedNumber != ''">
+		    <![CDATA[,bed_number=#{bedNumber}]]>
+		</if>
+		<if test="father != null and father != ''">
+		    <![CDATA[,father=#{father}]]>
+		</if>
+		<if test="updater != null and updater != ''">
+		    <![CDATA[,updater=#{updater}]]>
+		</if>
+		<if test="updateTime != null and updateTime != ''">
+		    <![CDATA[,update_time=#{updateTime}]]>
+		</if>
+		where id=#{id}
+	</update>
+	
+	<!-- 婴儿信息 -->
+	<select id="childList" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+	<!-- select c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,
+		c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,c.updater,c.update_time,b.name motherName from customer_base c
+		inner join customer_base b on c.parent_id = b.id
+		left join customer_device d on c.id = d.customer_id
+		where c.parent_id !=0 -->	
+		select c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,
+		c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,c.updater,c.update_time,cc.children_device_number as childDeviceNum from customer_base c
+		left join customer_child_device cc on cc.children_id = c.id and cc.id in(select max(id) from customer_child_device where children_id = c.id and is_deleted = 1) and cc.is_deleted=1
+		where c.parent_id !=0 and c.is_deleted=1
+		<if test="id != null">
+			<![CDATA[ and c.id =#{id}]]>
+		</if>
+		<!-- <if test="name != null and name != ''">
+			<![CDATA[ and c.name =#{name}]]>
+		</if> -->
+		<if test="name != null and name != ''">
+			<![CDATA[ and c.name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ and c.password =#{password}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and c.age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and c.phone =#{phone}]]>
+		</if>
+		<if test="sex != null">
+			<![CDATA[ and c.sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ and c.address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[and c.in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[and c.out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[and c.born_time=#{bornTime}]]>
+		</if>
+		<if test="weight != null and weight != ''">
+		    <![CDATA[and c.weight=#{weight}]]>
+		</if>
+		<if test="number != null and number != ''">
+		    <![CDATA[and c.number=#{number}]]>
+		</if>
+		<if test="bedNumber != null and bedNumber != ''">
+		    <![CDATA[and c.bed_number=#{bedNumber}]]>
+		</if>
+		<if test="father != null and father != ''">
+		    <![CDATA[and c.father=#{father}]]>
+		</if>
+		<if test="father != null and father != ''">
+			<![CDATA[ and c.father LIKE CONCAT('%',#{father},'%')]]>
+		</if>
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>  
+	</select>
+		
+	<!-- 产妇信息 -->
+	<select id="list" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+	<!-- select c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,
+		c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,d.number as selfDeviceNum from customer_base c 
+		left join customer_device d on c.id = d.customer_id
+		where c.parent_id =0 -->	
+		
+		select c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,
+		c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,cc.customer_device_number as customerDevNum from customer_base c 
+		left join customer_child_device cc on cc.customer_id = c.id and cc.id in(select max(id) from customer_child_device where customer_id = c.id and is_deleted = 1) and cc.is_deleted=1
+		where c.parent_id =0 and c.is_deleted=1
+		<if test="id != null">
+			<![CDATA[ and c.id =#{id}]]>
+		</if>
+		<!-- <if test="name != null and name != ''">
+			<![CDATA[ and name =#{name}]]>
+		</if> -->
+		<if test="name != null and name != ''">
+			<![CDATA[ and c.name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ and c.password =#{password}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and c.age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and c.phone =#{phone}]]>
+		</if>
+		<if test="sex != null">
+			<![CDATA[ and c.sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ and c.address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[and c.in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[and c.out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[and c.born_time=#{bornTime}]]>
+		</if>
+		<if test="weight != null and weight != ''">
+		    <![CDATA[and c.weight=#{weight}]]>
+		</if>
+		<if test="number != null and number != ''">
+		    <![CDATA[and c.number=#{number}]]>
+		</if>
+		<if test="bedNumber != null and bedNumber != ''">
+		    <![CDATA[and c.bed_number=#{bedNumber}]]>
+		</if>
+		<if test="father != null and father != ''">
+		    <![CDATA[and c.father=#{father}]]>
+		</if>
+		<if test="father != null and father != ''">
+			<![CDATA[ and c.father LIKE CONCAT('%',#{father},'%')]]>
+		</if>
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if> 
+	</select>
+	
+	<!-- 所有客户基本信息 -->
+	<select id="allList" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select id,<include refid="CUSTOMER_SQL"/> from customer_base where 1=1
+		<if test="id != null">
+			<![CDATA[ and id =#{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and name =#{name}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ and password =#{password}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and phone =#{phone}]]>
+		</if>
+		<if test="sex != null">
+			<![CDATA[ and sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ and address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[and in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[and out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[and born_time=#{bornTime}]]>
+		</if>
+		<if test="weight != null and weight != ''">
+		    <![CDATA[and weight=#{weight}]]>
+		</if>
+		<if test="number != null and number != ''">
+		    <![CDATA[and number=#{number}]]>
+		</if>
+		<if test="bedNumber != null and bedNumber != ''">
+		    <![CDATA[and bed_number=#{bedNumber}]]>
+		</if>
+		<if test="father != null and father != ''">
+		    <![CDATA[and father=#{father}]]>
+		</if>
+		<if test="father != null and father != ''">
+			<![CDATA[ and father LIKE CONCAT('%',#{father},'%')]]>
+		</if>
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if> 
+	</select>
+	<!-- 产妇记录个数 -->
+	<select id="count" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(id) from customer_base where parent_id =0
+	</select>
+	
+	<!-- 婴儿记录个数 -->
+	<select id="childCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(id) from customer_base where parent_id !=0
+	</select>
+	
+	<select id="getByCustomerId" parameterType="java.lang.Long" resultMap="CUSTOMER_RESULT">
+		select id,<include refid="CUSTOMER_SQL"/> from customer_base where id = #{id}
+	</select>
+	
+	<select id="getMotherName" parameterType="java.lang.Long" resultMap="CUSTOMER_RESULT">
+		select mo.id,mo.name,mo.password,mo.sex,mo.phone,mo.address,mo.in_hospital_time,mo.out_hospital_time,mo.born_time,mo.weight,
+		mo.number,mo.bed_number,mo.age,mo.father,mo.parent_id,mo.type,mo.leve FROM customer_base mo WHERE mo.parent_id=0 
+		and mo.id not in(
+		select m.id from customer_base m 
+		inner join customer_base c on c.parent_id = m.id)
+	</select>
+</mapper>

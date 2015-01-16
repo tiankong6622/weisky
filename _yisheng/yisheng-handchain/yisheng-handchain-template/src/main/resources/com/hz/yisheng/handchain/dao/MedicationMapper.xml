@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hz.yisheng.handchain.dao.MedicationMapper">
+	<resultMap type="com.hz.yisheng.handchain.orm.Medication" id="MEDICATION_RESULT">
+		<id property="id" column="id"/>
+		<result property="medicationName" column="medication_name"/>
+		<result property="medicationNum" column="medication_num"/>
+		<result property="medicationDate" column="medication_date"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="creator" column="creator"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updater" column="updater"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>	
+	
+	<sql id="MEDICATION_SQL">
+		medication_name,medication_num,medication_date,customer_id,creator,create_time,updater,update_time,is_deleted
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.yisheng.handchain.orm.Medication" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into medication(id,<include refid="MEDICATION_SQL"/>) values(id,#{medicationName},#{medicationNum},#{medicationDate},#{customerId},#{creator},now(),#{updater},#{updateTime},1)
+	</insert>
+	
+	<update id="update" parameterType="com.hz.yisheng.handchain.orm.Medication">
+		update medication set id=#{id}
+		<if test="medicationName != null and medicationName != ''">
+			<![CDATA[,medication_name =#{medicationName}]]>
+		</if>
+		<if test="medicationNum != null and medicationNum != ''">
+			<![CDATA[ ,medication_num =#{medicationNum}]]>
+		</if>
+		<if test="medicationDate != null and medicationDate != ''">
+			<![CDATA[ ,medication_date =#{medicationDate}]]>
+		</if>
+		<if test="customerId != null and customerId != ''">
+			<![CDATA[ ,customer_id =#{customerId}]]>
+		</if>
+		where id=#{id} and is_deleted=1
+	</update>
+	
+	<!-- 用药记录 -->
+	<select id="list" parameterType="java.util.HashMap" resultMap="MEDICATION_RESULT">
+		select m.id,m.customer_id,m.medication_name,m.medication_num,m.medication_date,m.create_time,c.name as customerName FROM medication m
+		left join customer_base c on c.id = m.customer_id and c.is_deleted = 1
+		where m.is_deleted = 1
+		<if test="id != null and id != ''">
+			<![CDATA[ and m.id =#{id}]]>
+		</if>
+		<if test="medicationName != null and medicationName != ''">
+			<![CDATA[and m.medication_name like CONCAT('%',#{medicationName},'%')]]>
+		</if>
+		<if test="medicationNum != null and medicationNum != ''">
+			<![CDATA[ and m.medication_num =#{medicationNum}]]>
+		</if>
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[ and DATE_FORMAT(m.medication_date, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endTime != null and endTime !=''">
+			<![CDATA[ and DATE_FORMAT(m.medication_date, '%Y-%m-%d') <=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="customerName != null and customerName != ''">
+			<![CDATA[ and c.name =#{customerName}]]>
+		</if>
+		<if test="customerId != null and customerId != ''">
+			<![CDATA[ and m.customer_id =#{customerId}]]>
+		</if>
+		order by m.create_time desc,m.id desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>  
+	</select>
+
+	<!-- 记录个数 -->
+	<select id="count" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(m.id) FROM medication m
+		left join customer_base c on c.id = m.customer_id and c.is_deleted = 1
+		where m.is_deleted = 1
+		<if test="id != null and id != ''">
+			<![CDATA[ and m.id =#{id}]]>
+		</if>
+		<if test="medicationName != null and medicationName != ''">
+			<![CDATA[and m.medication_name like CONCAT('%',#{medicationName},'%')]]>
+		</if>
+		<if test="medicationNum != null and medicationNum != ''">
+			<![CDATA[ and m.medication_num =#{medicationNum}]]>
+		</if>
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[ and DATE_FORMAT(m.medication_date, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endTime != null and endTime !=''">
+			<![CDATA[ and DATE_FORMAT(m.medication_date, '%Y-%m-%d') <=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="customerName != null and customerName != ''">
+			<![CDATA[ and c.name =#{customerName}]]>
+		</if>
+		<if test="customerId != null and customerId != ''">
+			<![CDATA[ and m.customer_id =#{customerId}]]>
+		</if>
+	</select>
+	
+</mapper>

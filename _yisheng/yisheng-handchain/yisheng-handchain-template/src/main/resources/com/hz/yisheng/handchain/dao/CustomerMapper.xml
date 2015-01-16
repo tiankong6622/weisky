@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hz.yisheng.handchain.dao.CustomerMapper">
+	<resultMap type="com.hz.yisheng.handchain.orm.Customer" id="CUSTOMER_RESULT">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="sex" column="sex"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<result property="inHospitalTime" column="in_hospital_time"/>
+		<result property="outHospitalTime" column="out_hospital_time"/>
+		<result property="bornTime" column="born_time"/>
+		<result property="weight" column="weight"/>
+		<result property="number" column="number"/>
+		<result property="bedNumber" column="bed_number"/>
+		<result property="age" column="age"/>
+		<result property="father" column="father"/>
+		<result property="parentId" column="parent_id"/>
+		<result property="type" column="type"/>
+		<result property="leve" column="leve"/>
+		<result property="creator" column="creator"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updater" column="updater"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+		<result property="bloodType" column="blood_type"/>
+		<result property="hospitalId" column="hospital_id"/>
+	</resultMap>	
+	
+	<sql id="CUSTOMER_SQL">
+		name,password,sex,phone,address,in_hospital_time,out_hospital_time,born_time,weight,number,bed_number,age,father,parent_id,type,leve,creator,create_time,updater,update_time,is_deleted,blood_type,hospital_id
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.yisheng.handchain.orm.Customer" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into customer_base(id,<include refid="CUSTOMER_SQL"/>) values(id,#{name},#{password},#{sex},#{phone},
+		#{address},#{inHospitalTime},#{outHospitalTime},#{bornTime},#{weight},#{number},#{bedNumber},#{age},#{father},#{parentId},#{type},#{leve},#{creator},now(),#{updater},#{updateTime},1,#{bloodType},#{hospitalId})
+	</insert>
+	
+	<update id="update" parameterType="com.hz.yisheng.handchain.orm.Customer">
+		update customer_base set id=#{id}
+		<if test="name != null and name != ''">
+			<![CDATA[,name =#{name}]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ ,password =#{password}]]>
+		</if>
+		<if test="parentId != null and parentId != ''">
+			<![CDATA[ ,parent_id =#{parentId}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ ,age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ ,phone =#{phone}]]>
+		</if>
+		<if test="sex != null and sex != 0">
+			<![CDATA[ ,sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ ,address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[,in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[,out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[,born_time=#{bornTime}]]>
+		</if>
+		<if test="weight != null and weight != ''">
+		    <![CDATA[,weight=#{weight}]]>
+		</if>
+		<if test="number != null and number != ''">
+		    <![CDATA[,number=#{number}]]>
+		</if>
+		<if test="bedNumber != null and bedNumber != ''">
+		    <![CDATA[,bed_number=#{bedNumber}]]>
+		</if>
+		<if test="father != null and father != ''">
+		    <![CDATA[,father=#{father}]]>
+		</if>
+		<if test="updater != null and updater != ''">
+		    <![CDATA[,updater=#{updater}]]>
+		</if>
+		<if test="updateTime != null and updateTime != ''">
+		    <![CDATA[,update_time=#{updateTime}]]>
+		</if>
+		<if test="bloodType != null and bloodType != ''">
+		    <![CDATA[,blood_type=#{bloodType}]]>
+		</if>
+		<if test="hospitalId != null and hospitalId != ''">
+		    <![CDATA[,hospital_id=#{hospitalId}]]>
+		</if>
+		where id=#{id} and is_deleted=1
+	</update>
+	
+	<!-- 婴儿信息 -->
+	<select id="childList" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select distinct m.* from(
+		select c.hospital_id,c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,d.children_device_number as childDeviceNum,
+		c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,c.updater,c.update_time,b.name motherName from customer_base c
+		inner join customer_base b on c.parent_id = b.id and b.is_deleted = 1
+		left join customer_child_device d on d.children_id = c.id and d.is_deleted=1
+		where c.parent_id !=0 and c.is_deleted = 1 
+		)m where 1=1
+		<if test="id != null">
+			<![CDATA[ and m.id =#{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and m.name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ and m.password =#{password}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and m.age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and m.phone =#{phone}]]>
+		</if>
+		<if test="sex != null">
+			<![CDATA[ and m.sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ and m.address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[and m.in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[and m.out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[and m.born_time=#{bornTime}]]>
+		</if>
+		group by m.id
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>  
+	</select>
+		
+	<!-- 产妇信息 -->
+	<select id="list" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select distinct m.* from(
+		select c.hospital_id,c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,
+		c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,ccd.customer_device_number as customDeviceNum,ccd.children_device_number as childDeviceNum from customer_base c 
+		left join customer_child_device ccd on ccd.customer_id = c.id and ccd.is_deleted = 1
+		where c.parent_id =0 and c.is_deleted = 1
+		)m where 1=1
+		<if test="id != null and name != ''">
+			<![CDATA[ and m.id =#{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and m.name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ and m.password =#{password}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and m.age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and m.phone =#{phone}]]>
+		</if>
+		<if test="sex != null">
+			<![CDATA[ and m.sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ and m.address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[and m.in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[and m.out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[and m.born_time=#{bornTime}]]>
+		</if>
+		group by m.id
+		order by m.create_time desc,m.id DESC
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if> 
+	</select>
+	
+	<select id="list2" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select c.hospital_id,c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,
+		c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,ccd.customer_device_number as customDeviceNum,ccd.children_device_number as childDeviceNum from customer_base c 
+		left join customer_child_device ccd on ccd.customer_id = c.id and ccd.is_deleted = 1
+		where c.parent_id =0 and c.is_deleted = 1 
+		<if test="id != null">
+			<![CDATA[ and c.id =#{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and c.name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and c.age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and c.phone =#{phone}]]>
+		</if>
+		<if test="sex != null">
+			<![CDATA[ and c.sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ and c.address =#{address}]]>
+		</if>
+		<if test="weight != null and weight != ''">
+		    <![CDATA[and c.weight=#{weight}]]>
+		</if>
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if> 
+	</select>
+	
+	<!-- 所有客户基本信息 -->
+	<select id="allList" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select id,<include refid="CUSTOMER_SQL"/> from customer_base where is_deleted = 1
+		<if test="id != null || id != ''">
+			<![CDATA[ and id =#{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and name =#{name}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and name LIKE CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="password != null and password != ''">
+			<![CDATA[ and password =#{password}]]>
+		</if>
+		<if test="age != null and age != ''">
+			<![CDATA[ and age =#{age}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and phone =#{phone}]]>
+		</if>
+		<if test="sex != null">
+			<![CDATA[ and sex =#{sex}]]>
+		</if>
+		<if test="address != null and address != ''">
+			<![CDATA[ and address =#{address}]]>
+		</if>
+		<if test="inHospitalTime != null and inHospitalTime != ''">
+		    <![CDATA[and in_hospital_time=#{inHospitalTime}]]>
+		</if>
+		<if test="outHospitalTime != null and outHospitalTime != ''">
+		    <![CDATA[and out_hospital_time=#{outHospitalTime}]]>
+		</if>
+		<if test="bornTime != null and bornTime != ''">
+		    <![CDATA[and born_time=#{bornTime}]]>
+		</if>
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if> 
+	</select>
+	<!-- 产妇记录个数 -->
+	<select id="count" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(d.id) from (
+			select distinct m.* from(
+			select c.hospital_id,c.id,c.name,c.password,c.sex,c.phone,c.address,c.in_hospital_time,c.out_hospital_time,c.born_time,c.weight,
+			c.number,c.bed_number,c.age,c.father,c.parent_id,c.type,c.leve,c.creator,c.create_time,ccd.customer_device_number as customDeviceNum,ccd.children_device_number as childDeviceNum from customer_base c 
+			left join customer_child_device ccd on ccd.customer_id = c.id and ccd.is_deleted = 1
+			where c.parent_id =0 and c.is_deleted = 1
+			)m where 1=1
+			<if test="id != null and name != ''">
+				<![CDATA[ and m.id =#{id}]]>
+			</if>
+			<if test="name != null and name != ''">
+				<![CDATA[ and m.name LIKE CONCAT('%',#{name},'%')]]>
+			</if>
+			<if test="password != null and password != ''">
+				<![CDATA[ and m.password =#{password}]]>
+			</if>
+			<if test="age != null and age != ''">
+				<![CDATA[ and m.age =#{age}]]>
+			</if>
+			<if test="phone != null and phone != ''">
+				<![CDATA[ and m.phone =#{phone}]]>
+			</if>
+			<if test="sex != null">
+				<![CDATA[ and m.sex =#{sex}]]>
+			</if>
+			<if test="address != null and address != ''">
+				<![CDATA[ and m.address =#{address}]]>
+			</if>
+			<if test="inHospitalTime != null and inHospitalTime != ''">
+			    <![CDATA[and m.in_hospital_time=#{inHospitalTime}]]>
+			</if>
+			<if test="outHospitalTime != null and outHospitalTime != ''">
+			    <![CDATA[and m.out_hospital_time=#{outHospitalTime}]]>
+			</if>
+			<if test="bornTime != null and bornTime != ''">
+			    <![CDATA[and m.born_time=#{bornTime}]]>
+			</if>
+		)d where 1=1
+	</select>
+	
+	<!-- 婴儿记录个数 -->
+	<select id="childCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(id) from customer_base where parent_id !=0 and is_deleted = 1
+	</select>
+	
+	<select id="getCustomerById" parameterType="java.lang.Long" resultMap="CUSTOMER_RESULT">
+		select id,<include refid="CUSTOMER_SQL"/> from customer_base where id = #{id} and is_deleted = 1
+	</select>
+	
+	<select id="getMotherName" parameterType="java.lang.Long" resultMap="CUSTOMER_RESULT">
+		select mo.id,mo.name,mo.password,mo.sex,mo.phone,mo.address,mo.in_hospital_time,mo.out_hospital_time,mo.born_time,mo.weight,
+		mo.number,mo.bed_number,mo.age,mo.father,mo.parent_id,mo.type,mo.leve FROM customer_base mo WHERE mo.parent_id=0 
+		and mo.id not in(
+		select m.id from customer_base m 
+		inner join customer_base c on c.parent_id = m.id where m.is_deleted = 1)
+		and mo.is_deleted = 1
+	</select>
+	
+	<!-- 家长详情列表信息 -->
+	<select id="list3" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+	select distinct m.* from (
+		select c. password,c.id,c. name,c.born_time,c.sex,c.phone,c.address,c.parent_id,c.in_hospital_time,c.out_hospital_time,c.weight,c.bed_number,
+			c.age,c.blood_type,c.number,c.type,c.leve,c1.customer_device_number as devicenumber,c1.children_id
+		from customer_base c
+		left join customer_child_device c1 on c1.customer_id = c.id and c1.is_deleted = 1
+		where c.is_deleted = 1 and c.parent_id = 0 and c.id = #{id}
+		) m
+	group by m.id
+	</select>
+	
+	<!-- 孩子详情列表信息 -->
+	<select id="list3ById" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select c. password,c2.id,c2.name,c2.born_time,c2.sex,c.phone,c2.address,c2.parent_id,c2.in_hospital_time,c2.out_hospital_time,c2.weight,c2.bed_number,
+		c2.age,c2.blood_type,c2.number,c2.type,c2.leve,c1.children_device_number as devicenumber
+		from customer_base c
+		left join customer_child_device c1 on c1.customer_id = c.id and c1.is_deleted = 1
+		left join customer_base c2 on c2.id = c1.children_id and c2.is_deleted = 1
+		where c.is_deleted = 1  and c.id = #{id}
+	</select>
+	
+	<!-- 获取所有有设备编号的客户名称及设备编号 -->
+	<select id="queryCustomerNameAndDevice" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select c.id,c.name,c1.customer_device_number as customDeviceNum from customer_base c
+		inner join customer_child_device  c1 on c1.customer_id = c.id 
+		and c1.id in(select max(id) from customer_child_device where customer_id=c.id and is_deleted=1)
+		and c1.is_deleted = 1
+		where c.is_deleted = 1
+		union 
+		select c.id,c.name,c2.children_device_number as customDeviceNum from customer_base c
+		inner join customer_child_device  c2 on c2.children_id = c.id and c2.is_deleted = 1
+		and c2.id in(select max(id) from customer_child_device where customer_id=c.id and is_deleted=1)
+		where c.is_deleted = 1
+	</select>
+	
+	<!-- 获取所有有设备编号的婴儿名称及设备编号 -->
+	<select id="queryChildNameAndDevice" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select distinct m.* from(
+			select c.id,c.name,c2.children_device_number as customDeviceNum from customer_base c
+			inner join customer_child_device  c2 on c2.children_id = c.id and c2.is_deleted = 1
+			where c.is_deleted = 1
+		)m
+		group by m.id
+	</select>
+	
+	<select id="checkList" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select id,<include refid="CUSTOMER_SQL"/> from customer_base where is_deleted = 1
+		<if test="id != null || id != ''">
+			<![CDATA[ and id != #{id}]]>
+		</if>
+		<if test="name != null and name != ''">
+			<![CDATA[ and name =#{name}]]>
+		</if>
+		<if test="phone != null and phone != ''">
+			<![CDATA[ and phone =#{phone}]]>
+		</if>
+	</select>
+	
+</mapper>

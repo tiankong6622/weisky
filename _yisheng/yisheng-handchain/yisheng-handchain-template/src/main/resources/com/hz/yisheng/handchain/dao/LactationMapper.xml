@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hz.yisheng.handchain.dao.LactationMapper">
+	<resultMap type="com.hz.yisheng.handchain.orm.Lactation" id="LACTATION_RESULT">
+		<id property="id" column="id"/>
+		<result property="lactationNum" column="lactation_num"/>
+		<result property="lactationTime" column="lactation_time"/>
+		<result property="childrenId" column="children_id"/>
+		<result property="creator" column="creator"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updater" column="updater"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>	
+	
+	<sql id="LACTATION_SQL">
+		lactation_num,lactation_time,children_id,creator,create_time,updater,update_time,is_deleted
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.yisheng.handchain.orm.Lactation" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into lactation(id,<include refid="LACTATION_SQL"/>) values(id,#{lactationNum},#{lactationTime},#{childrenId},#{creator},now(),#{updater},#{updateTime},1)
+	</insert>
+	
+	<update id="update" parameterType="com.hz.yisheng.handchain.orm.Lactation">
+		update lactation set id=#{id}
+		<if test="lactationNum != null and lactationNum != ''">
+			<![CDATA[ ,lactation_num =#{lactationNum}]]>
+		</if>
+		<if test="lactationTime != null and lactationTime != ''">
+			<![CDATA[ ,lactation_time =#{lactationTime}]]>
+		</if>
+		<if test="childrenId != null and childrenId != ''">
+			<![CDATA[ ,children_id =#{childrenId}]]>
+		</if>
+		where id=#{id} and is_deleted=1
+	</update>
+	
+	<!-- 哺乳记录 -->
+	<select id="list" parameterType="java.util.HashMap" resultMap="LACTATION_RESULT">
+		select m.id,m.children_id,m.lactation_num,m.lactation_time,m.create_time,c.name as customerName from lactation m
+		left join customer_base c on c.id = m.children_id and c.is_deleted = 1
+		where m.is_deleted = 1
+		<if test="id != null and id != ''">
+			<![CDATA[ and m.id =#{id}]]>
+		</if>
+		<if test="childrenId != null and childrenId != ''">
+			<![CDATA[ and m.children_id =#{childrenId}]]>
+		</if>
+		<if test="lactationNum != null and lactationNum != ''">
+			<![CDATA[ and m.lactation_num =#{lactationNum}]]>
+		</if>
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[ and DATE_FORMAT(m.lactation_time, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endTime != null and endTime !=''">
+			<![CDATA[ and DATE_FORMAT(m.lactation_time, '%Y-%m-%d') <=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="customerName != null and customerName != ''">
+			<![CDATA[ and c.name =#{customerName}]]>
+		</if>
+		order by m.create_time desc,m.id desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>  
+	</select>
+
+	<!-- 记录个数 -->
+	<select id="count" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(m.id) from lactation m
+		left join customer_base c on c.id = m.children_id and c.is_deleted = 1
+		where m.is_deleted = 1
+		<if test="id != null and id != ''">
+			<![CDATA[ and m.id =#{id}]]>
+		</if>
+		<if test="childrenId != null and childrenId != ''">
+			<![CDATA[ and m.children_id =#{childrenId}]]>
+		</if>
+		<if test="lactationNum != null and lactationNum != ''">
+			<![CDATA[ and m.lactation_num =#{lactationNum}]]>
+		</if>
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[ and DATE_FORMAT(m.lactation_time, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endTime != null and endTime !=''">
+			<![CDATA[ and DATE_FORMAT(m.lactation_time, '%Y-%m-%d') <=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="customerName != null and customerName != ''">
+			<![CDATA[ and c.name =#{customerName}]]>
+		</if>
+	</select>
+	
+</mapper>

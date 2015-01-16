@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<description>redis mongodb等nosql基本配置 </description>
+	
+	<bean id="springContextHolder" class="org.javafans.framework.spring.common.SpringContextHolder" lazy-init="false"/>
+	<context:component-scan base-package="com.hz.yisheng.nio.bo,com.hz.yisheng.nosql.mongodb.service" />
+
+	<!-- 引用配置文件 -->
+	<context:property-placeholder location="classpath*:dev.properties" />
+
+	<!-- redis配置开始 -->
+	<bean id="redisConfig" class="com.hz.yisheng.nosql.redis.RedisConfig">
+		<property name="maxActive" value="${redis.maxActive}" />
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxWait" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+		<property name="ip" value="${redis.ip}" />
+		<property name="port" value="${redis.port}" />
+		<property name="timeOut" value="${redis.timeOut}" />
+		<!-- <property name="password" value="${redis.password}"/> <property name="database" 
+			value="${redis.database}"/> -->
+	</bean>
+	<bean id="redisApi" class="com.hz.yisheng.nosql.redis.RedisApi">
+		<property name="redisFactory">
+			<bean class="com.hz.yisheng.nosql.redis.RedisFactory">
+				<property name="redisConfig" ref="redisConfig" />
+			</bean>
+		</property>
+	</bean>
+	<!-- redis配置结束 -->
+
+	<!--mongodb 配置开始 -->
+	<bean id="mongoClient" class="com.hz.yisheng.nosql.mongodb.core.MongoDBClientFactoryBean">
+		<property name="servers" value="${mongo.servers}" />
+		<property name="maxWaitTime" value="${mongo.maxWaitTime}" />
+		<property name="autoConnectRetry" value="${mongo.autoConnectRetry}" />
+		<property name="connectionsPerHost" value="${mongo.connectionsPerHost}" />
+		<property name="socketTimeout" value="${mongo.socketTimeout}" />
+		<property name="threadsAllowedToBlockForConnectionMultiplier" value="${mongo.threadsAllowedToBlockForConnectionMultiplier}" />
+	</bean>
+	<!-- 要扫描的实体包加到这里 -->
+	<bean id="morphia" class="com.hz.yisheng.nosql.mongodb.core.MorphiaEntities">
+		<property name="entityPackages">
+			<array>
+				<value>com.hz.yisheng.nosql.mongodb.entity</value>
+				<value>com.hz.yisheng.nio.orm</value>
+			</array>
+		</property>
+	</bean>
+	<bean id="mongoDatastore" class="com.hz.yisheng.nosql.mongodb.core.MongoDataSource">
+		<constructor-arg ref="morphia" />
+		<constructor-arg ref="mongoClient" />
+		<!-- dbName -->
+		<constructor-arg value="handchain" />
+		<!-- username and password -->
+		<!-- <constructor-arg value="root" />
+		<constructor-arg value="123456" /> -->
+	</bean>
+	
+	<bean id="adminDS" class="com.hz.yisheng.nosql.mongodb.core.MongoDataSourceFactoryBean">
+		<property name="mongoDataSourceBean" value="mongoDatastore" />
+	</bean>	
+	
+	<bean id="baseMongoDS" class="com.hz.yisheng.nosql.mongodb.core.MongoDataSourceFactoryBean">
+		<property name="mongoDataSourceBean" value="mongoDatastore" />
+	</bean>	
+	<!--mongodb 配置结束 -->
+
+</beans>
