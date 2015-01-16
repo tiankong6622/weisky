@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-lazy-init="true">
+
+	<description>单元测试配置 </description>
+	
+	
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" /> -->
+	
+	<context:property-placeholder location="classpath*:dev.properties" />
+	
+	<!-- redis配置开始 -->
+	<bean id="redisConfig" class="com.hz.yisheng.nosql.redis.RedisConfig"  >
+		<property name="maxActive" value="${redis.maxActive}"/>
+		<property name="maxIdle" value="${redis.maxIdle}"/>
+		<property name="maxWait" value="${redis.maxWait}"/>
+		<property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+		<property name="ip" value="${redis.ip}"/>
+		<property name="port" value="${redis.port}"/>
+		<property name="timeOut" value="${redis.timeOut}"/>
+		<!-- <property name="password" value="${redis.password}"/>
+		<property name="database" value="${redis.database}"/> -->
+	</bean>
+	
+	<bean id="redisApi" class="com.hz.yisheng.nosql.redis.RedisApi">
+		<property name="redisFactory" ref="redisFactory"/>
+	</bean>
+	
+	<bean id="redisFactory" class="com.hz.yisheng.nosql.redis.RedisFactory">
+		<property name="redisConfig" ref="redisConfig"/>
+	</bean>
+	
+	<!-- <bean id="redisApi" class="com.hz.yisheng.nosql.redis.RedisApi">
+		<property name="redisFactory">
+			<bean class="com.hz.yisheng.nosql.redis.RedisFactory">
+				<property name="redisConfig" ref="redisConfig"/>
+			</bean>
+		</property>
+	</bean> -->
+	
+	<!-- redis配置结束 -->
+	
+	
+	
+</beans>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.apptemplate.dao.RelevanceMapper">
+	
+	<sql id="APPLY_SQL">
+		appname appName,appimage appImage,contacts,telephone,tdc_address tdcAddress,app_summy appSummy
+	</sql>
+	<sql id="TEMPLATE_SQL">
+		template_name templateName,android_image androidImage,android_image_b androidImageB,ios_image iosImage,ios_image_b iosImageB,impl_address implAddress,remark,sort,app_id appId
+	</sql>
+	<select id="getApply" resultType="com.hz.yisheng.apptemplate.orm.Apply">
+		select id,<include refid="APPLY_SQL"/> from admin_app_apply
+	</select>
+	<select id="getTemplate" resultType="com.hz.yisheng.apptemplate.orm.Template">
+		select id,<include refid="TEMPLATE_SQL"/> from admin_app_template_
+	</select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- 新浪微博授权url -->
+	<config key="weibo-authorizeUrl">https://api.weibo.com/oauth2/authorize</config>
+	<!-- 新浪微博拿密钥交换token交换token url -->
+	<config key="weibo-accessTokenUrl">https://api.weibo.com/oauth2/access_token</config>
+	<!-- 微博基础应用url  -->
+	<config key="weibo-baseUrl">https://api.weibo.com/2/</config>
+	<!-- 新浪微博app_key -->
+	<config key="weibo-appkey">1332143665</config>
+	<!-- 新浪微博 密钥  -->
+	<config key="weibo-sercet">aa6d7d5b6ae07c194d8b2d6e2c1bcd10</config>
+	<!-- 新浪微博 回调地址  -->
+	<config key="weibo-redirectUri">http://www.brand4x4.com/thirdLogin/weiboCallBack</config>
+	<!-- 新浪微博 登入失败跳转页面 -->
+	<config key="weibo_login_error_url">http://www.brand4x4.com/thirdLogin/error/weibo</config>
+	<config key="weibo-rmURL">http://rm.api.weibo.com/2/</config>
+	
+	<!-- qq授权地址 -->
+	<config key="tencent-authorizeUrl">https://graph.qq.com/oauth2.0/authorize</config>
+	<!-- qq拿密钥交换token交换token url -->
+	<config key="tencent-accessTokenUrl">https://graph.qq.com/oauth2.0/token</config>
+	<!-- qq获取用户operid和operapp的地址 -->
+	<config key="tencent-meUrl">https://graph.qq.com/oauth2.0/me</config>
+	<!-- qqapp_key -->
+	<config key="tencent-appkey">100453600</config>
+	<!-- qq 密钥  -->
+	<config key="tencent-sercet">ad3cc37ed5bd7cb3987fe60926a84acb</config>
+	<!-- qq 回调地址  -->
+	<config key="tencent-redirectUri">http://test.brand4x4.com/thirdLogin/tencentCallback</config>
+	<!-- qq 登入失败跳转页面 -->
+	<config key="tencent_login_error_url">http://test.brand4x4.com/thirdLogin/error/weibo</config>
+	<!-- 各方应用成果后跳转的地址  -->
+	<config key="successUrl">http://test.brand4x4.com/thirdLogin/error/tencent</config>
+	<config key="tencent-getuserinfoUrl">https://graph.qq.com/user/get_user_info</config>
+	<!-- 支付宝回调url -->
+	<config key="alipay-gateway">https://mapi.alipay.com/gateway.do?</config>
+	<config key="alipay-redirectUri">http://test.brand4x4.com/thirdLogin/alipayCallBack</config>
+</configs>

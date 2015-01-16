@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.TempNodeSqlMapper">
+	
+	<select id="list" parameterType="java.util.HashMap" resultType="com.hz.yisheng.oa.workflow.orm.TempNodeSql">
+		select node_id as nodeId,node_sql as nodeSql,project_id as  projectId from temp_node_sql
+		<where>
+			<if test="nodeSql !=null and nodeSql !=''">
+				<![CDATA[ and node_sql=#{nodeSql}]]>
+			</if>
+			<if test="nodeId !=null">
+				<![CDATA[ and node_id=#{nodeId}]]>
+			</if>
+			<if test="projectId !=null">
+				<![CDATA[ and project_id=#{projectId}]]>
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" parameterType="com.hz.yisheng.oa.workflow.orm.TempNodeSql">
+		insert into temp_node_sql(node_id,node_sql,project_id) values(#{nodeId},#{nodeSql},#{projectId})
+	</insert>
+	
+	<update id="update" parameterType="com.hz.yisheng.oa.workflow.orm.TempNodeSql">
+		update temp_node_sql set node_id=#{nodeId}
+		<if test="nodeSql !=null and nodeSql !=''">
+			<![CDATA[ , node_sql=#{nodeSql}]]>
+		</if>
+		where node_id=#{nodeId}
+	</update>
+	
+	<select id="getByNodId" resultType="java.lang.String" parameterType="java.lang.Long">
+		select node_sql as nodeSql from temp_node_sql where node_id = #{nodeId}
+	</select>
+	
+	
+	
+</mapper>

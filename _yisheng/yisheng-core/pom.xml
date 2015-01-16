@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.javafans</groupId>
+	<artifactId>javafans</artifactId>
+	<version>1.0</version>
+	<name>javafans's Project</name>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>parent</module>
+		<module>javafans-common</module>
+		<module>javafans-framework</module>
+		<module>javafans-partner</module>
+		<module>yisheng-common-webdata</module>
+		<module>yisheng-common-data</module>
+		<module>yisheng-common-dataobject</module>
+		<module>yisheng-cache</module>
+		<module>yisheng-oa-workflow</module>
+		<module>yisheng-app-template</module>
+		<module>yisheng-solr-template</module>
+		<module>yisheng-nosql-template</module>
+  </modules>
+
+</project>

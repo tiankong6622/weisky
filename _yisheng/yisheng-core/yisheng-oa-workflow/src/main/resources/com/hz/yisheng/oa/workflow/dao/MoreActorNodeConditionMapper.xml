@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.MoreActorNodeConditionMapper">
+	<resultMap id="WorkTaskRM" type="com.hz.yisheng.oa.workflow.orm.WorkTask" >
+	    <id property="id" column="id"/>
+		<result property="flowId" column="flow_id" />
+		<result property="taskType" column="task_type"/>
+		<result property="submitor" column="submitor"/>
+		<result property="submitOrg" column="submit_org"/>
+		<result property="submitFullOrgPath" column="submit_full_org_path"/>
+		<result property="actor" column="actor"/>
+		<result property="orgId" column="org_id"/>
+		<result property="fullOrgPath" column="full_org_path"/>
+		<result property="submitNode" column="submit_node"/>
+		<result property="currentNode" column="current_node"/>
+		<result property="fromTransition" column="from_transition"/>
+		<result property="status" column="status"/>
+		<result property="creator" column="creator"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updater" column="updater"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+	
+	<sql id="WORK_TASK_FIELDS">
+		flow_id,task_type,submitor,submit_org,submit_full_org_path,actor,org_id,full_org_path,submit_node,current_node,from_transition,status,creator,create_time,updater,update_time
+	</sql>
+	
+	<select id="getWorkTask" resultMap="WorkTaskRM" >
+		select id,<include refid="WORK_TASK_FIELDS"/>  from work_task
+		where (
+			actor=#{actor}
+			or
+			(
+				<foreach collection="actorList" item="item" index="index" separator=" or " >
+					(current_node = #{nodeId}  and #{item} in (#{tempNodeSql}))
+				</foreach>
+			)
+		)
+		and status='hold'
+	</select>
+	
+	<select id="getActor" resultType="java.lang.Long">
+		${tempNodeSql}
+	</select>
+	
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.PermissionMapper">
+	<sql id="SELECT_PERMISSION_CONDITION">
+		from permission where is_deleted=1
+		<if test="id!=null">
+			<![CDATA[ and id=#{id}]]>
+		</if>
+		<if test="moduleId!=null">
+			<![CDATA[ and module_id=#{moduleId}]]>
+		</if>
+		<if test="name!=null and name!=''">
+			<![CDATA[ and name like CONCAT('%',#{name},'%')]]>
+		</if>
+		<if test="code!=null and code!=''">
+			<![CDATA[ and code like CONCAT('%',#{code},'%')]]>
+		</if>
+		<if test="type!=null and type!=''">
+			<![CDATA[ and type=#{type}]]>
+		</if>
+	</sql>
+	
+	<select id="list" resultType="Permission">
+		select id,module_id as moduleId,name,code,type,creator,create_time as createTime,updater,update_time as updateTime,
+		`desc`,is_deleted as isDeleted
+		<include refid="SELECT_PERMISSION_CONDITION"/>
+		order by module_id,code
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<select id="count" resultType="long">
+		select count(*)
+		<include refid="SELECT_PERMISSION_CONDITION"/>	
+	</select>
+	
+	<insert id="insert" parameterType="Permission" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into permission(module_id,name,code,type,creator,create_time,updater,update_time,`desc`,is_deleted) 
+		values(#{moduleId},#{name},#{code},#{type},#{creator},now(),#{updater},now(),#{desc},1)
+		<selectKey keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="Permission">
+		update permission set update_time=now()
+		<if test="updater!=null">
+			<![CDATA[ , updater=#{updater}]]>
+		</if>
+		<if test="moduleId!=null">
+			<![CDATA[ , module_id=#{moduleId}]]>
+		</if>
+		<if test="name!=null and name!=''">
+			<![CDATA[ , name=#{name}]]>
+		</if>
+		<if test="code!=null and code!=''">
+			<![CDATA[ , code=#{code}]]>
+		</if>
+		<if test="type!=null and type!=''">
+			<![CDATA[ , type=#{type}]]>
+		</if>
+		<if test="desc!=null and desc!=''">
+			<![CDATA[ , `desc`=#{desc}]]>
+		</if>
+		<if test="isDeleted!=null">
+			<![CDATA[ , is_deleted=#{isDeleted}]]>
+		</if>
+		where id=#{id} and is_deleted=1
+	</update>
+	
+	<update id="updateDltByModule">
+		update permission set is_deleted=0
+		where id in
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.id}
+		</foreach>
+	</update>
+	
+		
+	<update id="delete" parameterType="long">
+		 update permission set is_deleted=0 where id=#{id}
+	</update>
+	
+	<!-- 根据等级ID 到关联关系表里 找出关联的权限 -->
+	<select id="getPermissionsByGrade" resultType="Permission" parameterType="map">
+		select ap.id as id, ap.name, ap.code,ap.type,ap.desc, ap.module_id as moduleId 
+		from permission ap,grade_permission_rel amr where ap.id = amr.rel_object_id and ap.is_deleted=1 and amr.is_deleted=1 
+		<if test="types!=null">
+			and amr.rel_type in 
+			<foreach collection="types" index="index" item="item" open="(" separator="," close=")">
+			    #{item}
+			</foreach> 
+		</if>
+		and amr.grade_id=#{gradeId}
+	</select>
+	
+</mapper>

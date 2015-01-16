@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.TreeCodeMapper">
+	<sql id="SELECT_TREECODE_CONDITION">
+		from tree_code 
+		<where>
+		<if test="id!=null">
+			<![CDATA[ and id=#{id}]]>
+		</if>
+		<if test="projectId!=null">
+			<![CDATA[ and project_id=#{projectId}]]>
+		</if>		
+		<if test="key!=null and key!=''">
+			<![CDATA[ and `key`=#{key}]]>
+		</if>
+		<if test="type !=null and type !=''">
+			<![CDATA[ and type=#{type}]]>
+		</if>
+		<if test="value !=null and value !=''">
+			<![CDATA[ and `value` like CONCAT('%',#{value},'%')]]>
+		</if>
+		<if test="parentId!=null">
+			<![CDATA[ and parent_id=#{parentId}]]>
+		</if>
+		<if test="projectId !=null">
+			<![CDATA[ and `project_id`=#{projectId}]]>
+		</if>
+		</where>
+	</sql>
+	
+	<insert id="insert" parameterType="TreeCode" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+      <![CDATA[ 
+       INSERT INTO tree_code (project_id,type, `key`, `value`, `desc`,parent_id,creator,  create_time, updater, update_time)
+        VALUES ( #{projectId},#{type}, #{key}, #{value}, #{desc},#{parentId},#{creator}, now(), #{updater}, now()) ]]>
+  	  <selectKey keyProperty="id" resultType="long" order="AFTER">  
+            SELECT LAST_INSERT_ID();  
+      </selectKey>         
+     </insert>
+     
+     <select id="list" resultType="TreeCode">
+		select id,parent_id as parentId,type,`key`,`value`,`desc`,creator,create_time as createTime,updater,update_time as updateTime,
+			project_id as projectId
+		<include refid="SELECT_TREECODE_CONDITION"/>
+		order by type
+		<if test="rowStart!=null  and pageSize!=null ">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	   
+      <select id="count" resultType="long">
+		select count(*)
+		<include refid="SELECT_TREECODE_CONDITION"/>
+	</select>
+		
+	  <select id="getById" resultType="TreeCode">
+	      SELECT id,parent_id as parentId,type,`key`,`value`,`desc`,creator,create_time as createTime,updater,update_time as updateTime,
+			project_id as projectId
+	        FROM tree_code WHERE id=#{id}
+	  </select>
+	  
+	  <select id="getTreeCodeByType" resultType="org.javafans.common.dto.Option" >
+	   SELECT `key`, `value`  <include refid="SELECT_TREECODE_CONDITION"/>
+	  </select>
+	  
+	   <update id="update" parameterType="TreeCode" >
+	    UPDATE tree_code  set  update_time = now(),updater=#{updater}
+	     <if test="key!=null and key!=''">
+			<![CDATA[ , `key`=#{key} ]]>
+		 </if>
+		  <if test="value!=null and value!=''">
+			<![CDATA[ , `value`=#{value} ]]>
+		 </if>
+		 <if test="desc!=null and desc!=''">
+		 	<![CDATA[ , `desc`=#{desc} ]]>
+		 </if>
+	     WHERE ID = #{id}  
+	  </update>	
+	  	
+	<delete id="delete" parameterType="java.lang.Long" >
+   	 	 delete from tree_code  WHERE ID = #{id}  
+  	</delete>
+</mapper>

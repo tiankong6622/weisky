@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.apptemplate.dao.AppUserRoleMapper">
+	<resultMap type="com.hz.yisheng.apptemplate.orm.AppUserRole" id="AppUserRoleMapper">
+		<result property="userId" column="user_id"/>
+		<result property="roleId" column="role_id"/>
+		<result property="userName" column="name"/>
+		<result property="departId" column="depart_id"/>
+	</resultMap>
+	<select id="getByUserId" parameterType="java.lang.Long" resultMap="AppUserRoleMapper">
+		select user_id,role_id from admin_app_user_role where user_id=#{userId}
+	</select>
+	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.hz.yisheng.apptemplate.orm.AppUserRole">
+		insert into admin_app_user_role(user_id,role_id) values(#{userId},#{roleId})
+	</insert>
+	<delete id="deleteByRoleId" parameterType="java.lang.Long">
+		delete from admin_app_user_role where role_id = #{id}
+	</delete>
+	<delete id="deleteByUserId" parameterType="java.lang.Long">
+		delete from admin_app_user_role where user_id=#{userId}
+	</delete>
+	<select id="selectAllUser" resultMap="AppUserRoleMapper">
+		select au.id as user_id,0 as role_id,au.user_name as name,ad.id as depart_id  
+      	from admin_depart ad 
+       	join admin_depart_user  adu on ad.id = adu.depart_id and ad.is_deleted=1 
+       	join admin_user au on au.is_delete = 1 and au.id = adu.user_id
+       	join system_connection_list scl on au.id = scl.user_id  and scl.is_delete =1 and au.is_delete=1
+	</select>
+	<select id="getByRoleId" resultMap="AppUserRoleMapper" parameterType="java.lang.Long">
+		select aaur.user_id as user_id,aaur.role_id as role_id,au.user_name as name,ad.id as depart_id 
+		from admin_app_user_role aaur 
+		join admin_user au on aaur.user_id = au.id and au.is_delete=1 
+		and aaur.role_id=#{id}
+		join system_connection_list scl on au.id = scl.user_id and scl.is_delete =1
+		and au.is_delete=1
+		join admin_depart_user adu on au.id = adu.user_id
+		join admin_depart ad on ad.id = adu.depart_id and ad.is_deleted=1
+	</select>
+	<insert id="adduser">
+		insert into admin_app_user_role(user_id,role_id) values(#{uid},#{roleid})
+	</insert>
+	<delete id="deleteuser">
+		delete from admin_app_user_role where user_id=#{uid} and role_id=#{roleid}
+	</delete>
+</mapper>

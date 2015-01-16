@@ -1,0 +1,20 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	default-lazy-init="true">
+
+	<description>单元测试配置 </description>
+	
+	<bean id="httpSolrServerConfig" class="com.hz.yisheng.solr.config.HttpSolrServerConfig" lazy-init="false">
+		<property name="url" value="http://localhost:8080/solr" />
+		<property name="soTimeout" value="10000" />
+		<property name="connectionTimeout" value="1000" />
+		<property name="followRedirects" value="false" />
+		<property name="allowCompression" value="true" />
+		<property name="maxRetries" value="10" />
+		<property name="defaultMaxConnectionsPerHost" value="100" />
+		<property name="maxTotalConnections" value="100" />
+	</bean>
+	
+</beans> -->

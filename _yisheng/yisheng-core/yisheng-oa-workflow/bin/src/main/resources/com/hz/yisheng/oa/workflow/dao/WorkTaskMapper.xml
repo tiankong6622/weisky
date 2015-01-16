@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.WorkTaskMapper">
+
+	<resultMap id="WorkTaskRM" type="com.hz.yisheng.oa.workflow.orm.WorkTask">
+		<id property="id" column="id" />
+		<result property="flowId" column="flow_id" />
+		<result property="extStatus" column="ext_status"/>
+		<result property="taskType" column="task_type" />
+		<result property="submitor" column="submitor" />
+		<result property="submitOrg" column="submit_org" />
+		<result property="submitFullOrgPath" column="submit_full_org_path" />
+		<result property="actor" column="actor" />
+		<result property="orgId" column="org_id" />
+		<result property="fullOrgPath" column="full_org_path" />
+		<result property="submitNode" column="submit_node" />
+		<result property="currentNode" column="current_node" />
+		<result property="fromTransition" column="from_transition" />
+		<result property="status" column="status" />
+		<result property="creator" column="creator" />
+		<result property="createTime" column="create_time" />
+		<result property="updater" column="updater" />
+		<result property="updateTime" column="update_time" />
+		<result property="projectId" column="project_id" />
+	</resultMap>
+
+	<sql id="WORK_TASK_FIELDS">
+		flow_id,task_type,submitor,submit_org,submit_full_org_path,actor,org_id,full_org_path,submit_node,current_node,from_transition,status,ext_status,creator,create_time,updater,update_time,project_id
+	</sql>
+
+	<insert id="insert" parameterType="com.hz.yisheng.oa.workflow.orm.WorkTask"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into work_task(
+		<include refid="WORK_TASK_FIELDS" />
+		)
+		values(#{flowId},#{taskType},#{submitor},#{submitOrg},#{submitFullOrgPath},#{actor},#{orgId},#{fullOrgPath},#{submitNode},#{currentNode},#{fromTransition},#{status},0,#{creator},now(),#{updater},now(),#{projectId})
+	</insert>
+
+	<update id="update" parameterType="com.hz.yisheng.oa.workflow.orm.WorkTask">
+		update work_task set update_time=now()
+		<if test="actor !=null">
+			<![CDATA[ , actor=#{actor}]]>
+		</if>
+		<if test="orgId !=null">
+			<![CDATA[ , org_id=#{orgId}]]>
+		</if>
+		<if test="currentNode !=null">
+			<![CDATA[ , current_node=#{currentNode}]]>
+		</if>
+		<if test="submitNode !=null">
+			<![CDATA[ , submit_node=#{submitNode}]]>
+		</if>
+		<if test="fromTransition !=null and fromTransition !=''">
+			<![CDATA[ , from_transition=#{fromTransition}]]>
+		</if>
+		<if test="status !=null">
+			<![CDATA[ , status=#{status}]]>
+		</if>
+		<if test="extStatus !=null">
+			<![CDATA[ , ext_status=#{extStatus}]]>
+		</if>
+		<if test="updater !=null">
+			<![CDATA[ , updater=#{updater}]]>
+		</if>
+		<if test="updateTime !=null">
+			<![CDATA[ , update_time=#{updateTime}]]>
+		</if>
+		<if test="fullOrgPath !=null and fullOrgPath !=''">
+			<![CDATA[ , full_org_path=#{fullOrgPath}]]>
+		</if>
+		where id=#{id}
+	</update>
+
+	<sql id="SELECT_INFO_COMMENT">
+		from work_task
+		<where>
+			<if test="id !=null and id !=''">
+				<![CDATA[ and id=#{id}]]>
+			</if>
+			<if test="flowId !=null and flowId !=''">
+				<![CDATA[ and flow_id=#{flowId}]]>
+			</if>
+			<if test="taskTypes !=null and taskTypes !=''">
+				and task_type in
+				<foreach collection="taskTypes" index="index" item="item"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="taskType !=null and taskType !=''">
+				<![CDATA[ and task_type=#{taskType}]]>
+			</if>
+			<if test="submitor !=null">
+				<![CDATA[ and submitor=#{submitor}]]>
+			</if>
+			<if test="submitOrg !=null and submitOrg !=''">
+				<![CDATA[ and submit_org=#{submitOrg}]]>
+			</if>
+			<if test="submitFullOrgPath !=null and submitFullOrgPath !=''">
+				<![CDATA[ and submit_full_org_path=#{submitFullOrgPath}]]>
+			</if>
+			<if test="actor !=null">
+				and (actor=#{actor}
+				<if test="needMore !=null and needMore !=''">
+					or ${moreSql}
+				</if>
+				)
+			</if>
+			<if test="orgId !=null">
+				<![CDATA[ and org_id=#{orgId}]]>
+			</if>
+			<if test="projectId !=null">
+				<![CDATA[ and project_id=#{projectId}]]>
+			</if>
+			<if test="currentNode !=null and currentNode !=''">
+				<![CDATA[ and current_node=#{currentNode}]]>
+			</if>
+			<if test="submitNode !=null and submitNode !=''">
+				<![CDATA[ and submit_node=#{submitNode}]]>
+			</if>
+			<if test="fromTransition !=null and fromTransition !=''">
+				<![CDATA[ and from_transition=#{fromTransition}]]>
+			</if>
+			<if test="status !=null and status !=''">
+				<![CDATA[ and status=#{status}]]>
+			</if>
+			<if test="extStatus !=null ">
+				<![CDATA[ and ext_status=#{extStatus}]]>
+			</if>
+			<if test="creator !=null and creator !=''">
+				<![CDATA[ and creator=#{creator}]]>
+			</if>
+			<if test="startTime!= null and startTime !=''">
+				<![CDATA[ and create_time >=  STR_TO_DATE(#{startTime}, '%Y-%m-%d')]]>
+			</if>
+			<if test="endTime != null and endTime !=''">
+				<![CDATA[ and create_time <  ADDDATE(STR_TO_DATE(#{endTime}, '%Y-%m-%d'),1)]]>
+			</if>
+			<if test="updater !=null and updater !=''">
+				<![CDATA[ and updater=#{updater}]]>
+			</if>
+			<if test="updateTime !=null and updateTime !=''">
+				<![CDATA[ and update_time=#{updateTime}]]>
+			</if>
+			<if test="fullOrgPath !=null and fullOrgPath !=''">
+				<![CDATA[ and full_org_path=#{fullOrgPath}]]>
+			</if>
+		</where>
+	</sql>
+
+	<select id="count" parameterType="Map" resultType="long">
+		select count(*)
+		<include refid="SELECT_INFO_COMMENT" />
+	</select>
+
+	<select id="list" resultMap="WorkTaskRM">
+		select id,
+		<include refid="WORK_TASK_FIELDS" />
+		<include refid="SELECT_INFO_COMMENT" />
+		order by update_time desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+
+	<select id="getById" resultMap="WorkTaskRM">
+		select id,
+		<include refid="WORK_TASK_FIELDS" />
+		FROM work_task WHERE ID=#{id}
+	</select>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from work_task where
+		id=#{taskId}
+	</delete>
+
+
+
+	<select id="countHistory" parameterType="map" resultType="long">
+		select
+		count(*) from work_task w left join work_task_record r on w.id =
+		r.work_task_id
+		<include refid="QUERY_HISTORY" />
+	</select>
+
+	<select id="listHistory" parameterType="map" resultMap="WorkTaskRM">
+		select
+		w.* from work_task w left join work_task_record r on w.id =
+		r.work_task_id
+		<include refid="QUERY_HISTORY" />
+		order by create_time desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+
+	<sql id="QUERY_HISTORY">
+		where 1=1
+		<if test="taskType != null and taskType != ''">
+			and r.task_type = #{taskType}
+		</if>
+		<if test="projectId != null">
+			and w.project_id = #{projectId}
+		</if>
+		<if test="actor != null ">
+			and r.actor = #{actor}
+		</if>
+	</sql>
+
+
+
+
+
+</mapper>

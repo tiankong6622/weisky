@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>流程图DEMO</title>
+<!--[if lt IE 9]>
+<?import namespace="v" implementation="#default#VML" ?>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="codebase/GooFlow.css"/>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<script type="text/javascript" src="../GooFunc.js"></script>
+<link rel="stylesheet" type="text/css" href="../default.css"/>
+<script type="text/javascript" src="codebase/GooFlow.js"></script>
+<script type="text/javascript">
+var property={
+	width:1336,
+	height:600,
+	toolBtns:["start","end","task","node","chat","state","plug","join","fork","complex"],
+	haveHead:true,
+	headBtns:["new","open","save","undo","redo","reload"],//如果haveHead=true，则定义HEAD区的按钮
+	haveTool:true,
+	haveGroup:true,
+	useOperStack:true
+};
+var remark={
+	cursor:"选择指针",
+	direct:"转换连线",
+	start:"开始结点",
+	end:"结束结点",
+	task:"任务结点",
+	node:"自动结点",
+	chat:"决策结点",
+	state:"状态结点",
+	plug:"附加插件",
+	fork:"分支结点",
+	"join":"联合结点",
+	complex:"复合结点",
+	group:"组织划分框编辑开关"
+};
+var demo;
+$(document).ready(function(){
+	demo_2=$.createGooFlow($("#demo_2"),property);
+	demo_2.setNodeRemarks(remark);
+
+	demo_3=$.createGooFlow($("#demo_3"),property);
+	demo_3.setNodeRemarks(remark);
+
+	jsondata_2={
+		"title":"请假审批",
+		"name":"请假审批流程",
+		"flowname":"Leave",
+		"version":1,
+		"nodes":{
+			"start":{"name":"开始","left":10,"top":168,"type":"start","width":24,"height":24},
+			"node_1":{"name":"请假人员提交","left":82,"top":125,"type":"task","width":35,"height":120,"dealUrl":"/leave/worktask/input/Leave?taskId={0}"},
+			"node_2":{"name":"部门经理审核","left":290,"top":125,"type":"task","width":35,"height":120,"dealUrl":"/leave/worktask/input/Leave?taskId={0}"},
+			"end":{"name":"结束","left":447,"top":171,"type":"end","width":86,"height":24}
+		},
+		"lines":{
+			"line_1":{"type":"sl","from":"start","to":"node_1","name":""},
+			"line_2":{"type":"sl","from":"node_1","to":"node_2","name":"请假人员提交","dealname":"提交请假单"},
+			"line_3":{"type":"sl","from":"node_2","to":"end","name":"部门经理审核通过","dealname":"审核通过"},
+		
+			"line_9":{"type":"tb","M":70,"from":"node_2","to":"node_1","name":"部门经理审核不通过","dealname":"审核拒绝"}
+		}
+	};
+
+	demo_2.loadData(jsondata_2);
+	$("#2").css("background","#ff0000")
+});
+
+</script>
+</head>
+<body>
+	<div id="demo_2"></div>
+	<div id="demo_3"></div>
+</body>
+</html>

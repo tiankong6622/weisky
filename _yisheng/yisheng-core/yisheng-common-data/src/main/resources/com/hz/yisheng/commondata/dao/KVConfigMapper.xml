@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.KVConfigMapper">
+	<sql id="SELECT_CONFIGKV_CONDITION">
+		from config_kv 
+		<where>
+		<if test="appKey !=null and appKey !=''">
+			<![CDATA[ and app_key=#{appKey}]]>
+		</if>
+		<if test="key!=null and key!=''">
+			<![CDATA[ and `key`=#{key}]]>
+		</if>
+		<if test="value!=null and value!=''">
+			<![CDATA[ and `value` like CONCAT('%',#{value},'%')]]>
+		</if>
+		</where>
+	</sql>
+	
+	<select id="list" resultType="KVConfig">
+		select id,app_key as appKey,`key`,`value`,`desc`
+		<include refid="SELECT_CONFIGKV_CONDITION"/>
+		order by id
+		<!-- <if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if> -->
+	</select>
+	
+	<select id="count" resultType="long">
+		select count(*)
+		<include refid="SELECT_CONFIGKV_CONDITION"/>
+	</select>
+	
+	<insert id="insert" parameterType="KVConfig" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+		insert into config_kv(app_key,`key`,`value`,`desc`,creator,create_time,updater,update_time) 
+		values(#{appKey},#{key},#{value},#{desc},#{creator},now(),#{updater},now())
+	</insert>
+	
+	<update id="update" parameterType="KVConfig">
+		update config_kv set update_time=now()
+		<if test="key!=null and key!=''">
+			<![CDATA[ , `key`=#{key} ]]>
+		 </if>
+		  <if test="value!=null and value!=''">
+			<![CDATA[ , `value`=#{value} ]]>
+		 </if>
+		 <if test="desc!=null and desc!=''">
+		 	<![CDATA[ , `desc`=#{desc} ]]>
+		 </if>
+	     where id = #{id}  
+	</update>
+	
+	<select id="findById" resultType="KVConfig" parameterType="long">
+		select id,app_key as appKey,`key`,`value`,`desc` from config_kv where id=#{id}
+	</select>
+	
+	<delete id="delete" parameterType="long">
+		delete from config_kv where id=#{id}
+	</delete>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.FlowTransitionMapper">
+  
+	 <resultMap id="flowTransitionRM" type="com.hz.yisheng.oa.workflow.orm.FlowTransition" >
+	    <result property="id" column="id" />
+	    <result property="name" column="name" />
+	    <result property="fromNodeId" column="from_node_id" />
+	    <result property="toNodeId" column="to_node_id" />
+	    <result property="dealname" column="deal_name" />
+	    <result property="code" column="code" />
+	  </resultMap>
+	
+	<sql id="FLOW_TRANSITION_SELFIELDS">
+		SELECT id,from_node_id,to_node_id,`name`,deal_name,`code`
+	</sql>
+	
+	 <select id="getById" resultMap="flowTransitionRM" >
+	    <include refid="FLOW_TRANSITION_SELFIELDS" />	 FROM flow_transition WHERE id=#{id}
+	  </select>
+	  
+	  <select id="getByFromId" resultMap="flowTransitionRM"  >
+	    <include refid="FLOW_TRANSITION_SELFIELDS" />	 FROM flow_transition WHERE from_node_id=#{fromId}
+	  </select>
+	  
+	  <select id="getByFromIdCode" resultMap="flowTransitionRM"  >
+	    <include refid="FLOW_TRANSITION_SELFIELDS" />	 FROM flow_transition WHERE from_node_id=#{fromId} and name=#{nodeCode}
+	  </select>
+	  
+	   <select id="getTransitionsFromId" resultMap="flowTransitionRM"  >
+	    <include refid="FLOW_TRANSITION_SELFIELDS" />	 FROM flow_transition WHERE from_node_id=#{fromId}
+	  </select>
+	  
+	  <select id="getByToId" resultMap="flowTransitionRM"  >
+	    <include refid="FLOW_TRANSITION_SELFIELDS" />	 FROM flow_transition WHERE to_node_id=#{toId}
+	  </select>
+	  
+	  <select id="getByIds" resultMap="flowTransitionRM"  >
+	    <include refid="FLOW_TRANSITION_SELFIELDS" />	 FROM flow_transition WHERE id in
+	    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+		    #{item}
+		</foreach> 
+	  </select>
+	  
+  	  <insert id="batchInsert" >
+		insert into flow_transition(`name`,from_node_id,to_node_id,deal_name,`code`) values
+		<foreach collection="list" index="index" item="item" separator=",">
+			(#{item.name},#{item.fromNodeId},#{item.toNodeId},#{item.dealname},#{item.code})
+		</foreach>
+	</insert> 
+</mapper>

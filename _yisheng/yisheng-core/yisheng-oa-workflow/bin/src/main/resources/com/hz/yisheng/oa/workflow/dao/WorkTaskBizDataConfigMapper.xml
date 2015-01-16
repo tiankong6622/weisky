@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.WorkTaskBizDataConfigMapper">
+
+	<resultMap id="WorkTaskBizDataConfigRM" type="com.hz.yisheng.oa.workflow.orm.WorkTaskBizDataConfig">
+		<id property="dataObjType" column="data_obj_type"/>
+		<result property="isSignle" column="is_single" />
+		<result property="dealBean" column="deal_bean"/>
+		<result property="beanMethod" column="bean_method"/>
+	</resultMap>
+
+	<select id="getWorkTaskBizDataConfigs" resultMap="WorkTaskBizDataConfigRM">
+		select data_obj_type,is_single,deal_bean,bean_method
+			FROM work_task_biz_data_config WHERE data_obj_type in
+			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+		    	#{item}
+		</foreach> 
+	</select>
+</mapper>

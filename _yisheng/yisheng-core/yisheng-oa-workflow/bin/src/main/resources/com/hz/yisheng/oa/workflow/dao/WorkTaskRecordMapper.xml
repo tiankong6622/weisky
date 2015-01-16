@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.WorkTaskRecordMapper">
+
+	<resultMap id="WorkTaskRecordRM" type="com.hz.yisheng.oa.workflow.orm.WorkTaskRecord" >
+	    <id property="id" column="id"/>
+		<result property="flowId" column="flow_id" />
+		<result property="workTaskId" column="work_task_id" />
+		<result property="nodeId" column="node_id" />
+		<result property="toNodeId" column="to_node_id" />
+		<result property="submitor" column="submitor" />
+		<result property="submitOrg" column="submit_org" />
+		<result property="submitFullOrgPath" column="submit_full_org_path" />
+		<result property="actor" column="actor" />
+		<result property="orgId" column="org_id" />
+		<result property="fullOrgPath" column="full_org_path" />
+		<result property="fromTransition" column="from_transition" />
+		<result property="toTransition" column="to_transition" />
+		<result property="taskType" column="task_type" />
+		<result property="dealContent" column="deal_content" />
+		<result property="status" column="status" />
+		<result property="creator" column="creator" />
+		<result property="createTime" column="create_time" />
+		<result property="updater" column="updater" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.hz.yisheng.oa.workflow.orm.WorkTaskRecord" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into work_task_record(flow_id,work_task_id,node_id,to_node_id,submitor,submit_org,submit_full_org_path,actor,org_id,full_org_path,from_transition,to_transition,task_type,deal_content,status,creator,create_time,updater,update_time)
+		values(#{flowId},#{workTaskId},#{nodeId},#{toNodeId},#{submitor},#{submitOrg},#{submitFullOrgPath},#{actor},#{orgId},#{fullOrgPath},#{fromTransition},#{toTransition},#{taskType},#{dealContent},#{status},#{creator},#{createTime},#{updater},#{updateTime})
+	</insert>
+	
+	<update id="update" parameterType="com.hz.yisheng.oa.workflow.orm.WorkTaskRecord">
+		update work_task_record set id = #{id}
+		<if test="flowId !=null and flowId !=''">
+			<![CDATA[ , flow_id=#{flowId}]]>
+		</if>
+		<if test="workTaskId !=null and workTaskId !=''">
+			<![CDATA[ , work_task_id=#{workTaskId}]]>
+		</if>
+		<if test="nodeId !=null and nodeId !=''">
+			<![CDATA[ , node_id=#{nodeId}]]>
+		</if>
+		<if test="toNodeId !=null and toNodeId !=''">
+			<![CDATA[ , to_node_id=#{toNodeId}]]>
+		</if>
+		<if test="submitor !=null and submitor !=''">
+			<![CDATA[ , submitor=#{submitor}]]>
+		</if>
+		<if test="submitOrg !=null and submitOrg !=''">
+			<![CDATA[ , submit_org=#{submitOrg}]]>
+		</if>
+		<if test="submitFullOrgPath !=null and submitFullOrgPath !=''">
+			<![CDATA[ , submit_full_org_path=#{submitFullOrgPath}]]>
+		</if>
+		<if test="actor !=null and actor !=''">
+			<![CDATA[ , actor=#{actor}]]>
+		</if>
+		<if test="orgId !=null and orgId !=''">
+			<![CDATA[ , org_id=#{orgId}]]>
+		</if>
+		<if test="fullOrgPath !=null and fullOrgPath !=''">
+			<![CDATA[ , full_org_path=#{fullOrgPath}]]>
+		</if>
+		<if test="fromTransition !=null and fromTransition !=''">
+			<![CDATA[ , from_transition=#{fromTransition}]]>
+		</if>
+		<if test="toTransition !=null and toTransition !=''">
+			<![CDATA[ , to_transition=#{toTransition}]]>
+		</if>
+		<if test="taskType !=null and taskType !=''">
+			<![CDATA[ , task_type=#{taskType}]]>
+		</if>
+		<if test="dealContent !=null and dealContent !=''">
+			<![CDATA[ , deal_content=#{dealContent}]]>
+		</if>
+		<if test="status !=null and status !=''">
+			<![CDATA[ , status=#{status}]]>
+		</if>
+		<if test="creator !=null and creator !=''">
+			<![CDATA[ , creator=#{creator}]]>
+		</if>
+		<if test="createTime !=null and createTime !=''">
+			<![CDATA[ , create_time=#{createTime}]]>
+		</if>
+		<if test="updater !=null and updater !=''">
+			<![CDATA[ , updater=#{updater}]]>
+		</if>
+		<if test="updateTime !=null and updateTime !=''">
+			<![CDATA[ , update_time=#{updateTime}]]>
+		</if>
+		where id=#{id}
+	</update>
+	
+	<sql id="SELECT_INFO_COMMENT">
+		from work_task_record
+		<where>
+			<if test="id !=null">
+				<![CDATA[ and id=#{id}]]>
+			</if>
+			<if test="flowId !=null">
+				<![CDATA[ and flow_id=#{flowId}]]>
+			</if>
+			<if test="workTaskId !=null">
+				<![CDATA[ and work_task_id=#{workTaskId}]]>
+			</if>
+			<if test="nodeId !=null">
+				<![CDATA[ and node_id=#{nodeId}]]>
+			</if>
+			<if test="toNodeId !=null">
+				<![CDATA[ and to_node_id=#{toNodeId}]]>
+			</if>
+			<if test="submitor !=null">
+				<![CDATA[ and submitor=#{submitor}]]>
+			</if>
+			<if test="submitOrg !=null and submitOrg !=''">
+				<![CDATA[ and submit_org=#{submitOrg}]]>
+			</if>
+			<if test="submitFullOrgPath !=null and submitFullOrgPath !=''">
+				<![CDATA[ and submit_full_org_path=#{submitFullOrgPath}]]>
+			</if>
+			<if test="actor !=null and actor !=''">
+				<![CDATA[ and actor=#{actor}]]>
+			</if>
+			<if test="orgId !=null and orgId !=''">
+				<![CDATA[ and org_id=#{orgId}]]>
+			</if>
+			<if test="fullOrgPath !=null and fullOrgPath !=''">
+				<![CDATA[ and full_org_path=#{fullOrgPath}]]>
+			</if>
+			<if test="fromTransition !=null and fromTransition !=''">
+				<![CDATA[ and from_transition=#{fromTransition}]]>
+			</if>
+			<if test="toTransition !=null and toTransition !=''">
+				<![CDATA[ and to_transition=#{toTransition}]]>
+			</if>
+			<if test="taskType !=null and taskType !=''">
+				<![CDATA[ and task_type=#{taskType}]]>
+			</if>
+			<if test="dealContent !=null and dealContent !=''">
+				<![CDATA[ and deal_content=#{dealContent}]]>
+			</if>
+			<if test="status !=null and status !=''">
+				<![CDATA[ and status=#{status}]]>
+			</if>
+			<if test="creator !=null and creator !=''">
+				<![CDATA[ and creator=#{creator}]]>
+			</if>
+			<if test="createTime !=null and createTime !=''">
+				<![CDATA[ and create_time=#{createTime}]]>
+			</if>
+			<if test="updater !=null and updater !=''">
+				<![CDATA[ and updater=#{updater}]]>
+			</if>
+			<if test="updateTime !=null and updateTime !=''">
+				<![CDATA[ and update_time=#{updateTime}]]>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="count" parameterType="Map" resultType="long">
+		select count(*) 
+		<include refid="SELECT_INFO_COMMENT"/>
+	</select>
+	
+	<select id="list" resultMap="WorkTaskRecordRM">
+		select * 
+		<include refid="SELECT_INFO_COMMENT"/>
+		order by id asc
+	</select>
+
+	<select id="getLastRecord" resultMap="WorkTaskRecordRM">
+		select *  from work_task_record where node_id=#{nodeId} and work_task_id =#{workTaskId} order by id desc limit 1
+	</select>
+
+</mapper>

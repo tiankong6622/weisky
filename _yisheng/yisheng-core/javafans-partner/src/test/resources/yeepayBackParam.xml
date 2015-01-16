@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COD-MS>
+	<SessionHead>
+		<Version>{Version}</Version>
+		<ServiceCode>{ServiceCode}</ServiceCode>
+		<TransactionID>{TransactionID}</TransactionID>
+		<SrcSysID>{SrcSysID}</SrcSysID>
+		<DstSysID>{DstSysID}</DstSysID>
+		<Result_Code>{Result_Code}</Result_Code>
+		<Result_Msg>{Result_Msg}</Result_Msg>
+		<Resp_Time>{Resp_Time}</Resp_Time>
+		<ExtendAtt><Order_No>{Order_No}</Order_No></ExtendAtt>
+		<HMAC>{HMAC}</HMAC>
+	</SessionHead>
+</COD-MS>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.WorkTaskBizDataMapper">
+
+	<resultMap id="WorkTaskBizDataRM" type="com.hz.yisheng.oa.workflow.orm.WorkTaskBizData">
+		<id property="id" column="id"/>
+		<result property="workTaskId" column="work_task_id" />
+		<result property="isMain" column="is_main"/>
+		<result property="workTaskRecordId" column="work_task_record_id"/>
+		<result property="dataObjType" column="data_obj_type"/>
+		<result property="dataObjId" column="data_obj_id"/>
+	</resultMap>
+
+	<insert id="batchInsert" useGeneratedKeys="true" parameterType="java.util.List">
+		insert into work_task_biz_data(work_task_id,work_task_record_id,data_obj_type,data_obj_id,is_main)
+		values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	       (#{item.workTaskId},#{item.workTaskRecordId},#{item.dataObjType},#{item.dataObjId},#{item.isMain})
+	    </foreach>  
+	</insert>
+
+	<select id="list" parameterType="Map" resultMap="WorkTaskBizDataRM">
+		select * from work_task_biz_data
+		<where>
+			<if test="id !=null and id !=''">
+				<![CDATA[  id = #{id}]]>
+			</if>
+			<if test="workTaskId !=null ">
+				<![CDATA[ and work_task_id = #{workTaskId}]]>
+			</if>
+			<if test="isMain !=null and isMain !=''">
+				<![CDATA[ and is_main = #{isMain}]]>
+			</if>
+			<if test="workTaskRecordId !=null and workTaskRecordId !=''">
+				<![CDATA[ and work_task_record_id = #{workTaskRecordId}]]>
+			</if>
+			<if test="dataObjType !=null and dataObjType !=''">
+				<![CDATA[ and data_obj_type = #{dataObjType}]]>
+			</if>
+			<if test="dataObjId !=null">
+				<![CDATA[ and data_obj_id = #{dataObjId}]]>
+			</if>
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="long">
+		delete from work_task_biz_data where id = #{id}
+	</delete>
+	
+	<delete id="deleteByTaskId" parameterType="long">
+		delete from work_task_biz_data where  work_task_id = #{workTaskId} and is_main='y'
+	</delete>
+</mapper>

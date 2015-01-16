@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.FlowNodeMapper">
+
+	 <resultMap id="flowNodeRM" type="com.hz.yisheng.oa.workflow.orm.FlowNode" >
+	    <result property="id" column="id" />
+	    <result property="flowId" column="flow_id" />
+	    <result property="name" column="name" />
+	    <result property="type" column="type" />
+	    <result property="beanName" column="bean_name" />
+	    <result property="code" column="code" />
+	    <result property="dealUrl" column="deal_url" />
+	  </resultMap>
+	
+	<sql id="FLOW_NODE_SELFIELDS">
+		SELECT id,flow_id,`name`,`type`,`bean_name`,`code`,deal_url
+	</sql>
+	
+	 <select id="getById" resultMap="flowNodeRM"  >
+	    <include refid="FLOW_NODE_SELFIELDS" />	 FROM flow_node WHERE id=#{id}
+	  </select>
+	  
+	   <select id="getByIds" resultMap="flowNodeRM"  >
+	    <include refid="FLOW_NODE_SELFIELDS" />	 FROM flow_node WHERE id in 
+	    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+		    #{item}
+		</foreach> 
+	  </select>
+	  
+	  <select id="getByFlowId" resultMap="flowNodeRM"  >
+	    <include refid="FLOW_NODE_SELFIELDS" />	 FROM flow_node WHERE flow_id=#{flowId} order by id
+	  </select>
+	  
+	  <select id="getFlowActorFilterCondition" resultType="java.lang.String"  >
+	    Select actor_filter_condition	 FROM flow_node WHERE id=#{id}
+	  </select>
+	  
+	  <update id="updateFlowActorFilterCondition">
+	  		update flow_node set actor_filter_condition=#{actorFilterCondition} WHERE id=#{id}
+	  </update>
+	  
+  	  <insert id="batchInsert" >
+		insert into flow_node(flow_id,`name`,`type`,`bean_name`,`code`,deal_url) values
+		<foreach collection="list" index="index" item="item" separator=",">
+			(#{item.flowId},#{item.name},#{item.type},#{item.beanName},#{item.code},#{item.dealUrl})
+		</foreach>
+	</insert> 
+</mapper>
