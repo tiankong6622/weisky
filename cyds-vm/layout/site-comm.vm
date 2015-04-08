@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta property="wb:webmaster" content="d07450928f2d3ec0" />
+<link rel="shortcup icon" href="${staticRoot}/cyds/site/images/icon.ico"/>
+<link rel="stylesheet" href="${staticRoot}/cyds/site/css/index.css" type="text/css" media="screen" />
+<title>2015西安市创业创新大赛</title>
+<script src="${staticRoot}/cyds/site/js/jquery.js"></script>
+    <!--  兼容IE8以下的HTML5 标签-->
+    <!-[if lt IE 8]>
+    <script src='${staticRoot}/cyds/site/js/html5.js'></script>
+    <![endif]–>
+    <!-- 每个页面都要引入的脚本 end-->
+</head>
+<body>
+	<div class="header">
+		<header class="common-header">
+			<a class="logo-href" href="/site"></a>
+			<ul class="oneUL">
+				<li class="oneLI"><a href="about.html">关于大赛</a>
+					<ul>
+						<li><a href="about.html">大赛介绍</a></li>
+						<li><a href="guide.html">参赛指南</a></li>
+					</ul>
+				</li>
+				<li><a href="news.html">新闻中心</a></li>
+				<li><a href="notice.html">通知公告</a></li>
+				<li><a href="cooperation.html">合作机构</a></li>
+				<li><a href="contactus.html">联系我们</a></li>
+			</ul>
+	  </header>
+	</div>
+	
+	$screen_content
+	
+	<div id="footer">
+		<div class="foot">
+			<ul>
+				<li><a>地址：西安市科技路创新创业中心</a></li>
+				<li><a>邮编：701045</a></li>
+				<li><a>传真：88556371</a></li>
+				<li><a>咨询邮箱：bmzx@cxcyds.com</a></li>
+			</ul>
+			<ul class="rightLink">
+				<li><a href="#">关于我们</a></li>
+				<li><a href="#">版权声明</a></li>
+				<li><a href="#">联系方式</a></li>
+			</ul>
+			<p>Copyright @ 2012-2015 西安创新创业大赛组委会 保留一切权利 陕ICP备12014598号</p>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="${staticRoot}/cyds/site/js/swipe.js"></script>
+	<script type="text/javascript">
+		var elem = document.getElementById('mySwipe');
+		window.mySwipe = Swipe(elem, {auto : 3000});         /*自动轮播*/
+	</script>
+</body>
+</html>

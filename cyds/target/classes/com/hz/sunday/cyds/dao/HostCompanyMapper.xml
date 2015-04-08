@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.sunday.cyds.dao.HostCompanyMapper">
+	<resultMap type="com.hz.sunday.cyds.orm.HostCompany" id="HostCompany_RESULT">
+		<id property="id" column="id"/>
+		<result property="name" column="name" />
+		<result property="log" column="log" />
+		<result property="htype" column="htype" />
+	</resultMap>
+	
+	<sql id="HostCompany_SQL">
+		`name`,log,htype
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.sunday.cyds.orm.HostCompany" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into host_company(<include refid="HostCompany_SQL"/>) 
+		values(#{name},#{log},#{htype})
+	</insert>
+	
+	<update id="update" parameterType="com.hz.sunday.cyds.orm.HostCompany">
+		update host_company set update_time = NOW()
+		<if test=" name !=null and name != ''">
+			<![CDATA[ ,`name` =#{name}]]>
+		</if>
+		<if test=" log !=null and log != ''">
+			<![CDATA[ ,log =#{log}]]>
+		</if>
+		<if test=" htype !=null and htype != ''">
+			<![CDATA[ ,htype =#{htype}]]>
+		</if>
+		where id= #{id}
+	</update>
+	
+	<delete id="delete" parameterType="java.util.List">
+		delete from host_company where id = #{id}
+	</delete>
+	
+	<select id="getCount" parameterType="java.util.HashMap" resultType="Long">
+		select count(id) from host_company
+		<where>
+			<if test=" name !=null and name != ''">
+				<![CDATA[ and `name` =#{name}]]>
+			</if>
+			<if test=" log !=null and log != ''">
+				<![CDATA[ and log =#{log}]]>
+			</if>
+			<if test=" htype !=null and htype != ''">
+				<![CDATA[ and htype =#{htype}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" parameterType="java.util.HashMap" resultMap="HostCompany_RESULT">
+		select id,<include refid="HostCompany_SQL"/> from host_company
+		<where>
+			<if test=" name !=null and name != ''">
+				<![CDATA[ and `name` =#{name}]]>
+			</if>
+			<if test=" log !=null and log != ''">
+				<![CDATA[ and log =#{log}]]>
+			</if>
+			<if test=" htype !=null and htype != ''">
+				<![CDATA[ and htype =#{htype}]]>
+			</if>
+		</where>
+		order by id desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<select id="getSingleDetail" parameterType="Long" resultMap="HostCompany_RESULT">
+		select id,<include refid="HostCompany_SQL"/> from host_company where id=#{id}
+	</select>
+	
+	
+</mapper>

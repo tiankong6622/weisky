@@ -1,0 +1,280 @@
+#set( $layout = "/layout/site-comm.vm")
+<div class="wrapper">
+		<div class="leftWrapper">
+			<div class="main">
+				<div class="login">
+					<ul>
+						<li class="user"><a href="/site/plogin/toLoginPage">参赛登录</a></li>
+						<li class="admin"><a href="/">工作登录</a></li>
+					</ul>
+				</div>
+				<div class="process" title="现在是报名阶段">
+				</div>
+			</div>
+			<div class="banner">
+				<div class="ProPic">
+					<div class="pic">
+						<div class="index_ban">
+							<div id='mySwipe' class='swipe'>
+								<div class='swipe-wrap'>
+									#foreach($item in $!{lunboImgList})
+										<div>
+											<a href="javascript:void(0)">
+												<img src="${imageRoot}$!{item.path}" alt='' />
+											</a>
+										</div>
+									#end
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="prev" onclick='mySwipe.prev()'><img src="${staticRoot}/cyds/site/img/next.png" /></div>
+					<div class="next" onclick='mySwipe.next()'><img src="${staticRoot}/cyds/site/img/next.png" /></div>
+				</div>
+			</div>
+			<div class="item xwzx">
+				<h1>新闻中心<a href="/site/messnoti/getNewsList">MORE>></a></h1>
+				<div class="colorLine"></div>
+				<div class="list">
+					<ul>
+						#foreach($item in $!{newsList})
+							<li>
+    							<div class="pic">
+    								<a href="/site/messnoti/getNewSingleDetail?id=$!{item.id}"><img src="${imageRoot}$!{item.filePath}" style="width:200px;height:130px;"/></a>
+    							</div>
+    							<div class="nameContent">
+    								<div class="title"><a href="/site/messnoti/getNewSingleDetail?id=$!{item.id}">$!{item.title}</a></div>
+    								<div class="content">$!{item.comment}</div>
+    								<div class="time">来源：$!{item.reource}$!timeUtils.format($item.createTime,"yyyy-MM-dd")</div>
+    							</div>
+    						</li>
+						#end
+						
+					</ul>
+				</div>
+			</div>
+			<div class="item dsjy">
+				<h1>导师寄语<a href="instructor.html">MORE>></a></h1>
+				<div class="colorLine"></div>
+				<div class="list">
+					<ul>
+						<li>
+							<div class="pic">
+								<a href="NewsDetail.html"><img src="images/avatar1.jpg" /></a>
+							</div>
+							<div class="nameContent">
+								<div class="title"><a href="NewsDetail.html">雷军</a></div>
+								<div class="content">这个大赛用选秀形式，非常新颖，相信</div>
+							</div>
+						</li>
+						<li>
+							<div class="pic">
+								<a href="NewsDetail.html"><img src="images/avatar1.jpg" /></a>
+							</div>
+							<div class="nameContent">
+								<div class="title"><a href="NewsDetail.html">雷军</a></div>
+								<div class="content">这个大赛用选秀形式，非常新颖，相信</div>
+							</div>
+						</li>
+						<li>
+							<div class="pic">
+								<a href="NewsDetail.html"><img src="images/avatar1.jpg" /></a>
+							</div>
+							<div class="nameContent">
+								<div class="title"><a href="NewsDetail.html">雷军</a></div>
+								<div class="content">这个大赛用选秀形式，非常新颖，相信</div>
+							</div>
+						</li>
+						<li>
+							<div class="pic">
+								<a href="NewsDetail.html"><img src="images/avatar1.jpg" /></a>
+							</div>
+							<div class="nameContent">
+								<div class="title"><a href="NewsDetail.html">雷军</a></div>
+								<div class="content">这个大赛用选秀形式，非常新颖，相信</div>
+							</div>
+						</li>
+						<li>
+							<div class="pic">
+								<a href="NewsDetail.html"><img src="images/avatar1.jpg" /></a>
+							</div>
+							<div class="nameContent">
+								<div class="title"><a href="NewsDetail.html">雷军</a></div>
+								<div class="content">这个大赛用选秀形式，非常新颖，相信</div>
+							</div>
+						</li>
+						<li>
+							<div class="pic">
+								<a href="NewsDetail.html"><img src="images/avatar1.jpg" /></a>
+							</div>
+							<div class="nameContent">
+								<div class="title"><a href="NewsDetail.html">雷军</a></div>
+								<div class="content">这个大赛用选秀形式，非常新颖，相信</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="rightWrapper">
+			<div class="panelBox notice">
+				<h1><span>通知公告</span><a href="notice.html">MORE>></a></h1>
+				<ul>
+					<li><a href="NewsDetail.html">关于推荐第三届中国创新创业大赛</a></li>
+					<li><a href="NewsDetail.html">互联网和移动互联网行业总决赛获</a></li>
+					<li><a href="NewsDetail.html">互联网和移动互联网行业总决赛通</a></li>
+					<li><a href="NewsDetail.html">电子信息行业赛获奖公告</a></li>
+					<li><a href="NewsDetail.html">关于征集中国创新创业大赛成果展</a></li>
+					<li><a href="NewsDetail.html">先进制造行业赛获奖公告</a></li>
+				</ul>
+			</div>
+			<div class="panelBox guide">
+				<h1><span>大赛指南</span></h1>
+				<ul>
+					<li class="ico1"><a href="guide.html">参赛条件</a></li>
+					<li class="ico2"><a href="guide.html">报名渠道及方式</a></li>
+					<li class="ico3"><a href="guide.html">赛程安排</a></li>
+					<li class="ico4"><a href="guide.html">政策支持</a></li>
+					<li class="ico5"><a href="guide.html">参赛资料下载</a></li>
+				</ul>
+			</div>
+			<div class="panelBox video">
+				<h1><span>视频/手册</span></h1>
+				<ul>
+					<li><a href="#"><img src="images/videoPic.jpg" /><div>2015年创新创业大赛西安站形象宣传端片</div></a></li>
+					<li><a href="#"><img src="images/videoPic.jpg" /><div>2015年创新创业大赛西安站电子手册</div></a></li>
+				</ul>
+			</div>
+			<div class="panelBox wei">
+				<h1><span>微社区</span></h1>
+				<div class="weiPanel">
+					<div class="weibo"><img src="images/weiboApi.jpg" /></div>
+					<ul>
+						<li><div class="qrcode"><img src="images/qrcode_weibo.jpg" /></div><span>微博二维码</span></li>
+						<li><div class="qrcode"><img src="images/qrcode_wechat.jpg" /></div><span>微信二维码</span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panelBox cooperation">
+				<h1><span>合作机构</span></h1>
+				<div class="coPanel">
+					<ul class="type1">
+						<li><a href="cooperation.html">西安高新技术产业开发区</a></li>
+						<li><a href="cooperation.html">西安创新网</a></li>
+					</ul>
+					<ul class="type2">
+						<li><a href="cooperation.html"><img src="images/brandLogo1.jpg" /></a></li>
+						<li><a href="cooperation.html"><img src="images/brandLogo2.jpg" /></a></li>
+					</ul>
+					<ul class="type3">
+						<li><a href="cooperation.html">主办方：西安创新创业大赛科创中心</a></li>
+						<li><a href="cooperation.html">承办方：西安创新创业大赛</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="item xsfc">
+		<h1>选手风采<a href="trainee.html">MORE>></a></h1>
+		<div class="colorLine"></div>
+		<div class="list">
+			<ul>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="images/avatar2.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title">李元敏</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.ParamConfigTemplateMapper">
+	 <sql id="SELECT_PCONFIG_CONDITION">
+		from param_config_template 
+		<where>
+		<if test="relObjectId !=null and relObjectId !=''">
+			<![CDATA[ and rel_obj_id =#{relObjectId}]]>
+		</if>
+		<if test="type !=null and type !=''">
+			<![CDATA[ and type=#{type}]]>
+		</if>
+		<if test="key!=null and key!=''">
+			<![CDATA[ and `key`=#{key}]]>
+		</if>
+		<if test="value !=null and value !=''">
+			<![CDATA[ and `value` like CONCAT('%',#{value},'%')]]>
+		</if>
+		</where> 
+	</sql>
+	
+	  <select id="getById" resultType="ParamConfigTemplate">
+	      select id, type,param_type as paramType,`key`, `value`,`desc`,rel_obj_id as relObjectId,extend_field as extendField from param_config_template where id=#{id}
+	  </select>	  
+	  
+	  <select id="list" resultType="ParamConfigTemplate">
+	    select id, type, `key`, `value`,`desc`,rel_obj_id as relObjectId,param_type as paramType,extend_field as extendField
+	   <include refid="SELECT_PCONFIG_CONDITION"/>
+	    order by type,id
+	   <if test="rowStart!=null and rowStart!='' and pageSize!=null and pageSize!='' ">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	  </select>
+	  
+	  <select id="count" resultType="long">
+		select count(*)
+		<include refid="SELECT_PCONFIG_CONDITION"/>
+	</select>
+	
+	 <select id="getCodesByType" resultType="ParamConfigTemplate" >
+	   select `key`, `value` ,param_type as paramType,extend_field as extendField <include refid="SELECT_PCONFIG_CONDITION"/>
+	  </select>
+
+	<insert id="insert" parameterType="ParamConfigTemplate" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+      <![CDATA[ 
+       insert into param_config_template(type,`key`,`value`,`desc`,creator, create_time, updater, update_time,rel_obj_id,param_type,extend_field)
+        values ( #{type}, #{key}, #{value}, #{desc},#{creator},now(),#{updater},now(),#{relObjectId},#{paramType},#{extendField}) ]]>
+  	  <selectKey keyProperty="id" resultType="long" order="AFTER">  
+            SELECT LAST_INSERT_ID();  
+      </selectKey>         
+     </insert>
+	  
+  	  <update id="update" parameterType="ParamConfigTemplate" >
+	    update param_config_template  set  update_time = now(),updater=#{updater}
+	     <if test="key!=null and key!=''">
+			<![CDATA[ , `key`=#{key} ]]>
+		 </if>
+		  <if test="value!=null and value!=''">
+			<![CDATA[ , `value`=#{value} ]]>
+		 </if>
+		 <if test="desc!=null and desc!=''">
+		 	<![CDATA[ , `desc`=#{desc} ]]>
+		 </if>
+		 <if test="paramType!=null and paramType!=''">
+		 	<![CDATA[ , param_type=#{paramType} ]]>
+		 </if>
+		 <if test="extendField!=null and extendField!=''">
+		 	<![CDATA[ , extend_field=#{extendField} ]]>
+		 </if>
+	     where id = #{id}  
+	  </update>
+	  
+	  
+    <delete id="delete" parameterType="java.lang.Long" >
+   	 	 delete from param_config_template where id = #{id}  
+  	</delete>
+ </mapper>

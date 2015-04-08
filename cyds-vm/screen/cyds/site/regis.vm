@@ -1,0 +1,54 @@
+#set( $layout = "/layout/site-layout.vm")
+<link rel="stylesheet" href="${staticRoot}/cyds/site/css/login.css" type="text/css" media="screen" />
+<body class="Reg">
+	<div class="wrapper">
+		<div class="loginWrapper">
+			<div class="loginHead">注册账号</div>
+			<div class="inputPanel">
+				<div class="txtPanel"><span class="title">登录名：</span><input id="mobile" type="text" placeholder="请输入手机号" autoComplete="off"/><span class="must">*</span></div>
+				<div class="txtPanel"><span class="title">设置密码：</span><input id="passw" type="password" /><span class="must">*</span></div>
+				<div class="txtPanel"><span class="title">确认密码：</span><input id="passw2" type="password" /><span class="must">*</span></div>
+				<div class="txtPanel"><span class="title">邮箱：</span><input id="email" type="text" autoComplete="off"/><span class="must">*</span></div>
+			</div>
+			<div class="Action">
+				<button onClick="javascript:doRegis()">立即注册</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	
+	function doRegis(){
+    	var mobile = $("#mobile").val();
+    	var passw = $("#passw").val();
+    	var passw2 = $("#passw2").val();
+    	var email = $("#email").val();
+    	
+		if(passw != passw2){
+			alert("两次输入的密码不相同!");
+			$("#passw, #passw2").val("");
+    		return;
+		}
+		
+    	if(jQuery.trim(mobile)=="" ||  jQuery.trim(passw)=="" ||  jQuery.trim(email)==""){
+    		alert("用户名,密码,邮箱都必填!");
+    		return;
+    	}
+    	jQuery.post("/site/plogin/doRegis",{mobile:mobile,passw:passw,email:email},function(data){
+    		if(data=="1"){
+    			window.location.href="/site";
+    		}else if(data=="0" || data=="-1"){
+    			alert("注册失败!");
+    		}else if(data=="-2"){
+    			alert("手机号不能用为空!");
+    		}else if(data=="-3"){
+    			alert("密码不能用为空!");
+    		}else if(data=="-4"){
+    			alert("邮箱不能用为空!");
+    		}else if(data=="-5"){
+    			alert("该手机号已存在,不能重复注册!");
+    		}
+    	});
+    }
+</script>

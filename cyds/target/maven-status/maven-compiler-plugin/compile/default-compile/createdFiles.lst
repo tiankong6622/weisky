@@ -1,0 +1,9 @@
+com\hz\sunday\cyds\dao\MessageNoticeMapper.class
+com\hz\sunday\cyds\orm\RunProject.class
+com\hz\sunday\cyds\bo\MessageNoticeBO.class
+com\hz\sunday\cyds\orm\MessageNotice.class
+com\hz\sunday\cyds\dao\RunProjectMapper.class
+com\hz\sunday\cyds\dao\CustomerMapper.class
+com\hz\sunday\cyds\bo\RunProjectBO.class
+com\hz\sunday\cyds\orm\Customer.class
+com\hz\sunday\cyds\bo\CustomerBO.class

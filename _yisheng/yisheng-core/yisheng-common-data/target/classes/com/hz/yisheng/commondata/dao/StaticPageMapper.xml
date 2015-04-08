@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.StaticPageMapper">
+	 
+	  <resultMap id="staticPageRM"    type="com.hz.yisheng.commondata.orm.StaticPage" >
+	  	 <result property="projectId"   column="project_id" />
+	  	 <result property="previewAddress"  column="preview_address" />
+	  	 <result property="address"  column="address" />
+	  	 <result property="previewPath"  column="preview_path" />	  	 
+	    <result property="title"  column="title" />
+	    <result property="path"  column="path" />
+	    <result property="descript"  column="descript" />
+	    <result property="status"  column="status" />	    
+	    
+	    <result property="creator"  column="creator" />
+	    <result property="updater"   column="updater" />
+	    <result property="createTime"   column="create_time" />
+	    <result property="updateTime"   column="update_time" />
+	  </resultMap>
+	  
+	  <insert id="insert" parameterType="StaticPage" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+	  	insert into static_page(project_id,preview_address,address,preview_path,descript,title,path,status,
+	  	creator,updater,create_time,update_time)  	
+	  	values(#{projectId},#{previewAddress},#{address},#{previewPath},#{descript},#{title},#{path},#{status},
+	  	#{creator},#{updater},now(),now())
+	  </insert>
+	  
+	  <update id="update" >
+	  	update static_page set title=#{title},update_time=now()
+	  	<if test="projectId!=null ">
+	  		<![CDATA[ , project_id=#{projectId}]]>
+	  	</if>
+	  	<if test="previewAddress!=null and previewAddress != ''">
+	  		<![CDATA[, preview_address=#{previewAddress}]]>
+	  	</if>
+	  	<if test="address!=null and address != ''">
+	  		<![CDATA[ , address=#{address}]]>
+	  	</if>
+	  	<if test="previewPath!=null and previewPath != ''">
+	  		<![CDATA[ , preview_path=#{previewPath}]]>
+	  	</if>
+	  	<if test="path!=null and path != ''">
+	  		<![CDATA[ , path=#{path}]]>
+	  	</if>
+	  	<if test="status!=null and status != ''">
+	  		<![CDATA[ , status=#{status}]]>
+	  	</if>	 	  	 		
+	  	<if test="descript!=null and descript != ''">
+	  		<![CDATA[ , descript=#{descript}]]>
+	  	</if>
+	  	
+	  	<if test="updater!=null">
+	  		<![CDATA[, updater=#{updater}]]>
+	  	</if>
+	  	 where id=#{id}
+	  </update>
+	  
+	  <select id="list" resultMap="staticPageRM">
+		  select * from static_page 
+	 </select>
+	 
+	 <select id="getById" parameterType="long" resultMap="staticPageRM">
+	 	select * from static_page where id=#{id}
+	 </select>
+	 
+	 <select id="getByTitle" parameterType="java.lang.String" resultMap="staticPageRM">
+	 	select * from static_page where title=#{title}
+	 </select>
+	 
+	 <delete id="del" parameterType="java.lang.Long">
+	 	delete from static_page where id=#{id}
+	 </delete>
+</mapper>

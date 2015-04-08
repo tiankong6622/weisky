@@ -1,0 +1,55 @@
+#set( $layout = "/layout/site-comm.vm")
+	<div class="wrapper">
+		<div class="leftWrapper">
+			<div class="item xwzx">
+				<h1>新闻中心</h1>
+				<div class="colorLine"></div>
+				<div class="list">
+					<ul>
+						#foreach($item in $!{newsList})
+							<li>
+    							<div class="pic">
+    								<a href="/site/messnoti/getNewSingleDetail?id=$!{item.id}"><img src="${imageRoot}$!{item.filePath}" style="width:200px;height:130px;"/></a>
+    							</div>
+    							<div class="nameContent">
+    								<div class="title"><a href="/site/messnoti/getNewSingleDetail?id=$!{item.id}">$!{item.title}</a></div>
+    								<div class="content">$!{item.comment}</div>
+    								<div class="time">来源：$!{item.reource}$!timeUtils.format($item.createTime,"yyyy-MM-dd")</div>
+    							</div>
+    						</li>
+						#end
+					</ul>
+					##<div class="moreList" onClick="getAjax()">加载更多</div>
+				</div>
+			</div>
+		</div>
+		<div class="rightWrapper">
+			<div class="panelBox wei">
+				<h1><span>微社区</span></h1>
+				<div class="weiPanel">
+					<div class="weibo"><img src="${staticRoot}/cyds/site/images/weiboApi.jpg" /></div>
+					<ul>
+						<li><div class="qrcode"><img src="${staticRoot}/cyds/site/images/qrcode_weibo.jpg" /></div><span>微博二维码</span></li>
+						<li><div class="qrcode"><img src="${staticRoot}/cyds/site/images/qrcode_wechat.jpg" /></div><span>微信二维码</span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panelBox cooperation">
+				<h1><span>合作机构</span></h1>
+				<div class="coPanel">
+					<ul class="type1">
+						<li><a href="#">西安高新技术产业开发区</a></li>
+						<li><a href="#">西安创新网</a></li>
+					</ul>
+					<ul class="type2">
+						<li><a href="#"><img src="${staticRoot}/cyds/site/images/brandLogo1.jpg" /></a></li>
+						<li><a href="#"><img src="${staticRoot}/cyds/site/images/brandLogo2.jpg" /></a></li>
+					</ul>
+					<ul class="type3">
+						<li><a href="#">主办方：西安创新创业大赛科创中心</a></li>
+						<li><a href="#">承办方：西安创新创业大赛</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>

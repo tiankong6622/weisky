@@ -1,0 +1,65 @@
+<div style="margin:10px 0;"></div>
+
+<div id="runProjectSearchForm" style="padding:5px;height:auto">
+	<div>
+		<form id="queryRunProjectForm">
+			审核是否通过:<select name="filter_S_fruit" style="width:150px">
+				<option value="是" >是</option>
+				<option value="否" >否</option>
+				<option value="待审核" >待审核</option>
+				<option value="">全部</option>
+	         </select>
+			<a href="javascript:doSearchObject('runProjectTable','queryRunProjectForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+<div id="runproject_div" class="easyui-window" title="信息" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:1200px; height:500px; padding: 10px;">
+	<iframe src="#" id="runproject_ifr" marginwidth="0" marginheight="0" width="1120px" height="440px" frameborder="0" scrolling="false" allowtransparency="true"></iframe>	
+</div>
+
+<table id="runProjectTable" style="width:1200px"></table>
+
+<script>
+	$('#runProjectTable').datagrid({   
+		url:'/admin/runproject/list',   
+		toolbar: '#runProjectSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		autoRowHeight:true,
+		columns:[[   
+					{field:'groupName',title:'组别名称',width:150},
+					{field:'teamName',title:'团队名称',width:150},
+					{field:'leader',title:'负责人',width:60},
+					{field:'projectName',title:'参赛项目名称',width:150},
+					{field:'leave',title:'项目阶段',width:60},
+					{field:'teamBuildTime',title:'团队成立时间',width:150},
+					{field:'fruit',title:'是否通过审核',width:90},
+					{field:'createTime',title:'提交时间',width:150},
+					{field:'operate',title:'操作',width:150,
+						formatter: function(value,row,index){
+							var retValue = outPutFunction("editRunproject",row.id,"审核");
+							return retValue;
+						}
+					}
+				]]
+		});
+	
+	
+	function editRunproject(uid){
+		$("#runproject_ifr").attr("src","/admin/runproject/getSingleDetail?id="+uid);
+		$('#runproject_div').window('open');
+	}
+	
+	function deleteRunproject(uid){
+		$.get("/admin/runproject/delete?id="+uid,function(data){
+			if(data == "0"){
+				$.messager.alert('Info', "删除失败", 'info');
+			}else{
+				 $("#runProjectTable").datagrid('reload'); 
+			}
+		});
+	}
+	
+</script>

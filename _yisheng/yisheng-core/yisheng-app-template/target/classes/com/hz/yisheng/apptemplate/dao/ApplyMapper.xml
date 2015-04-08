@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.apptemplate.dao.ApplyMapper">
+	<resultMap type="com.hz.yisheng.apptemplate.orm.Apply" id="ApplyMapper">
+		<result property="id" column="id"/>
+		<result property="appName" column="appname"/>
+		<result property="appImage" column="appimage"/>
+		<result property="contacts" column="contacts"/>
+		<result property="telephone" column="telephone"/>
+		<result property="tdcAddress" column="tdc_address"/>
+		<result property="appSummy" column="app_summy"/>
+		<result property="path" column="path"/>
+		<result property="appcode" column="appcode"/>
+	</resultMap>
+	<sql id="APPLY_SQL">
+		appname,appimage,contacts,telephone,tdc_address,app_summy,path,appcode
+	</sql>
+	<select id="select" parameterType="java.lang.Long" resultMap="ApplyMapper">
+		select id,<include refid="APPLY_SQL"/> from admin_app_apply where id=#{id}
+	</select>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.hz.yisheng.apptemplate.orm.Apply">
+		insert into admin_app_apply(<include refid="APPLY_SQL"/>) 
+		values(#{appName},#{appImage},#{contacts},#{telephone},#{tdcAddress},#{appSummy},#{path},#{appcode})
+	</insert>
+	<update id="update" parameterType="com.hz.yisheng.apptemplate.orm.Apply">
+		update admin_app_apply set 
+		<if test="appName != null">
+		   <![CDATA[ appname=#{appName}]]>
+		</if>
+		<if test="appImage != null">
+		   <![CDATA[,appimage=#{appImage}]]>
+		</if>
+		<if test="contacts != null">
+		   <![CDATA[,contacts=#{contacts}]]>
+		</if>
+		<if test="telephone != null">
+		   <![CDATA[,telephone=#{telephone}]]>
+		</if>
+		<if test="tdcAddress != null">
+		   <![CDATA[,tdc_address=#{tdcAddress}]]>
+		</if>
+		<if test="appSummy != null">
+		   <![CDATA[,app_summy=#{appSummy} ]]>
+		</if>
+		<if test="path != null">
+			<![CDATA[,path=#{path}]]>
+		</if>
+		<if test="appcode != null">
+			<![CDATA[,appcode=#{appcode}]]>
+		</if>
+		 where id=#{id}
+	</update>
+	<delete id="delete">
+		delete from admin_app_apply where id=#{id}
+	</delete>
+	<select id="getId" resultType="java.lang.Long">
+		select max(id) from admin_app_apply
+	</select>
+</mapper>

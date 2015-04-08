@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.ModuleMapper">
+	<sql id="SELECT_MODULE_CONDITION">
+		from module where is_deleted=1
+		<if test="id!=null">
+			<![CDATA[ and id=#{id}]]>
+		</if>
+		<if test="name!=null and name!=''">
+			<![CDATA[ and name like concat('%',#{name},'%')]]>
+		</if>
+	</sql>
+	
+	<select id="list" resultType="Module">
+		select id,name,`desc`,creator,create_time as createTime,updater,update_time as updateTime,is_deleted as isDeleted
+		<include refid="SELECT_MODULE_CONDITION"/>
+		order by id
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<select id="count" resultType="long">
+		select count(*)
+		<include refid="SELECT_MODULE_CONDITION"/>
+	</select>
+	
+	<insert id="insert" parameterType="Module" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into module(name,`desc`,creator,create_time,updater,update_time,is_deleted) 
+		values(#{name},#{desc},#{creator},now(),#{updater},now(),1)
+		<selectKey keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="Module">
+		update module set update_time=now()
+		<if test="updater!=null">
+			<![CDATA[ , updater=#{updater}]]>
+		</if>
+		<if test="name!=null and name!=''">
+			<![CDATA[ , name=#{name}]]>
+		</if>
+		<if test="desc!=null and desc!=''">
+			<![CDATA[ , `desc`=#{desc}]]>
+		</if>
+		<if test="isDeleted!=null">
+			<![CDATA[ , is_deleted=#{isDeleted}]]>
+		</if>
+		where id=#{id} and is_deleted=1
+	</update>
+	
+   <update id="delete" parameterType="long">
+		update module set is_deleted=0 where id=#{id}
+	</update>
+	
+	<select id="getModule" resultType="Module">
+		select distinct m.id,m.name from module m,permission p
+		where  p.module_id in(
+			select id from module where is_deleted=1
+		) and p.module_id=m.id and p.is_deleted=1
+	</select>
+</mapper>

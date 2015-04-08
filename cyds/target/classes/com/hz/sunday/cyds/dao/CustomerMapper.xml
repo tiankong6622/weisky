@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.sunday.cyds.dao.CustomerMapper">
+	<resultMap type="com.hz.sunday.cyds.orm.Customer" id="CUSTOMER_RESULT">
+		<id property="id" column="id"/>
+		<result property="mobile" column="mobile" />
+		<result property="imgPath" column="img_path" />
+		<result property="passw" column="passw" />
+		<result property="email" column="email" />
+		<result property="ctype" column="ctype" />
+		<result property="comment" column="comment" />
+		<result property="creator" column="creator" />
+	    <result property="createTime" column="create_time" />
+	    <result property="updater" column="updater" />
+	    <result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<sql id="CUSTOMER_SQL">
+		mobile,passw,email,ctype,comment,creator,create_time,updater,update_time,img_path
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.sunday.cyds.orm.Customer" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into customer(<include refid="CUSTOMER_SQL"/>) 
+		values(#{mobile},#{passw},#{email},#{ctype},#{comment},#{creator},NOW(),#{updater},NOW(),#{imgPath})
+	</insert>
+	
+	<update id="update" parameterType="com.hz.sunday.cyds.orm.Customer">
+		update customer set update_time = NOW()
+		<if test=" imgPath !=null and imgPath != ''">
+			<![CDATA[ ,img_path =#{imgPath}]]>
+		</if>
+		<if test=" mobile !=null and mobile != ''">
+			<![CDATA[ ,mobile =#{mobile}]]>
+		</if>
+		<if test=" passw !=null and passw != ''">
+			<![CDATA[ ,passw =#{passw}]]>
+		</if>
+		<if test=" email !=null and email != ''">
+			<![CDATA[ ,email =#{email}]]>
+		</if>
+		<if test=" ctype !=null and ctype != ''">
+			<![CDATA[ ,ctype =#{ctype}]]>
+		</if>
+		<if test=" comment !=null and comment != ''">
+			<![CDATA[ ,comment =#{comment}]]>
+		</if>
+		<if test=" updater !=null and updater != ''">
+			<![CDATA[ ,updater =#{updater}]]>
+		</if>
+		where id= #{id}
+	</update>
+	
+	<delete id="delete" parameterType="java.util.List">
+		delete from customer where id = #{id}
+	</delete>
+	
+	<select id="getCount" parameterType="java.util.HashMap" resultType="Long">
+		select count(id) from customer
+		<where>
+			<if test=" mobile !=null and mobile != ''">
+				<![CDATA[ and mobile =#{mobile}]]>
+			</if>
+			<if test=" passw !=null and passw != ''">
+				<![CDATA[ and passw =#{passw}]]>
+			</if>
+			<if test=" email !=null and email != ''">
+				<![CDATA[ and email =#{email}]]>
+			</if>
+			<if test=" ctype !=null and ctype != ''">
+				<![CDATA[ and ctype =#{ctype}]]>
+			</if>
+			<if test=" comment !=null and comment != ''">
+				<![CDATA[ and comment =#{comment}]]>
+			</if>
+			<if test=" updater !=null and updater != ''">
+				<![CDATA[ and updater =#{updater}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" parameterType="java.util.HashMap" resultMap="CUSTOMER_RESULT">
+		select id,<include refid="CUSTOMER_SQL"/> from customer
+		<where>
+			<if test=" mobile !=null and mobile != ''">
+				<![CDATA[ and mobile =#{mobile}]]>
+			</if>
+			<if test=" passw !=null and passw != ''">
+				<![CDATA[ and passw =#{passw}]]>
+			</if>
+			<if test=" email !=null and email != ''">
+				<![CDATA[ and email =#{email}]]>
+			</if>
+			<if test=" ctype !=null and ctype != ''">
+				<![CDATA[ and ctype =#{ctype}]]>
+			</if>
+			<if test=" comment !=null and comment != ''">
+				<![CDATA[ and comment =#{comment}]]>
+			</if>
+			<if test=" updater !=null and updater != ''">
+				<![CDATA[ and updater =#{updater}]]>
+			</if>
+		</where>
+		order by id desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<select id="getSingleDetail" parameterType="Long" resultMap="CUSTOMER_RESULT">
+		select id,<include refid="CUSTOMER_SQL"/> from customer where id=#{id}
+	</select>
+	
+	
+</mapper>

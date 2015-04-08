@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
+	default-lazy-init="true">
+
+	<description>Spring公共配置 </description>
+	
+	
+	<context:component-scan base-package="org.javafans" />
+	
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="resourceLoaderPath" value="classpath:vm"></property>
+		<property name="velocityProperties">
+			<props>
+				<prop key="output.encoding">utf-8</prop>
+				<prop key="input.encoding">utf-8</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="velocityMarks" class="org.javafans.template.VelocityMarks">
+		<property name="encode" value="utf-8"></property>
+	</bean>
+	
+	 <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="host"  value="smtp.163.com" />
+			<property name="username"  value="liu841302127@163.com" />
+			<property name="password"  value="liu112233" />
+			<property name="defaultEncoding"  value="UTF-8" />
+		</bean>
+     <bean id="mailSender" class="org.javafans.mail.MailSender">
+     	<property name="velocityMarks"   ref="velocityMarks" />
+			<property name="javaMailSender"  ref="javaMailSender" />
+     </bean>
+	
+	<!-- 
+	
+		SpyMemcached客户端
+		<bean id="memcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean">  
+	    <property name="servers" value="host1:11211,host2:11211,host3:11211"/>  
+	    <property name="protocol" value="BINARY"/>  
+	    <property name="transcoder">  
+	      <bean class="net.spy.memcached.transcoders.SerializingTranscoder">  
+	        <property name="compressionThreshold" value="5000"/>  
+	      </bean>  
+	    </property>  
+	    <property name="opTimeout" value="1000"/>  
+	    <property name="timeoutExceptionThreshold" value="1998"/>  
+	    <property name="hashAlg" value="KETAMA_HASH"/>  
+	    <property name="locatorType" value="CONSISTENT"/>   
+	    <property name="failureMode" value="Redistribute"/>  
+	    <property name="useNagleAlgorithm" value="false"/>  
+	  </bean>  
+		属性说明：
+		Servers
+		一个字符串，包括由空格或逗号分隔的主机或IP地址与端口号
+		Daemon
+		设置IO线程的守护进程(默认为true)状态
+		FailureMode
+		设置故障模式(取消，重新分配，重试)，默认是重新分配
+		HashAlg
+		设置哈希算法(见net.spy.memcached.HashAlgorithm的值)
+		InitialObservers
+		设置初始连接的观察者(观察初始连接)
+		LocatorType
+		设置定位器类型(ARRAY_MOD,CONSISTENT),默认是ARRAY_MOD
+		MaxReconnectDelay
+		设置最大的连接延迟
+		OpFact
+		设置操作工厂
+		OpQueueFactory
+		设置操作队列工厂
+		OpTimeout
+		以毫秒为单位设置默认的操作超时时间
+		Protocol
+		指定要使用的协议(BINARY,TEXT),默认是TEXT
+		ReadBufferSize
+		设置读取的缓冲区大小
+		ReadOpQueueFactory
+		设置读队列工厂
+		ShouldOptimize
+		如果默认操作优化是不可取的，设置为false(默认为true)
+		Transcoder
+		设置默认的转码器(默认以net.spy.memcached.transcoders.SerializingTranscoder)
+		UseNagleAlgorithm
+		如果你想使用Nagle算法，设置为true
+		WriteOpQueueFactory
+		设置写队列工厂
+		AuthDescriptor
+		设置authDescriptor,在新的连接上使用身份验证
+	 -->
+	<bean id="spyMemcachedClient" class="org.javafans.cache.SpyMemcachedClient">
+		<property name="memcachedClient">
+			<bean class="net.spy.memcached.spring.MemcachedClientFactoryBean">
+				<property name="servers" value="localhost:11211" />
+				<!-- 默认是TEXT -->
+				<property name="protocol" value="TEXT" />
+				<!-- 默认是ARRAY_MOD -->
+				<property name="locatorType" value="CONSISTENT" />
+				<!-- 默认是2500毫秒 -->
+				<property name="opTimeout" value="1000" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+	</bean>
+	
+	<bean id="ehcacheProvider" class="org.javafans.cache.EhcacheProvider">
+		<property name="ehcacheManager" ref="ehcacheManager" />
+		<property name="defaultCacheName" value="demoCache" />
+	</bean>
+	
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<bean class="org.javafans.cache.CacheAspect1"/>
+		
+	<bean id="springContextHolder" class="org.javafans.framework.spring.common.SpringContextHolder" lazy-init="false"/>
+	
+</beans>

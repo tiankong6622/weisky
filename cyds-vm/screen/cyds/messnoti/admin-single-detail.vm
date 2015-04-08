@@ -1,0 +1,104 @@
+#set( $layout = "/layout/old-layout.vm")
+<script>
+	 #if("$!message"!="")
+		#if("$!message"=="success")
+			parent.jQuery('#messnoti_div').window('close');
+			parent.jQuery("#messnotiTable").datagrid('reload');
+		#else
+			jQuery.messager.alert('Info', "操作失败！", 'info');
+		#end
+	#end
+</script>
+<form action="/admin/messnoti/save" method="post" id="messnotiform" enctype="multipart/form-data">
+	<input name="id" type="hidden" value="$!{messnoti.id}"/>
+	<div class="box info-list">
+		<table class="unity-table" id="J_adboardList">
+    		<tbody>
+    			<tr>
+    				<td style="width:120px">信息类型:</td>
+    				<td style="width:320px">
+						<select name="mtype" style="width:500px">
+							#if("$!{messnoti.mtype}" != "")
+							
+							<option value="1" #if("$!{messnoti.mtype}"=="1") selected #end>新闻</option>
+							<option value="2" #if("$!{messnoti.mtype}"=="2") selected #end>通知公告</option>
+							<option value="3" #if("$!{messnoti.mtype}"=="3") selected #end>大赛介绍</option>
+							<option value="4" #if("$!{messnoti.mtype}"=="4") selected #end>参赛指南</option>
+							<option value="5" #if("$!{messnoti.mtype}"=="5") selected #end>联系我们</option>
+							<option value="0" #if("$!{messnoti.mtype}"=="0") selected #end>其他</option>
+							#else
+								<option >请选择要发布的信息类型</option>
+								<option value="1" selected>新闻</option>
+    							<option value="2" >通知公告</option>
+    							<option value="3" >大赛介绍</option>
+    							<option value="4" >参赛指南</option>
+    							<option value="5" >联系我们</option>
+    							<option value="0" >其他</option>
+							#end
+                        </select>
+						
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:120px">标题:</td>
+    				<td style="width:320px"><input type="text" name="title" value="$!{messnoti.title}" style="width:500px"/></td>
+    			</tr>
+    			<tr>
+    				<td style="width:120px">副标题:</td>
+    				<td style="width:320px">
+						<input type="text" name="subhead" value="$!{messnoti.subhead}" style="width:500px"/>
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:120px">摘要:</td>
+    				<td style="width:320px"><input type="text" name="summary" value="$!{messnoti.summary}" style="width:500px"/></td>
+    			</tr>
+    			<tr>
+    				<td style="width:120px">信息来源:</td>
+    				<td style="width:320px"><input type="text" name="reource" value="$!{messnoti.reource}" style="width:500px"/></td>
+    			</tr>
+				<tr>
+    				<td style="width:120px">附件:</td>
+    				<td style="width:320px">
+						<input type="file" name="files" /><br/>
+						#foreach($item in $!{mnattach})
+							$!{item.fileName}&nbsp;&nbsp;
+						#end
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:120px">内容:</td>
+    				<td style="width:320px" colspan="3">
+						<textarea id="_comment" name="comment">$!{messnoti.comment}</textarea>
+					</td>
+    			</tr>
+    		</tbody>
+    		<tfoot>
+    			<tr>
+					<td colspan="4" style="text-align: center">
+						<a href="javascript:void(0)" class="sunday-button-a" onclick="doSubmitmessnoti()">确定</a>
+					</td>
+    			</tr>
+            </tfoot>
+    </div>
+</form>
+	
+<script>
+ function doSubmitmessnoti(){
+	$("#messnotiform").submit();
+ }
+ 
+var editor1 = KindEditor.create('textarea[id="_comment"]', {
+	uploadJson:'${webPath}/kindEditorUpload',
+	allowFileManager : true,
+	width:"500px",
+	height:"380px",
+	afterBlur:function(){
+	    this.html();
+	},
+	afterChange:function(){
+	   $("#_comment").val(this.html());
+	}
+});
+ 
+</script>

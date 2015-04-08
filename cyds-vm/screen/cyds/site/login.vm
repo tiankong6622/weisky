@@ -1,0 +1,56 @@
+#set( $layout = "/layout/site-layout.vm")
+<link rel="stylesheet" href="${staticRoot}/cyds/site/css/login.css" type="text/css" media="screen" />
+<body class="Login">
+    <div class="wrapper">
+    	<div class="loginWrapper">
+    		<div class="loginHead">参赛登录</div>
+    		<div class="inputPanel">
+    			<div class="txtPanel"><span class="title">用户名：</span><input type="text" id="mobile" autoComplete="off"/></div>
+    			<div class="txtPanel"><span class="title">密　码：</span><input type="text" id="passw"/></div>
+    			<div class="txtPanel checkCode"><span class="title">验证码：</span><input type="text" id="yzm" autoComplete="off"/>
+    				<div class="checkCodePanel">
+    					<img src="/yzm" id="yzmimg"/>
+    					<div class="change">看不清，<a href="javascript:changeYzm()">换一张</a></div>
+    				</div>
+    			</div>
+    		</div>
+    		<ul>
+    			<li><a href="#">忘记登录账户或密码？</a></li>
+    			<li><a href="#">新手必读</a></li>
+    		</ul>
+    		<div class="btnPanel">
+    			<a class="orange" href="javascript:doLogin()">登录</a>
+    			<a class="gray" href="/site/plogin/toRegisPage">注册</a>
+    		</div>
+    	</div>
+    </div>
+</body>
+<script>
+	function changeYzm(){
+    	$("#yzmimg").attr("src","/yzm?"+Math.random());
+    }
+	
+	function doLogin(){
+    	var mobile = $("#mobile").val();
+    	var passw = $("#passw").val();
+    	var yzm = $("#yzm").val();
+    	
+    	if(jQuery.trim(mobile)=="" ||  jQuery.trim(passw)=="" ||  jQuery.trim(yzm)==""){
+    		alert("用户名,密码,验证码都必填!");
+    		return;
+    	}
+    	jQuery.post("/site/plogin/doLogin",{mobile:mobile,passw:passw,yzm:yzm},function(data){
+    		if(data=="1"){
+    			window.location.href="$!{toUrl}";
+    		}else if(data=="0" || data=="-1"){
+    			alert("用户名或密码错误!");
+    		}else if(data=="-2"){
+    			alert("验证码不正确!");
+    		}else if(data=="-3"){
+    			alert("手机号不能用为空!");
+    		}else if(data=="-4"){
+    			alert("密码不能为空!");
+    		}
+    	});
+    }
+</script>

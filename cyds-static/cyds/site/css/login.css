@@ -1,0 +1,181 @@
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+body,button,input,select,textarea{font:12px/1.5 "Microsoft YaHei","微软雅黑",arial,simsun,"宋体";}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+address,cite,dfn,em,var{font-style:normal;}
+code,kbd,pre,samp{font-family:courier new,courier,monospace;}
+small{font-size:12px;}
+ul,ol{list-style:none;}
+A:link {text-decoration: none }
+A:visited { text-decoration: none }
+A:hover { text-decoration: underline }
+A:active { text-decoration: underline }
+fieldset,img{border:0;margin:0;padding:0;}
+button,input,select,textarea{font-size:100%;}
+table{border-collapse:collapse;border-spacing:0;}
+html { overflow-y: scroll; }
+
+.index{ position:relative; padding-top:0px;}
+/*
+ *  公共头
+ */
+ 
+.header{ width:100%; height:165px; background:url(../img/head_bg.jpg) repeat-y; background-position:0px 0px; background-size:100% 100%;}
+.common-header{color:#fff;font-size:18px; font-weight:400;background:url(../img/logo.png) center center no-repeat; width:1250px; height:165px; margin:0px auto; position:relative;}
+.common-header a {color:#fff;text-decoration:none;cursor:pointer}
+.common-header a:hover {color:#ffd2af;text-decoration:none;}
+.common-header a.logo-href{display: block;width: 100%; height: 165px;position: absolute;left: 0;top: 0;}
+
+
+
+.inputPanel{ margin-top:10px; min-height:30px; padding-bottom:5px;}
+.inputPanel .txtPanel{ position:relative; margin-bottom:20px; margin-left:300px;}
+.inputPanel .txtPanel .unit{ position:absolute; height:30px; line-height:30px; top:0px; right:0px; color:#8c8c8c; padding-right:7px;}
+.inputPanel .txtPanel .title{ position:absolute; height:30px; line-height:30px; top:0px; left:-250px; width:250px; color:#000; font-size:14px; text-align:right;}
+.inputPanel .txtPanel .must{ position:absolute; height:30px; line-height:30px; top:0px; left:280px; color:#f00; font-size:1.2em;}
+.inputPanel input[type=text],.inputPanel .txtPanel input[type=password],.inputPanel .txtPanel select,.inputPanel .txtPanel textarea { 
+	width:255px; 
+	display:block; 
+	color:#020202; 
+	height:30px; 
+	line-height:30px; 
+	text-align:left; 
+	overflow:hidden;
+	background: #fff;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	outline: 0;
+	border: #ccc 1px solid;
+	padding: 0 0 0 10px;
+	-webkit-transition: box-shadow .5s;
+	font-size:14px;
+    }
+
+.inputPanel input[type=text]:hover,.inputPanel .txtPanel input[type=text]:focus,.inputPanel .txtPanel input[type=password]:hover,  input[type=password]:focus,.inputPanel .txtPanel select:hover ,.inputPanel .txtPanel select:focus,.inputPanel .txtPanel textarea:hover,.inputPanel .txtPanel textarea:focus{ border: 1px solid #56b4ef; box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82,168,236,.6); -webkit-transition: box-shadow .5s;}
+.inputPanel input::-webkit-input-placeholder { color: #999; -webkit-transition: color .5s;}
+.inputPanel input:focus::-webkit-input-placeholder,.frame .frame_1 .inputPanel input:hover::-webkit-input-placeholder { color: #c2c2c2; -webkit-transition: color .5s;}
+.inputPanel .txtPanel textarea{ height:100px;}
+.inputPanel .txtPanel select option{ padding-top:20px;}
+
+.process{ width:90%; margin:0px auto; margin-top:20px; text-align:center; position:relative;}
+.process img{ width:70%;}
+.process a{ position:absolute; right:5px; bottom:5px; display:block; color:#fff; width:90px; height:28px; line-height:28px; text-align:center; border-radius: 14px; overflow:hidden;
+font-size:1em; letter-spacing:0.1em; text-indent:0.1em;
+	
+	background: -ms-linear-gradient(#00a35b, #0072b6);
+	background-image: -moz-linear-gradient(top, #00a35b, #0072b6); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00a35b), color-stop(1, #0072b6)); /* Saf4+, Chrome */ 
+
+	-moz-box-shadow: 1px 2px 4px #333; -webkit-box-shadow: 1px 2px 4px #333; box-shadow: 1px 2px 4px #333;
+}
+.Action { text-align:center;}
+.Action button{ display:block; color:#fff; width:90px; height:28px; line-height:28px; margin:0px auto; text-align:center; border-radius: 4px; overflow:hidden;
+font-size:1em; letter-spacing:0.1em; text-indent:0.1em; border:0px;
+	
+	background: -ms-linear-gradient(#faa53a, #f3931b);
+	background-image: -moz-linear-gradient(top, #faa53a, #f3931b); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #faa53a), color-stop(1, #f3931b)); /* Saf4+, Chrome */ 
+
+	-moz-box-shadow: 1px 2px 4px #333; -webkit-box-shadow: 1px 2px 4px #333; box-shadow: 1px 2px 4px #333;
+}
+
+
+
+.wrapper{ width:100%; padding-bottom:100px; overflow:hidden; zoom:1; background: url(../img/login_bg.jpg); background-size: cover;}
+.loginWrapper{ margin:0px auto; background-color:#fff; border:1px solid #d8d8d8; margin-top:54px;}
+.Login .loginWrapper{ width:412px;}
+.Login .loginWrapper .loginHead{ height:61px; line-height:61px; background: url(../img/login_hd.jpg) repeat-x 0px 0px; border-bottom:1px solid #d8d8d8; font-size:22px; padding-left:40px;}
+.Login .loginWrapper ul{ overflow:hidden; zoom:1; margin-left:50px; margin-bottom:30px;}
+.Login .loginWrapper ul li{ float:left; height:16px; line-height:16px; text-align:center; border-left:1px solid #8a8a8a; margin-left:-1px; padding:0px 18px;}
+.Login .loginWrapper ul li a{ color:#8a8a8a; font-size:14px;}
+.Login .loginWrapper ul li a:link {text-decoration: none;}
+.Login .loginWrapper ul li a:visited { text-decoration: none }
+.Login .loginWrapper ul li a:hover { text-decoration: underline }
+.Login .loginWrapper ul li a:active { text-decoration: underline }
+.Login .inputPanel{ width:302px; margin:0px auto; margin-top:40px;}
+.Login .inputPanel .txtPanel{ height:40px; line-height:40px; margin-left:0px; border: 1px solid #ccc; background-color:#f9fcf8;}
+.Login .inputPanel .txtPanel .title{ height:40px; line-height:40px; left:0px; width:80px; font-size:16px; }
+.Login .inputPanel .txtPanel .must{ height:40px; line-height:40px; top:0px; left:280px;}
+.Login .inputPanel input{ height:40px; border:0px; padding-left:80px; width:220px;}
+.Login .inputPanel .txtPanel.checkCode{ position:relative; width:200px; border: 1px solid #ccc;}
+.Login .inputPanel .txtPanel.checkCode input{ width:120px;}
+.Login .inputPanel .checkCodePanel{ position:absolute; top:0px; right:-100px; height:auto; line-height:normal;}
+.Login .inputPanel .checkCodePanel img{ border:1px solid #7a766a;}
+.Login .inputPanel .checkCodePanel .change{ color:#8a8a8a;}
+.Login .inputPanel .checkCodePanel .change a{ color:#06c;}
+
+.Login .btnPanel{ clear:both; padding:20px 25px; overflow:hidden; zoom:1; background-color:#f3f3f3; border-top:1px solid #d8d8d8;}
+.Login .btnPanel a{ display:block; float:left; color:#fff; width:130px; height:44px; line-height:44px; text-align:center; margin-left:30px; border-radius: 5px; border:1px solid #e3e3e3; font-size:16px; letter-spacing:5px; padding-left:5px;}
+.Login .btnPanel a.orange{ color:#fff;
+	background: -ms-linear-gradient(#faa53a, #f3931b);
+	background-image: -moz-linear-gradient(top, #faa53a, #f3931b); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #faa53a), color-stop(1, #f3931b)); /* Saf4+, Chrome */ }
+.Login .btnPanel a.gray{ color:#000;
+	background: -ms-linear-gradient(#fff, #e8e6e6);
+	background-image: -moz-linear-gradient(top, #fff, #e8e6e6); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #e8e6e6)); /* Saf4+, Chrome */ }
+
+.Reg .loginWrapper{ width:500px; height:auto; padding-bottom:40px;}
+.Reg .loginWrapper .loginHead{ height:61px; line-height:61px; background: url(../img/login_hd.jpg) repeat-x 0px 0px; border-bottom:1px solid #d8d8d8; font-size:22px; padding-left:40px;}
+.Reg .inputPanel{ width:400px; margin:0px auto; margin-top:40px;}
+.Reg .inputPanel .txtPanel{ margin-left:100px;}
+.Reg .inputPanel .txtPanel .title{ left:-90px; width:90px; }
+.Reg .inputPanel .txtPanel .must{ top:0px; left:280px;}
+.Reg .Action{ margin-top:20px;}
+.Reg .Action button{ width:200px; height:40px; font-size:16px; letter-spacing:5px; padding-left:5px;}
+
+.SignUp .wrapper{ background: url(../img/signup_bg.jpg); background-size: cover;}
+.SignUp .loginWrapper{ width:1064px; height:auto; padding-bottom:100px;}
+.SignUp .loginWrapper .loginHead{ height:61px; line-height:61px; background: url(../img/login_hd.jpg) repeat-x 0px 0px; border-bottom:1px solid #d8d8d8; font-size:22px; padding-left:40px;}
+.SignUp .inputPanel{ margin-top:40px;}
+.SignUp .Action{ margin-top:20px;}
+.SignUp .Action button{ width:200px; height:40px; font-size:16px; letter-spacing:5px; padding-left:5px;}
+.SignUp .download{ height:50px; overflow:hidden; zoom:1;}
+.SignUp .download button{ display:block; color:#fff; width:135px; height:33px; line-height:33px; margin:0px auto; text-align:center; border-radius: 2px; overflow:hidden; float:left; margin-right:45px;
+font-size:1em; letter-spacing:0.1em; text-indent:0.1em; border:0px;
+	
+	background: -ms-linear-gradient(#5ddbff, #04b7ff);
+	background-image: -moz-linear-gradient(top, #5ddbff, #04b7ff); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #5ddbff), color-stop(1, #04b7ff)); /* Saf4+, Chrome */ 
+
+	-moz-box-shadow: 1px 2px 4px #333; -webkit-box-shadow: 1px 2px 4px #333; box-shadow: 1px 2px 4px #333;
+}
+
+.Agreement .loginWrapper{ width:550px;}
+.Agreement .loginWrapper .loginHead{ height:40px; line-height:40px; background: url(../img/login_hd.jpg) repeat-x 0px 0px; border-bottom:1px solid #d8d8d8; font-size:22px; text-align:center;}
+
+.Agreement .loginWrapper .frame{ padding:10px 15px; height:280px; line-height:25px; color:#000; overflow-y:scroll;}
+.Agreement .loginWrapper .frame p{ text-indent:2em;}
+.Agreement .btnPanel{ clear:both; padding:20px 25px; padding-left:90px; overflow:hidden; zoom:1; background-color:#f3f3f3; border-top:1px solid #d8d8d8;}
+.Agreement .btnPanel a{ display:block; float:left; color:#fff; width:130px; height:44px; line-height:44px; text-align:center; margin-left:30px; border-radius: 5px; border:1px solid #e3e3e3; font-size:16px; letter-spacing:5px; padding-left:5px;}
+.Agreement .btnPanel a.orange{ color:#fff;
+	background: -ms-linear-gradient(#faa53a, #f3931b);
+	background-image: -moz-linear-gradient(top, #faa53a, #f3931b); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #faa53a), color-stop(1, #f3931b)); /* Saf4+, Chrome */ }
+.Agreement .btnPanel a.gray{ color:#000;
+	background: -ms-linear-gradient(#fff, #e8e6e6);
+	background-image: -moz-linear-gradient(top, #fff, #e8e6e6); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #e8e6e6)); /* Saf4+, Chrome */ }
+
+.Success .loginWrapper{ width:750px;}
+.Success .loginWrapper .alert{ width:200px; height:200px; line-height:280px; overflow:hidden; color:#000; background: url(../img/success.png) no-repeat center 15px; margin:0px auto; text-align:center; font-size:22px; margin-top:50px; margin-bottom:50px;}
+.Success .btnPanel{ clear:both; padding:20px 25px; padding-left:90px; overflow:hidden; zoom:1; background-color:#f3f3f3; border-top:1px solid #d8d8d8;}
+.Success .btnPanel a{ display:block; float:left; color:#fff; width:150px; height:42px; line-height:42px; text-align:center; margin-left:80px; border-radius: 5px; border:1px solid #e3e3e3; font-size:16px;}
+.Success .btnPanel a.orange{ color:#fff;
+	background: -ms-linear-gradient(#faa53a, #f3931b);
+	background-image: -moz-linear-gradient(top, #faa53a, #f3931b); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #faa53a), color-stop(1, #f3931b)); /* Saf4+, Chrome */ }
+.Success .btnPanel a.blue{ color:#fff;
+	background: -ms-linear-gradient(#47d0fe, #02b9fd);
+	background-image: -moz-linear-gradient(top, #47d0fe, #02b9fd); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #47d0fe), color-stop(1, #02b9fd)); /* Saf4+, Chrome */ }
+
+
+
+#footer{ width:100%; height:75px; background:url(../img/head_bg.jpg) repeat-y; background-position:0px 0px; background-size:100% 100%; line-height:30px;}
+#footer .foot{ width:1160px; text-align:left; margin:0px auto; padding-top:30px; font-size:14px; color:#fff; position:relative;}
+#footer .foot p{ line-height:40px; padding:5px 18px;}
+#footer .foot ul{ overflow:hidden; zoom:1;}
+#footer .foot ul li{ float:left; height:14px; line-height:14px; text-align:center; border-left:1px solid #fff; margin-left:-1px; padding:0px 18px;}
+#footer .foot ul li a{ color:#fff;}
+#footer .foot ul.rightLink{ position:absolute; right:0px; top:30px; overflow:hidden;}

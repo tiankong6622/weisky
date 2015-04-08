@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.sunday.cyds.dao.RunProjectMapper">
+	<resultMap type="com.hz.sunday.cyds.orm.RunProject" id="RunProject_RESULT">
+		<id property="id" column="id"/>
+		<result property="groupName" column="group_name" />
+		<result property="trade" column="trade" />
+		<result property="goal" column="goal" />
+		<result property="teamName" column="team_name" />
+		<result property="teamType" column="team_type" />
+		<result property="leader" column="leader" />
+		<result property="area" column="area" />
+		<result property="recomOrgan" column="recom_organ" />
+		<result property="projectName" column="project_name" />
+		<result property="leave" column="leave" />
+		<result property="regisNum" column="regis_num" />
+		<result property="organCode" column="organ_code" />
+		<result property="regisCapital" column="regis_capital" />
+		<result property="incomeCapital" column="income_capital" />
+		<result property="enteBuildTime" column="ente_build_time" />
+		<result property="income" column="income" />
+		<result property="regisAddre" column="regis_addre" />
+		<result property="workAddre" column="work_addre" />
+		<result property="teamBuildTime" column="team_build_time" />
+		<result property="estiBuildComp" column="esti_build_comp" />
+		<result property="score" column="score" />
+		<result property="fruit" column="fruit" />
+		<result property="oneCheckId" column="one_check_id" />
+		<result property="twoCheckId" column="two_check_id" />
+		<result property="threeCheckId" column="three_check_id" />
+		<result property="creator" column="creator" />
+	    <result property="createTime" column="create_time" />
+	    <result property="updater" column="updater" />
+	    <result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<sql id="RunProject_SQL">
+		group_name,trade,goal,team_name,team_type,leader,area,recom_organ,project_name,`leave`,regis_num,organ_code,regis_capital,income_capital,
+		ente_build_time,income,regis_addre,work_addre,team_build_time,esti_build_comp,score,fruit,one_check_id,two_check_id,three_check_id,creator,
+		create_time,updater,update_time
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.sunday.cyds.orm.RunProject" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into run_project(<include refid="RunProject_SQL"/>) 
+		values(#{groupName},#{trade},#{goal},#{teamName},#{teamType},#{leader},#{area},#{recomOrgan},#{projectName},#{leave},#{regisNum},#{organCode},
+		#{regisCapital},#{incomeCapital},#{enteBuildTime},#{income},#{regisAddre},#{workAddre},#{teamBuildTime},#{estiBuildComp},#{score},#{fruit},
+		#{oneCheckId},#{twoCheckId},#{threeCheckId},#{creator},NOW(),#{updater},NOW())
+	</insert>
+	
+	<update id="update" parameterType="com.hz.sunday.cyds.orm.RunProject">
+		update run_project set update_time = NOW()
+		<if test=" groupName !=null and groupName != ''">
+			<![CDATA[ ,  group_name=#{groupName}]]>
+		</if>
+		<if test=" trade !=null and trade != ''">
+			<![CDATA[ , trade =#{trade}]]>
+		</if>
+		<if test=" goal !=null and goal != ''">
+			<![CDATA[ , goal =#{goal}]]>
+		</if>
+		<if test=" teamName !=null and teamName != ''">
+			<![CDATA[ , team_name =#{teamName}]]>
+		</if>
+		<if test=" teamType !=null and teamType != ''">
+			<![CDATA[ , team_type =#{teamType}]]>
+		</if>
+		<if test=" leader !=null and leader != ''">
+			<![CDATA[ , leader =#{leader}]]>
+		</if>
+		<if test=" area !=null and area != ''">
+			<![CDATA[ , area =#{area}]]>
+		</if>
+		<if test=" recomOrgan !=null and recomOrgan != ''">
+			<![CDATA[ , recom_organ =#{recomOrgan}]]>
+		</if>
+		<if test=" projectName !=null and projectName != ''">
+			<![CDATA[ , project_name =#{projectName}]]>
+		</if>
+		<if test=" leave !=null and leave != ''">
+			<![CDATA[ , `leave` =#{leave}]]>
+		</if>
+		<if test=" regisNum !=null and regisNum != ''">
+			<![CDATA[ , regis_num =#{regisNum}]]>
+		</if>
+		<if test=" organCode !=null and organCode != ''">
+			<![CDATA[ , organ_code =#{organCode}]]>
+		</if>
+		<if test=" regisCapital !=null and regisCapital != ''">
+			<![CDATA[ , regis_capital =#{regisCapital}]]>
+		</if>
+		<if test=" incomeCapital !=null and incomeCapital != ''">
+			<![CDATA[ , income_capital =#{incomeCapital}]]>
+		</if>
+		<if test=" enteBuildTime !=null and enteBuildTime != ''">
+			<![CDATA[ , ente_build_time =#{enteBuildTime}]]>
+		</if>
+		<if test=" income !=null and income != ''">
+			<![CDATA[ , income =#{income}]]>
+		</if>
+		<if test=" regisAddre !=null and regisAddre != ''">
+			<![CDATA[ , regis_addre =#{regisAddre}]]>
+		</if>
+		<if test=" workAddre !=null and workAddre != ''">
+			<![CDATA[ , work_addre =#{workAddre}]]>
+		</if>
+		<if test=" teamBuildTime !=null and teamBuildTime != ''">
+			<![CDATA[ , team_build_time =#{teamBuildTime}]]>
+		</if>
+		<if test=" estiBuildComp !=null and estiBuildComp != ''">
+			<![CDATA[ , esti_build_comp =#{estiBuildComp}]]>
+		</if>
+		<if test=" score !=null and score != ''">
+			<![CDATA[ , score =#{score}]]>
+		</if>
+		<if test=" fruit !=null and fruit != ''">
+			<![CDATA[ , fruit =#{fruit}]]>
+		</if>
+		<if test=" oneCheckId !=null and oneCheckId != ''">
+			<![CDATA[ , one_check_id =#{oneCheckId}]]>
+		</if>
+		<if test=" twoCheckId !=null and twoCheckId != ''">
+			<![CDATA[ , two_check_id =#{twoCheckId}]]>
+		</if>
+		<if test=" threeCheckId !=null and threeCheckId != ''">
+			<![CDATA[ , three_check_id =#{threeCheckId}]]>
+		</if>
+		where id= #{id}
+	</update>
+	
+	<delete id="delete" parameterType="java.util.List">
+		delete from run_project where id = #{id}
+	</delete>
+	
+	<select id="getCount" parameterType="java.util.HashMap" resultType="Long">
+		select count(id) from run_project
+		<where>
+			<if test=" groupName !=null and groupName != ''">
+				<![CDATA[ and group_name=#{groupName}]]>
+			</if>
+			<if test=" trade !=null and trade != ''">
+				<![CDATA[ and trade =#{trade}]]>
+			</if>
+			<if test=" goal !=null and goal != ''">
+				<![CDATA[ and goal =#{goal}]]>
+			</if>
+			<if test=" teamName !=null and teamName != ''">
+				<![CDATA[ and team_name =#{teamName}]]>
+			</if>
+			<if test=" teamType !=null and teamType != ''">
+				<![CDATA[ and team_type =#{teamType}]]>
+			</if>
+			<if test=" leader !=null and leader != ''">
+				<![CDATA[ and leader =#{leader}]]>
+			</if>
+			<if test=" area !=null and area != ''">
+				<![CDATA[ and area =#{area}]]>
+			</if>
+			<if test=" recomOrgan !=null and recomOrgan != ''">
+				<![CDATA[ and recom_organ =#{recomOrgan}]]>
+			</if>
+			<if test=" projectName !=null and projectName != ''">
+				<![CDATA[ and project_name =#{projectName}]]>
+			</if>
+			<if test=" leave !=null and leave != ''">
+				<![CDATA[ and `leave` =#{leave}]]>
+			</if>
+			<if test=" regisNum !=null and regisNum != ''">
+				<![CDATA[ and regis_num =#{regisNum}]]>
+			</if>
+			<if test=" organCode !=null and organCode != ''">
+				<![CDATA[ and organ_code =#{organCode}]]>
+			</if>
+			<if test=" regisCapital !=null and regisCapital != ''">
+				<![CDATA[ and regis_capital =#{regisCapital}]]>
+			</if>
+			<if test=" incomeCapital !=null and incomeCapital != ''">
+				<![CDATA[ and income_capital =#{incomeCapital}]]>
+			</if>
+			<if test=" enteBuildTime !=null and enteBuildTime != ''">
+				<![CDATA[ and ente_build_time =#{enteBuildTime}]]>
+			</if>
+			<if test=" income !=null and income != ''">
+				<![CDATA[ and income =#{income}]]>
+			</if>
+			<if test=" regisAddre !=null and regisAddre != ''">
+				<![CDATA[ and regis_addre =#{regisAddre}]]>
+			</if>
+			<if test=" workAddre !=null and workAddre != ''">
+				<![CDATA[ and work_addre =#{workAddre}]]>
+			</if>
+			<if test=" teamBuildTime !=null and teamBuildTime != ''">
+				<![CDATA[ and team_build_time =#{teamBuildTime}]]>
+			</if>
+			<if test=" estiBuildComp !=null and estiBuildComp != ''">
+				<![CDATA[ and esti_build_comp =#{estiBuildComp}]]>
+			</if>
+			<if test=" score !=null and score != ''">
+				<![CDATA[ and score =#{score}]]>
+			</if>
+			<if test=" fruit !=null and fruit != ''">
+				<![CDATA[ and fruit =#{fruit}]]>
+			</if>
+			<if test=" oneCheckId !=null and oneCheckId != ''">
+				<![CDATA[ and one_check_id =#{oneCheckId}]]>
+			</if>
+			<if test=" twoCheckId !=null and twoCheckId != ''">
+				<![CDATA[ and two_check_id =#{twoCheckId}]]>
+			</if>
+			<if test=" threeCheckId !=null and threeCheckId != ''">
+				<![CDATA[ and three_check_id =#{threeCheckId}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" parameterType="java.util.HashMap" resultMap="RunProject_RESULT">
+		select id,<include refid="RunProject_SQL"/> from run_project
+		<where>
+			<if test=" groupName !=null and groupName != ''">
+				<![CDATA[ and group_name=#{groupName}]]>
+			</if>
+			<if test=" trade !=null and trade != ''">
+				<![CDATA[ and trade =#{trade}]]>
+			</if>
+			<if test=" goal !=null and goal != ''">
+				<![CDATA[ and goal =#{goal}]]>
+			</if>
+			<if test=" teamName !=null and teamName != ''">
+				<![CDATA[ and team_name =#{teamName}]]>
+			</if>
+			<if test=" teamType !=null and teamType != ''">
+				<![CDATA[ and team_type =#{teamType}]]>
+			</if>
+			<if test=" leader !=null and leader != ''">
+				<![CDATA[ and leader =#{leader}]]>
+			</if>
+			<if test=" area !=null and area != ''">
+				<![CDATA[ and area =#{area}]]>
+			</if>
+			<if test=" recomOrgan !=null and recomOrgan != ''">
+				<![CDATA[ and recom_organ =#{recomOrgan}]]>
+			</if>
+			<if test=" projectName !=null and projectName != ''">
+				<![CDATA[ and project_name =#{projectName}]]>
+			</if>
+			<if test=" leave !=null and leave != ''">
+				<![CDATA[ and `leave` =#{leave}]]>
+			</if>
+			<if test=" regisNum !=null and regisNum != ''">
+				<![CDATA[ and regis_num =#{regisNum}]]>
+			</if>
+			<if test=" organCode !=null and organCode != ''">
+				<![CDATA[ and organ_code =#{organCode}]]>
+			</if>
+			<if test=" regisCapital !=null and regisCapital != ''">
+				<![CDATA[ and regis_capital =#{regisCapital}]]>
+			</if>
+			<if test=" incomeCapital !=null and incomeCapital != ''">
+				<![CDATA[ and income_capital =#{incomeCapital}]]>
+			</if>
+			<if test=" enteBuildTime !=null and enteBuildTime != ''">
+				<![CDATA[ and ente_build_time =#{enteBuildTime}]]>
+			</if>
+			<if test=" income !=null and income != ''">
+				<![CDATA[ and income =#{income}]]>
+			</if>
+			<if test=" regisAddre !=null and regisAddre != ''">
+				<![CDATA[ and regis_addre =#{regisAddre}]]>
+			</if>
+			<if test=" workAddre !=null and workAddre != ''">
+				<![CDATA[ and work_addre =#{workAddre}]]>
+			</if>
+			<if test=" teamBuildTime !=null and teamBuildTime != ''">
+				<![CDATA[ and team_build_time =#{teamBuildTime}]]>
+			</if>
+			<if test=" estiBuildComp !=null and estiBuildComp != ''">
+				<![CDATA[ and esti_build_comp =#{estiBuildComp}]]>
+			</if>
+			<if test=" score !=null and score != ''">
+				<![CDATA[ and score =#{score}]]>
+			</if>
+			<if test=" fruit !=null and fruit != ''">
+				<![CDATA[ and fruit =#{fruit}]]>
+			</if>
+			<if test=" oneCheckId !=null and oneCheckId != ''">
+				<![CDATA[ and one_check_id =#{oneCheckId}]]>
+			</if>
+			<if test=" twoCheckId !=null and twoCheckId != ''">
+				<![CDATA[ and two_check_id =#{twoCheckId}]]>
+			</if>
+			<if test=" threeCheckId !=null and threeCheckId != ''">
+				<![CDATA[ and three_check_id =#{threeCheckId}]]>
+			</if>
+		</where>
+		order by id desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<select id="getSingleDetail" parameterType="Long" resultMap="RunProject_RESULT">
+		select id,<include refid="RunProject_SQL"/> from run_project where id=#{id}
+	</select>
+	
+</mapper>

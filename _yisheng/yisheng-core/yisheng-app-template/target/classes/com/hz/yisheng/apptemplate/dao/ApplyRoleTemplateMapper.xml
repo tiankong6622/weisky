@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.apptemplate.dao.ApplyRoleTemplateMapper">
+	<resultMap type="com.hz.yisheng.apptemplate.orm.ApplyRoleTemplate" id="ApplyRoleTemplateMapper">
+		<result property="id" column="id"/>
+		<result property="roleId" column="role_id"/>
+		<result property="templateId" column="template_id"/>
+	</resultMap>
+	<sql id="APPLY_ROLE_TEMPLATE">
+		role_id,template_id
+	</sql>
+	<select id="getByRoleId" parameterType="java.lang.Integer" resultMap="ApplyRoleTemplateMapper">
+		select <include refid="APPLY_ROLE_TEMPLATE"/> from admin_app_role_template where role_id in
+		<foreach item="item" index = "index" collection="list" open="(" separator="," close=")">
+		  #{item}
+		</foreach>
+	</select>
+	
+	<insert id="insert" parameterType="com.hz.yisheng.apptemplate.orm.ApplyRoleTemplate" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into admin_app_role_template(<include refid="APPLY_ROLE_TEMPLATE"/>) value(#{roleId},#{templateId})
+	</insert>
+	
+	<delete id="deleteByRoleId" parameterType="java.lang.Long">
+		delete from admin_app_role_template where role_id = #{roleId}
+	</delete>
+</mapper>

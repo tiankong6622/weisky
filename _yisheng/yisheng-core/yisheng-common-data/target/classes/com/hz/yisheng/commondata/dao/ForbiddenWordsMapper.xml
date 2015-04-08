@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.ForbiddenWordsMapper">
+	 
+	 <sql id="SELECT_WORDS_CONDITION">
+		from `forbidden_words` 
+		<where>
+		<if test="projectId !=null and projectId !=''">
+			<![CDATA[ and project_id =#{projectId}]]>
+		</if>
+		<if test="word !=null and word !=''">
+			<![CDATA[ and `word` like CONCAT('%',#{word},'%')]]>
+		</if>
+		</where> 
+	</sql>
+	
+	  <select id="getById" resultType="ForbiddenWords">
+	      SELECT ID as id, word, sort,project_id as projectId
+	        FROM forbidden_words WHERE id=#{id}
+	  </select>
+	  
+	  
+	  <select id="list" resultType="ForbiddenWords">
+	     SELECT ID as id, word, sort,project_id as projectId
+	   <include refid="SELECT_WORDS_CONDITION"/>
+	    ORDER BY sort desc
+	   <if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	  </select>
+	  
+	  <select id="count" resultType="long">
+		select count(*)
+		<include refid="SELECT_WORDS_CONDITION"/>
+	</select>
+	
+
+	<insert id="insert" parameterType="ForbiddenWords" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+      <![CDATA[ 
+       INSERT INTO forbidden_words(word, `project_id`, sort)
+        VALUES ( #{word}, #{projectId}, #{sort}) ]]>
+     </insert>
+	  
+  	  <update id="update" parameterType="ForbiddenWords" >
+	    UPDATE forbidden_words  set  id=#{id}
+	     <if test="word !=null and word !=''">
+			<![CDATA[ , `word`=#{word} ]]>
+		 </if>
+		  <if test="sort !=null and sort !=''">
+			<![CDATA[ , `sort`=#{sort} ]]>
+		 </if>
+		 <if test="projectId !=null and projectId !=''">
+		 	<![CDATA[ , `project_id`=#{projectId} ]]>
+		 </if>
+	     WHERE ID = #{id}  
+	  </update>
+	  
+	  
+    <delete id="delete" parameterType="java.lang.Long" >
+   	 	 delete from forbidden_words  WHERE ID = #{id}  
+  	</delete>
+  	
+</mapper>

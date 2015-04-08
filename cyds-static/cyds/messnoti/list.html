@@ -1,0 +1,93 @@
+<div style="margin:10px 0;"></div>
+
+<div id="messnotiSearchForm" style="padding:5px;height:auto">
+	<div style="margin-bottom:5px">
+		<a href="#"  onclick="addMessnoti()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增信息</a>
+		<a href="#"  onclick="addImgMessnoti()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增轮播图片</a>
+	</div>
+	<div>
+		<form id="queryMessnotiForm">
+			标题:<input class="easyui-validatebox" name="filter_S_title" style="width:100px">
+			<a href="javascript:doSearchObject('messnotiTable','queryMessnotiForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+<div id="messnoti_div" class="easyui-window" title="信息" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:1200px; height:700px; padding: 10px;">
+	<iframe src="#" id="messnoti_ifr" marginwidth="0" marginheight="0" width="1120px" height="640px" frameborder="0" scrolling="false" allowtransparency="true"></iframe>	
+</div>
+
+<table id="messnotiTable" style="width:1200px"></table>
+
+<script>
+	$('#messnotiTable').datagrid({   
+		url:'/admin/messnoti/list',   
+		toolbar: '#messnotiSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		autoRowHeight:true,
+		columns:[[   
+					{field:'title',title:'标题',width:200},
+					{field:'subhead',title:'副标题',width:200},
+					{field:'summary',title:'摘要',width:150},
+					{field:'mtype',title:'信息类型',width:190,
+						formatter: function(value,row,index){
+							if(row.mtype == 1){
+								return "新闻";
+							}else if(row.mtype == 2){
+								return "通知公告";
+							}else if(row.mtype == 3){
+								return "大赛介绍";
+							}else if(row.mtype == 4){
+								return "参赛指南";
+							}else if(row.mtype == 5){
+								return "联系我们";
+							}else if(row.mtype == 6){
+								return "前端轮播图片";
+							}else{
+								return "其他";
+							}
+						}
+					},
+					{field:'createTime',title:'创建时间',width:150},
+					{field:'operate',title:'操作',width:250,
+						formatter: function(value,row,index){
+							var retValue ="";
+							if(row.mtype != "6"){
+								retValue = outPutFunction("editMessnoti",row.id,"编辑");
+							}
+							retValue += outPutFunction("deleteMessnoti",row.id,"删除");
+							return retValue;
+						}
+					}
+				]]
+		});
+	
+	
+	function addMessnoti(){
+		$("#messnoti_ifr").attr("src","/admin/messnoti/getSingleDetail?id=0");
+		$('#messnoti_div').window('open');
+	}
+	
+	function addImgMessnoti(){
+		$("#messnoti_ifr").attr("src","/admin/messnoti/toLunBoPage");
+		$('#messnoti_div').window('open');
+	}
+	
+	function editMessnoti(uid){
+		$("#messnoti_ifr").attr("src","/admin/messnoti/getSingleDetail?id="+uid);
+		$('#messnoti_div').window('open');
+	}
+	
+	function deleteMessnoti(uid){
+		$.get("/admin/messnoti/delete?id="+uid,function(data){
+			if(data == "0"){
+				$.messager.alert('Info', "删除失败", 'info');
+			}else{
+				 $("#messnotiTable").datagrid('reload'); 
+			}
+		});
+	}
+	
+</script>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.WorkTaskBizDataConfigMapper">
+
+	<resultMap id="WorkTaskBizDataConfigRM"
+		type="com.hz.yisheng.oa.workflow.orm.WorkTaskBizDataConfig">
+		<id property="id" column="id" />
+		<result property="dataObjType" column="data_obj_type" />
+		<result property="isSignle" column="is_single" />
+		<result property="dealBean" column="deal_bean" />
+		<result property="beanMethod" column="bean_method" />
+		<result property="dataObjTypeName" column="data_obj_type_name" />
+	</resultMap>
+
+	<sql id="CONFIG_SQL">
+		data_obj_type,is_single,deal_bean,bean_method,data_obj_type_name
+	</sql>
+
+	<select id="getWorkTaskBizDataConfigs" resultMap="WorkTaskBizDataConfigRM">
+		select
+		<include refid="CONFIG_SQL" />
+		from
+		work_task_biz_data_config where data_obj_type in
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<!-- 新增 -->
+	<insert id="add"
+		parameterType="com.hz.yisheng.oa.workflow.orm.WorkTaskBizDataConfig"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		work_task_biz_data_config(
+		<include refid="CONFIG_SQL" />
+		)
+		values(#{dataObjType},#{isSignle},#{dealBean},#{beanMethod},#{dataObjTypeName})
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update"
+		parameterType="com.hz.yisheng.oa.workflow.orm.WorkTaskBizDataConfig">
+		update work_task_biz_data_config set id=#{id}
+		<if test="dataObjType != null and dataObjType != ''">
+			<![CDATA[ ,data_obj_type =#{dataObjType}]]>
+		</if>
+		<if test="isSignle != null and isSignle != ''">
+			<![CDATA[ ,is_single =#{isSignle}]]>
+		</if>
+		<if test="dealBean != null and dealBean != ''">
+			<![CDATA[ ,deal_bean =#{dealBean}]]>
+		</if>
+		<if test="beanMethod != null and beanMethod != ''">
+			<![CDATA[ ,bean_method =#{beanMethod}]]>
+		</if>
+		<if test="dataObjTypeName != null and dataObjTypeName != ''">
+			<![CDATA[ ,data_obj_type_name =#{dataObjTypeName}]]>
+		</if>
+		where id=#{id}
+	</update>
+
+	<!-- 根据ID，获取信息 -->
+	<select id="getById" parameterType="java.lang.Long" resultMap="WorkTaskBizDataConfigRM">
+		select id,
+		<include refid="CONFIG_SQL" />
+		from work_task_biz_data_config where id = #{id}
+	</select>
+
+	<!-- 获取个数 -->
+	<select id="findAllCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Long">
+		select count(id) from work_task_biz_data_config
+		<where>
+			<if test="dataObjType != null and dataObjType != ''">
+				<![CDATA[ and data_obj_type = #{dataObjType}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 获取列表信息 -->
+	<select id="findAll" parameterType="java.util.HashMap"
+		resultMap="WorkTaskBizDataConfigRM">
+		select id,
+		<include refid="CONFIG_SQL" />
+		from work_task_biz_data_config where 1=1
+		<if test="dataObjType != null and dataObjType != ''">
+			<![CDATA[ and data_obj_type = #{dataObjType}]]>
+		</if>
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<!-- 获取所有流程 -->
+	<select id="findAllFlow" resultMap="WorkTaskBizDataConfigRM">
+		select id,<include refid="CONFIG_SQL" /> from work_task_biz_data_config 
+	</select>
+	
+	<select id="getInfoByDataObjType" parameterType="String" resultMap="WorkTaskBizDataConfigRM">
+		select
+		<include refid="CONFIG_SQL" />
+		from
+		work_task_biz_data_config where data_obj_type = #{dataObjType}
+	</select>
+	
+</mapper>

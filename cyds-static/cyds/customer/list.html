@@ -1,0 +1,64 @@
+<div style="margin:10px 0;"></div>
+
+<div id="customerSearchForm" style="padding:5px;height:auto">
+	<div>
+		<form id="queryCustomerForm">
+			手机号:<input class="easyui-validatebox" name="filter_S_mobile" style="width:100px">
+			<a href="javascript:doSearchObject('customerTable','queryCustomerForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+<div id="customer_div" class="easyui-window" title="参赛选手信息" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:800px; height:520px; padding: 10px;">
+	<iframe src="#" id="customer_ifr" marginwidth="0" marginheight="0" width="740px" height="450px" frameborder="0" scrolling="false" allowtransparency="true"></iframe>	
+</div>
+
+<table id="customerTable" style="width:950px"></table>
+
+<script>
+	$('#customerTable').datagrid({   
+		url:'/admin/customer/list',   
+		toolbar: '#customerSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		autoRowHeight:true,
+		columns:[[   
+					{field:'mobile',title:'手机号',width:140},
+					{field:'email',title:'邮箱',width:140},
+					{field:'ctype',title:'选手类型',width:190,
+						formatter: function(value,row,index){
+							if(row.ctype == "1"){
+								return "普通参赛选手";
+							}else{
+								return "导师";
+							}
+						}
+					},
+					{field:'createTime',title:'创建时间',width:140},
+					{field:'operate',title:'操作',width:250,
+						formatter: function(value,row,index){
+							var retValue = outPutFunction("editCustomer",row.id,"编辑") + outPutFunction("deleteCutomer",row.id,"删除");
+							return retValue;
+						}
+					}
+				]]
+		});
+	
+	
+	function editCustomer(uid){
+		$("#customer_ifr").attr("src","/admin/customer/getSingleDetail?id="+uid);
+		$('#customer_div').window('open');
+	}
+	
+	function deleteCutomer(uid){
+		$.get("/admin/customer/delete?id="+uid,function(data){
+			if(data == "0"){
+				$.messager.alert('Info', "删除失败", 'info');
+			}else{
+				 $("#customerTable").datagrid('reload'); 
+			}
+		});
+	}
+	
+</script>

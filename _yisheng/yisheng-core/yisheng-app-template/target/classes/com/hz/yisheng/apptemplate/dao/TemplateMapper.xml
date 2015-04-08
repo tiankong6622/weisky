@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.apptemplate.dao.TemplateMapper">
+	<resultMap type="com.hz.yisheng.apptemplate.orm.Template" id="TemplateMapper">
+		<result property="id" column="id"/>
+		<result property="templateName" column="template_name"/>
+		<result property="androidImage" column="android_image"/>
+		<result property="androidImageB" column="android_image_b"/>
+		<result property="iosImage" column="ios_image"/>
+		<result property="iosImageB" column="ios_image_b"/>
+		<result property="implAddress" column="impl_address"/>
+		<result property="remark" column="remark"/>
+		<result property="sort" column="sort"/>
+		<result property="appId" column="app_id"/>
+		<result property="apath" column="apath"/>
+		<result property="abpath" column="abpath"/>
+		<result property="ipath" column="ipath"/>
+		<result property="ibpath" column="ibpath"/>
+	</resultMap>
+	<sql id="TEMPLATE_SQL">
+		template_name,android_image,android_image_b,ios_image,ios_image_b,impl_address,remark,sort,app_id,apath,abpath,ipath,ibpath
+	</sql>
+	<select id="select" parameterType="java.lang.Long" resultMap="TemplateMapper">
+		select id,<include refid="TEMPLATE_SQL"/> from admin_app_template_ where id=#{id}
+	</select>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.hz.yisheng.apptemplate.orm.Template">
+		insert into admin_app_template_(<include refid="TEMPLATE_SQL"/>) 
+		values(#{templateName},#{androidImage},#{androidImageB},#{iosImage},#{iosImageB},#{implAddress},#{remark},#{sort},#{appId},#{apath},#{abpath},#{ipath},#{ibpath})
+	</insert>
+	<update id="update" parameterType="com.hz.yisheng.apptemplate.orm.Template">
+		update admin_app_template_ set 
+		<if test="id != null">
+		   <![CDATA[ id=#{id}]]>
+		</if>
+		<if test="templateName != null">
+		   <![CDATA[ ,template_name=#{templateName}]]>
+		</if>
+		<if test="androidImage != null">
+		   <![CDATA[,android_image=#{androidImage}]]>
+		</if>
+		<if test="androidImageB != null">
+		   <![CDATA[,android_image_b=#{androidImageB}]]>
+		</if>
+		<if test="iosImage != null">
+		   <![CDATA[,ios_image=#{iosImage}]]>
+		</if>
+		<if test="iosImageB != null">
+		   <![CDATA[,ios_image_b=#{iosImageB}]]>
+		</if>
+		<if test="implAddress != null">
+		   <![CDATA[,impl_address=#{implAddress}]]>
+		</if>
+		<if test="remark != null">
+		   <![CDATA[,remark=#{remark}]]>
+		</if>
+		<if test="sort != null">
+		   <![CDATA[,sort=#{sort}]]>
+		</if>
+		<if test="appId != null">
+		   <![CDATA[,app_id=#{appId} ]]>
+		</if>
+		<if test="apath != null">
+		   <![CDATA[,apath=#{apath} ]]>
+		</if>
+		<if test="abpath != null">
+		   <![CDATA[,abpath=#{abpath} ]]>
+		</if>
+		<if test="ipath != null">
+		   <![CDATA[,ipath=#{ipath} ]]>
+		</if>
+		<if test="ibpath != null">
+		   <![CDATA[,ibpath=#{ibpath} ]]>
+		</if>
+		 where id=#{id}
+	</update>
+	<delete id="delete">
+		delete from admin_app_template_ where id=#{id}
+	</delete>
+	<select id="getMaxsort" parameterType="java.lang.Long" resultType="java.lang.Integer">
+		select max(sort) from admin_app_template_ where app_id=#{id}
+	</select>
+	<delete id="deleteByAppId">
+		delete from admin_app_template_ where app_id=#{id}
+	</delete>
+	<select id="getId" resultType="java.lang.Long">
+		select max(id) from admin_app_template_
+	</select>
+</mapper>

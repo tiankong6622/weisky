@@ -1,0 +1,163 @@
+#set( $layout = "/layout/old-layout.vm")
+<script>
+	 #if("$!message"!="")
+		#if("$!message"=="success")
+			parent.jQuery('#runproject_div').window('close');
+			parent.jQuery("#runProjectTable").datagrid('reload');
+		#else
+			jQuery.messager.alert('Info', "操作失败！", 'info');
+		#end
+	#end
+</script>
+<form action="/admin/runproject/save" method="post" id="runprojectform" enctype="multipart/form-data">
+	<input name="id" type="hidden" value="$!{runproject.id}"/>
+	<div class="box info-list">
+		<table class="unity-table" id="J_adboardList">
+			<thead>
+    			<tr>
+    				<th colspan="6">参赛项目信息</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr>
+    				<td style="width:80px">组别名称:</td>
+    				<td style="width:150px">
+						$!{runproject.groupName}
+					</td>
+    				<td style="width:80px">所属行业:</td>
+    				<td style="width:150px">
+						$!{runproject.trade}
+					</td>
+					<td style="width:80px">参赛目的:</td>
+    				<td style="width:150px">
+						$!{runproject.goal}
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:80px">团队名称:</td>
+    				<td style="width:150px">
+						$!{runproject.teamName}
+					</td>
+					<td style="width:80px">团队类型:</td>
+    				<td style="width:150px">
+						$!{runproject.teamType}
+					</td>
+    				<td style="width:80px">负责人:</td>
+    				<td style="width:150px">
+						$!{runproject.leader}
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:80px">所属西安市行政区域:</td>
+    				<td style="width:150px">
+						$!{runproject.area}
+					</td>
+    				<td style="width:80px">推荐机构:</td>
+    				<td style="width:150px">
+						$!{runproject.recomOrgan}
+					</td>
+					<td style="width:80px">参赛项目名称:</td>
+    				<td style="width:150px">
+						$!{runproject.projectName}
+					</td>
+    			</tr>
+    			<tr>
+    				
+    				<td style="width:80px">项目阶段:</td>
+    				<td style="width:150px">
+						$!{runproject.leave}
+					</td>
+					<td style="width:80px">企业营业执照注册号:</td>
+    				<td style="width:150px">
+						$!{runproject.regisNum}
+					</td>
+    				<td style="width:80px">企业组织机构代码号:</td>
+    				<td style="width:150px">
+						$!{runproject.organCode}
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:80px">企业注册资本(万元):</td>
+    				<td style="width:150px">
+						$!{runproject.regisCapital}
+					</td>
+    				<td style="width:80px">企业实收资本(万元):</td>
+    				<td style="width:150px">
+						$!{runproject.incomeCapital}
+					</td>
+					<td style="width:80px">企业成立时间:</td>
+    				<td style="width:150px">
+						$!{runproject.enteBuildTime}
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:80px">2014的营业收入(万元):</td>
+    				<td style="width:150px">
+						$!{runproject.income}
+					</td>
+					<td style="width:80px">注册地址:</td>
+    				<td style="width:150px">
+						$!{runproject.regisAddre}
+					</td>
+    				<td style="width:80px">办公地址:</td>
+    				<td style="width:150px">
+						$!{runproject.workAddre}
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:80px">团队成立时间:</td>
+    				<td style="width:150px">
+						$!{runproject.teamBuildTime}
+					</td>
+    				<td style="width:80px">拟公司成立时间:</td>
+    				<td style="width:150px">
+						$!{runproject.estiBuildComp}
+					</td>
+					<td style="width:80px">下载参赛项目的PDF:</td>
+    				<td style="width:150px">
+						#foreach($item in $!{mnattach})
+							$!{item.fileName}&nbsp;&nbsp;
+						#end
+					</td>
+    			</tr>
+    			<tr>
+    				<td style="width:80px">分数:</td>
+    				<td style="width:150px">
+						<input type="text" name="score" value="$!{runproject.score}" style="width:150px"/>
+					</td>
+    				<td style="width:80px">是否通过审核:</td>
+    				<td style="width:150px">
+						<select name="fruit" style="width:150px">
+							#if("$!{runproject.fruit}" != "")
+								<option value="是" #if("$!{runproject.fruit}" != "是") selected #end>是</option>
+								<option value="否" #if("$!{runproject.fruit}" != "否") selected #end>否</option>
+							#else
+								<option selected >请选择审核结果</option>
+								<option value="是" >是</option>
+								<option value="否" >否</option>
+							#end
+							
+                        </select>
+					</td>
+    				<td style="width:80px"></td>
+    				<td style="width:150px"></td>
+    			</tr>
+    		</tbody>
+    		<tfoot>
+    			<tr>
+					<td colspan="6" style="text-align: center">
+						<br/>
+						<br/>
+						<a href="javascript:void(0)" class="sunday-button-a" onclick="doSubmitrunproject()">确定</a>
+					</td>
+    			</tr>
+            </tfoot>
+    </div>
+</form>
+	
+<script>
+ function doSubmitrunproject(){
+	$("#runprojectform").submit();
+ }
+ 
+</script>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.WatermarkMapper">
+	 
+	  <resultMap id="watermarkRM"    type="com.hz.yisheng.commondata.orm.Watermark" >
+	    <result property="id" column="id"  />
+	    <result property="name" column="name" />
+	    <result property="createTime" column="create_time"  />
+	    <result property="updateTime" column="update_time"  />
+	    <result property="type"  column="type" />
+	    <result property="watermark"  column="watermark" />
+	    <result property="x"  column="x" />
+	    <result property="y"   column="y" />
+	    <result property="flag"  column="flag" />
+	    <result property="alpha"   column="alpha" />
+	    <result property="fontStyle"   column="font_style" />
+	    <result property="fontSize"   column="font_size" />
+	    <result property="color"   column="color" />
+	    <result property="projectId"   column="project_id" />
+	    <result property="objId"   column="obj_id" />
+	    <result property="fontName"   column="font_name" />
+	    <result property="status"   column="status" />
+	  </resultMap>
+	  
+	  <sql id="SELECT_WATER_MARK_CONDITION">
+ 		from water_mark 
+	  	<where>
+	  		<if test="name!=null and name!=''">
+				<![CDATA[ and name like CONCAT('%',#{name},'%') ]]>
+			</if>
+			<if test="projectId!=null">
+				<![CDATA[ and project_id=#{projectId} ]]>
+			</if>
+	  	</where>
+	  	 order by id 
+	  </sql>
+	  
+	  <select id="list" resultMap="watermarkRM">
+	  	select id,name,type,watermark,x,y,flag,alpha,font_style,font_size,color,project_id,obj_id,font_name,status<include refid="SELECT_WATER_MARK_CONDITION"/>
+	  </select>
+	  
+	  <select id="getWatermark" parameterType="long" resultMap="watermarkRM">
+	      select wm.id,wm.name,wm.type,wm.watermark,wm.x,wm.y,wm.flag,wm.alpha,wm.font_style,wm.font_size,wm.color,wm.project_id,wm.obj_id,wm.font_name,wm.status from water_mark wm where project_id=#{projectId} limit 1
+	  </select>
+	  
+	  <insert id="insert" parameterType="Watermark" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into water_mark(name,type,`watermark`,x,y,flag,alpha,font_style,font_size,color,project_id,obj_id,font_name,status,create_time)
+		values(#{name},#{type},#{watermark},#{x},#{y},#{flag},#{alpha},#{fontStyle},#{fontSize},#{color},#{projectId},#{objId},#{fontName},1,now())
+	  </insert>
+	
+	  <select id="getById" parameterType="long" resultMap="watermarkRM">
+		select wm.id,wm.name,wm.type,wm.watermark,wm.x,wm.y,wm.flag,wm.alpha,wm.font_style,wm.font_size,wm.color,wm.project_id,wm.obj_id,wm.font_name,wm.status from water_mark wm where id=#{id}
+	  </select>
+	  
+	  <update id="update" parameterType="Watermark" >
+	    update water_mark  set  update_time = now()
+	     <if test="name!=null and name!=''">
+			<![CDATA[ , `name`=#{name} ]]>
+		 </if>
+		 <if test="type!=null">
+			<![CDATA[ , `type`=#{type} ]]>
+		 </if>
+		  <if test="watermark!=null and watermark!=''">
+			<![CDATA[ , `watermark`=#{watermark} ]]>
+		 </if>
+		  <if test="x!=null">
+			<![CDATA[ , `x`=#{x} ]]>
+		 </if>
+		 <if test="y!=null ">
+			<![CDATA[ , `y`=#{y} ]]>
+		 </if>
+		  <if test="flag!=null">
+			<![CDATA[ , `flag`=#{flag} ]]>
+		 </if>
+		 <if test="alpha!=null ">
+			<![CDATA[ , `alpha`=#{alpha} ]]>
+		 </if>
+		 <if test="fontStyle!=null ">
+			<![CDATA[ , `font_style`=#{fontStyle} ]]>
+		 </if>
+		 <if test="fontSize!=null">
+			<![CDATA[ , `font_size`=#{fontSize} ]]>
+		 </if>
+		 <if test="color!=null  and color!=''">
+			<![CDATA[ , `color`=#{color} ]]>
+		 </if>
+		 <if test="fontName!=null  and fontName!=''">
+			<![CDATA[ , `font_name`=#{fontName} ]]>
+		 </if>
+		 <if test="status!=null ">
+			<![CDATA[ , `status`=#{status} ]]>
+		 </if>
+		 where id=#{id}
+	  </update>
+	  
+	  <delete id="delete" parameterType="long">
+		delete from water_mark  where id=#{id}
+	  </delete>
+	
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.CityMapper">
+
+	<resultMap id="cityRM" type="com.hz.yisheng.commondata.orm.City">
+		<result property="id" column="id" />
+		<result property="parentId" column="parent_id" />
+		<result property="level" column="level" />
+		<result property="fullName" column="full_name" />
+		<result property="code" column="code" />
+		<result property="initial" column="initial" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<select id="getAll" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial from t_city
+	</select>
+
+	<select id="getCity" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial from t_city where id =
+		#{id}
+	</select>
+	
+	<select id="getCitysByParentId" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial from t_city where parent_id =
+		#{id}
+	</select>
+
+	<select id="getCityByName" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial from t_city where name
+		like CONCAT('%',#{name},'%')
+	</select>
+
+	<select id="getCityByFullName" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial from t_city where
+		full_name like CONCAT('%',#{fullName},'%')
+	</select>
+
+	<select id="getCItyList" resultMap="cityRM">
+		select * from t_city where
+		level = 1 order by CONVERT(name USING gbk) asc
+	</select>
+
+</mapper>

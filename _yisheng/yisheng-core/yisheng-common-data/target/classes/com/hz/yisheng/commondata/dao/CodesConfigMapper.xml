@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.CodesConfigMapper">
+	 
+	  <resultMap id="CodesConfigRM"    type="com.hz.yisheng.commondata.orm.CodesConfig" >
+	    <result property="projectId"  column="project_id" />
+	    <result property="type"  column="type" />
+	    <result property="name"   column="name" />
+	  </resultMap>
+	  
+	 <select id="getAll"   resultMap="CodesConfigRM">
+		  select project_id,`type`,`name` from codes_config where project_id=#{projectId}
+	</select>
+	
+	<select id="getByProjectAndType"   resultMap="CodesConfigRM">
+		  select project_id,`type`,`name` from codes_config where project_id=#{projectId} AND  `type`=#{type}
+	</select>
+	
+	<insert id="insert" parameterType="CodesConfig" >
+      <![CDATA[ 
+       INSERT INTO codes_config(project_id, `type`, `name`)
+        VALUES ( #{projectId}, #{type}, #{name}) ]]>
+     </insert>
+	
+	<update id="update" parameterType="CodesConfig">
+		update codes_config set `name`=#{name}
+	     where project_id = #{projectId}   and `type`=#{type}
+	</update>
+</mapper>

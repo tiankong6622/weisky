@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.apptemplate.dao.ApplyRoleMapper">
+	<resultMap type="com.hz.yisheng.apptemplate.orm.ApplyRole" id="ApplyRoleMapper">
+		<result property="id" column="id"/>
+		<result property="sort" column="sort"/>
+		<result property="creator" column="creator"/>
+		<result property="updater" column="updater"/>
+		<result property="roleName" column="role_name"/>		
+	</resultMap>
+	<sql id="APPLYROLE">
+		sort,creator,updater,role_name
+	</sql>
+	<select id="list" resultMap="ApplyRoleMapper">
+     select id,<include refid="APPLYROLE"/> from admin_app_role where is_delete=1
+     <if test="roleName !=null and roleName !=''">
+        <![CDATA[ and role_name like CONCAT('%',#{roleName},'%')]]>
+     </if>
+     <if test="creator != null">
+        <![CDATA[ and creator = #{creator}]]>
+     </if>
+     <if test="updater != null">
+        <![CDATA[ and updater = #{updater}]]>
+     </if>
+     <if test="sort != null">
+        <![CDATA[ and sort = #{sort}]]>
+     </if>
+     order by sort asc,create_time desc
+  </select>
+  
+    
+  <insert id = "insert" parameterType="com.hz.yisheng.apptemplate.orm.ApplyRole" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+       insert into admin_app_role(<include refid="APPLYROLE"/>,is_delete,create_time,update_time) values(#{sort},#{creator},#{updater},#{roleName},1,now(),now())
+  </insert>
+  
+  <update id="update" parameterType="com.hz.yisheng.apptemplate.orm.ApplyRole">
+		update admin_app_role set update_time=now()
+		<if test="updater!=null">
+			<![CDATA[ , updater=#{updater}]]>
+		</if>
+		<if test="roleName!=null and roleName!=''">
+			<![CDATA[ , role_name=#{roleName}]]>
+		</if>
+		<if test="sort!=null">
+			<![CDATA[ , sort=#{sort} ]]>
+		</if>
+		
+		where id=#{id}
+	</update>
+	
+	<update id="delete" parameterType="java.lang.Long">
+		update admin_app_role set is_delete=0 where id=#{id}
+	</update>
+	
+	<select id="select" resultMap="ApplyRoleMapper">
+     select id,<include refid="APPLYROLE"/> from admin_app_role where id=#{id}
+     
+  </select>
+  
+  <select id="getMaxSort" resultType="java.lang.Integer">
+          select max(sort) from admin_app_role 
+  </select>
+</mapper>

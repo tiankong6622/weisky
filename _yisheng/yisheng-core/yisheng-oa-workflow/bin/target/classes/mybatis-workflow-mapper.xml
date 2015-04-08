@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-lazy-init="true">
+	
+	<bean id="flowDefineMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.FlowDefineMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+	
+	<bean id="flowNodeMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.FlowNodeMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+
+   <bean id="flowTransitionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.FlowTransitionMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+	<!--  -->
+	<bean id="workTaskBizDataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.WorkTaskBizDataMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+	
+	<bean id="workTaskMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.WorkTaskMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+	
+	<bean id="workTaskRecordMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.WorkTaskRecordMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+	
+	<bean id="workTaskBizDataConfigMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.WorkTaskBizDataConfigMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+	
+	<bean id="tempNodeSqlMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.TempNodeSqlMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+	
+	<bean id="moreActorNodeConditionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.yisheng.oa.workflow.dao.MoreActorNodeConditionMapper" />
+		<property name="sqlSessionFactory" ref="workFlowSessionFactory" />
+	</bean>
+</beans>	

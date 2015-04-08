@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.oa.workflow.dao.FlowDefineMapper">
+	 
+	 <resultMap id="flowDefineRM" type="com.hz.yisheng.oa.workflow.orm.FlowDefine" >
+	    <result property="id" column="id" />
+	    <result property="flowname" column="flow_name" />
+	    <result property="name" column="name" />
+	    <result property="version" column="version" />
+	    <result property="template" column="template" />
+	    <result property="startNodeId" column="start_node_id" />
+	    <result property="creator" column="creator" />
+	    <result property="createTime" column="create_time" />
+	    <result property="updater" column="updater" />
+	    <result property="updateTime" column="update_time" />
+	    <result property="status" column="status" />
+	    <result property="projectId" column="project_id" />
+	    <result property="flowTypeId" column="flow_type_id" />
+	  </resultMap>
+	
+	<sql id="FLOW_DEFINE_SELFIELDS">
+		SELECT id,flow_name,`name`,`version`,`template`,start_node_id,creator,create_time,updater,update_time,`status`,project_id,flow_type_id
+	</sql>
+	
+	 <select id="getLast" resultMap="flowDefineRM" parameterType="string" >
+	    <include refid="FLOW_DEFINE_SELFIELDS" />
+	    FROM flow_define WHERE flow_name = #{flowName} order by version desc limit 1
+	  </select>
+	  
+	  <select id="getLastByProjectId"  resultMap="flowDefineRM" parameterType="string" >
+	    <include refid="FLOW_DEFINE_SELFIELDS" />
+	    FROM flow_define WHERE project_id=#{projectId} and flow_name = #{flowName} order by version desc limit 1
+	  </select>
+	  
+	 <select id="getById" resultMap="flowDefineRM" >
+	    <include refid="FLOW_DEFINE_SELFIELDS" />
+	    FROM flow_define WHERE id=#{id}
+	  </select>
+	  
+	  <select id="getByIds" resultType="com.hz.yisheng.oa.workflow.orm.FlowDefine" >
+		   SELECT ID,FLOW_NAME as flowname,`name`
+		    FROM flow_define WHERE id in 
+		    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			    #{item}
+			</foreach> 
+	  </select>
+	  
+	   <select id="list" resultMap="flowDefineRM" >
+	    <include refid="FLOW_DEFINE_SELFIELDS" />
+	    FROM flow_define 
+	    <where>
+		    <if test="flowname != null and flowname != ''">
+		    	<![CDATA[ and flow_name like CONCAT('%',#{flowname},'%')]]>
+			</if>
+		    <if test="flowTypeId != null and flowTypeId != ''">
+				<![CDATA[ and flow_type_id=#{flowTypeId} ]]>
+			</if>
+			<if test="status != null">
+			<![CDATA[ and `status`=#{status}]]>
+		  </if>
+		</where>
+	    order by flow_name asc, version desc
+	  </select>
+	  
+	  <insert id="insert" parameterType="FlowDefine" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+	    <![CDATA[ 
+	       INSERT INTO flow_define(flow_name,`name`,`version`,`template`,start_node_id,creator,create_time,updater,update_time,`status`,project_id,flow_type_id)
+	        VALUES (#{flowname}, #{name}, #{version}, #{template},#{startNodeId}, #{creator},now(), #{updater}, now(),#{status},#{projectId},#{flowTypeId}) ]]>
+  	  </insert>
+  	  
+  	  <update id="update" parameterType="FlowDefine" >
+  	  	   update flow_define set update_time=now()
+  	  	  <if test="startNodeId!=null">
+			<![CDATA[,start_node_id=#{startNodeId}]]>
+		 </if>
+		 where id=#{id}
+  	  </update>
+  	  
+  	  <!-- 停用、启用流程 -->
+  	  <update id="updateById" parameterType="FlowDefine" >
+  	  	   update flow_define set id = #{id}
+  	  	  <if test="status != null">
+			<![CDATA[,`status`=#{status}]]>
+		  </if>
+		 where id=#{id}
+  	  </update>
+  	  
+  	  <!-- 获取流程信息 -->
+  	  <select id="findProcessInfoByMap" parameterType="java.util.HashMap" resultMap="flowDefineRM">
+	    select f.flow_name,f.`name` from flow_define f,work_task_biz_data_config c 
+	    <where>
+	    	f.flow_type_id=c.id and f.`status`=1
+	    	<if test="dataObjType != null and dataObjType != ''">
+				<![CDATA[ and c.data_obj_type=#{dataObjType} ]]>
+			</if>
+	    </where>
+	  </select>
+</mapper>

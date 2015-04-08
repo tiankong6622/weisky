@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.sunday.cyds.dao.MessageNoticeMapper">
+	<resultMap type="com.hz.sunday.cyds.orm.MessageNotice" id="MessageNotice_RESULT">
+		<id property="id" column="id"/>
+		<result property="title" column="title" />
+		<result property="subhead" column="subhead" />
+		<result property="summary" column="summary" />
+		<result property="comment" column="comment" />
+		<result property="mtype" column="m_type" />
+		<result property="creator" column="creator" />
+	    <result property="createTime" column="create_time" />
+	    <result property="updater" column="updater" />
+	    <result property="updateTime" column="update_time" />
+	    <result property="reource" column="reource" />
+	    <result property="actionTime" column="action_time" />
+	    <result property="actionAddr" column="action_addr" />
+	</resultMap>
+	
+	<sql id="MessageNotice_SQL">
+		title,subhead,summary,comment,m_type,creator,create_time,updater,update_time,reource,action_time,action_addr
+	</sql>
+	
+	<insert id="insert" parameterType="com.hz.sunday.cyds.orm.MessageNotice" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+		insert into message_notice(<include refid="MessageNotice_SQL"/>) 
+		values(#{title},#{subhead},#{summary},#{comment},#{mtype},#{creator},NOW(),#{updater},NOW(),#{reource},#{actionTime},#{actionAddr})
+	</insert>
+	
+	<update id="update" parameterType="com.hz.sunday.cyds.orm.MessageNotice">
+		update message_notice set update_time = NOW()
+		<if test=" title !=null and title != ''">
+			<![CDATA[ ,title =#{title}]]>
+		</if>
+		<if test=" subhead !=null and subhead != ''">
+			<![CDATA[ ,subhead =#{subhead}]]>
+		</if>
+		<if test=" summary !=null and summary != ''">
+			<![CDATA[ ,summary =#{summary}]]>
+		</if>
+		<if test=" comment !=null and comment != ''">
+			<![CDATA[ ,comment =#{comment}]]>
+		</if>
+		<if test=" mtype !=null and mtype != ''">
+			<![CDATA[ ,m_type =#{mtype}]]>
+		</if>
+		<if test=" updater !=null and updater != ''">
+			<![CDATA[ ,updater =#{updater}]]>
+		</if>
+		<if test=" reource !=null and reource != ''">
+			<![CDATA[ ,reource =#{reource}]]>
+		</if>
+		<if test=" actionTime !=null and actionTime != ''">
+			<![CDATA[ ,action_time =#{actionTime}]]>
+		</if>
+		<if test=" actionAddr !=null and actionAddr != ''">
+			<![CDATA[ ,action_addr =#{actionAddr}]]>
+		</if>
+		where id= #{id}
+	</update>
+	
+	<delete id="delete" parameterType="java.util.List">
+		delete from message_notice where id = #{id}
+	</delete>
+	
+	<select id="getCount" parameterType="java.util.HashMap" resultType="Long">
+		select count(id) from message_notice
+		<where>
+			<if test=" mobile !=null and mobile != ''">
+				<![CDATA[ and mobile =#{mobile}]]>
+			</if>
+			<if test=" passw !=null and passw != ''">
+				<![CDATA[ and passw =#{passw}]]>
+			</if>
+			<if test=" email !=null and email != ''">
+				<![CDATA[ and email =#{email}]]>
+			</if>
+			<if test=" ctype !=null and ctype != ''">
+				<![CDATA[ and ctype =#{ctype}]]>
+			</if>
+			<if test=" comment !=null and comment != ''">
+				<![CDATA[ and comment =#{comment}]]>
+			</if>
+			<if test=" updater !=null and updater != ''">
+				<![CDATA[ and updater =#{updater}]]>
+			</if>
+			<if test=" actionTime !=null and actionTime != ''">
+				<![CDATA[ and action_time =#{actionTime}]]>
+			</if>
+			<if test=" actionAddr !=null and actionAddr != ''">
+				<![CDATA[ and action_addr =#{actionAddr}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" parameterType="java.util.HashMap" resultMap="MessageNotice_RESULT">
+		select id,<include refid="MessageNotice_SQL"/> from message_notice
+		<where>
+			<if test=" title !=null and title != ''">
+				<![CDATA[ and title =#{title}]]>
+			</if>
+			<if test=" subhead !=null and subhead != ''">
+				<![CDATA[ and subhead =#{subhead}]]>
+			</if>
+			<if test=" summary !=null and summary != ''">
+				<![CDATA[ and summary =#{summary}]]>
+			</if>
+			<if test=" comment !=null and comment != ''">
+				<![CDATA[ and comment =#{comment}]]>
+			</if>
+			<if test=" mtype !=null and mtype != ''">
+				<![CDATA[ and m_type =#{mtype}]]>
+			</if>
+			<if test=" actionTime !=null and actionTime != ''">
+				<![CDATA[ and action_time =#{actionTime}]]>
+			</if>
+			<if test=" actionAddr !=null and actionAddr != ''">
+				<![CDATA[ and action_addr =#{actionAddr}]]>
+			</if>
+		</where>
+		order by id desc
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<select id="getSingleDetail" parameterType="Long" resultMap="MessageNotice_RESULT">
+		select id,<include refid="MessageNotice_SQL"/> from message_notice where id=#{id}
+	</select>
+	
+	<select id="getByMtype" parameterType="int" resultMap="MessageNotice_RESULT">
+		select id,<include refid="MessageNotice_SQL"/> from message_notice where m_type=#{mtype} order by id desc
+	</select>
+	
+	
+</mapper>

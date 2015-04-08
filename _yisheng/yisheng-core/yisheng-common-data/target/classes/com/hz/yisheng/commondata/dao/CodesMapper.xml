@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.yisheng.commondata.dao.CodesMapper">
+
+	<sql id="SELECT_CODES_CONDITION">
+		from config_codes
+		<where>
+			<if test="relObjectId !=null and relObjectId !=''">
+			<![CDATA[ and rel_obj_id =#{relObjectId}]]>
+			</if>
+			<if test="key!=null and key!=''">
+			<![CDATA[ and `key`=#{key}]]>
+			</if>
+			<if test="type !=null and type !=''">
+			<![CDATA[ and type=#{type}]]>
+			</if>
+			<if test="value !=null and value !=''">
+			<![CDATA[ and `value` like CONCAT('%',#{value},'%')]]>
+			</if>
+		</where>
+	</sql>
+
+	<select id="getById" resultType="Codes">
+		SELECT ID as id, type, `key`, `value`,`desc` ,rel_obj_id as relObjectId
+		FROM config_codes WHERE id=#{id}
+	</select>
+
+	<select id="getCodesByType" resultType="org.javafans.common.dto.Option">
+		select `key`, `value`
+		<include refid="SELECT_CODES_CONDITION" />
+		order by id
+	</select>
+
+
+	<select id="list" resultType="Codes">
+		SELECT ID as id, type, `key`, `value`,`desc` ,rel_obj_id as
+		relObjectId
+		<include refid="SELECT_CODES_CONDITION" />
+		ORDER BY type,id
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+
+	<select id="count" resultType="long">
+		select count(*)
+		<include refid="SELECT_CODES_CONDITION" />
+	</select>
+
+
+	<insert id="insert" parameterType="Codes" useGeneratedKeys="true"
+		keyProperty="id" keyColumn="id">
+      <![CDATA[ 
+       INSERT INTO config_codes(type, `key`, `value`, `desc`,creator,  create_time, updater, update_time,rel_obj_id)
+        VALUES ( #{type}, #{key}, #{value}, #{desc},#{creator}, now(), #{updater}, now(),  #{relObjectId}) ]]>
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Codes">
+		UPDATE config_codes set update_time = now(),updater=#{updater}
+		<if test="key!=null and key!=''">
+			<![CDATA[ , `key`=#{key} ]]>
+		</if>
+		<if test="value!=null and value!=''">
+			<![CDATA[ , `value`=#{value} ]]>
+		</if>
+		<if test="desc!=null and desc!=''">
+		 	<![CDATA[ , `desc`=#{desc} ]]>
+		</if>
+		WHERE ID = #{id}
+	</update>
+
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from config_codes WHERE ID = #{id}
+	</delete>
+
+	<!-- 根据type和上次更新时间，获取更新列表 -->
+	<select id="getCodesByTypeAndUpdateTime" resultType="Codes" parameterType="map">
+		SELECT ID as id, type, `key`, `value`,`desc` ,rel_obj_id as
+		relObjectId,creator,create_time as createTime,updater,update_time as
+		updateTime
+		<![CDATA[ FROM config_codes WHERE update_time > STR_TO_DATE(#{date}, '%Y-%m-%d') ]]>
+		and type in
+		<foreach item="item" index="index" collection="typeList" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<!-- 根据type和上次更新时间，获取更新列表 -->
+	<select id="getCodesByTypeUpdateTime" resultType="Codes" parameterType="map">
+		SELECT ID as id, type, `key`, `value`,`desc` ,rel_obj_id as
+		relObjectId,creator,create_time as createTime,updater,update_time as
+		updateTime  FROM config_codes WHERE
+		<![CDATA[ update_time > STR_TO_DATE(#{date}, '%Y-%m-%d') ]]>
+		and type = #{type}
+	</select>
+
+</mapper>

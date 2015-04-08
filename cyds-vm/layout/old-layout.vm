@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="$!staticRoot/oldAdmin/css/reset.source.css" />
+<link rel="stylesheet" type="text/css" href="$!staticRoot/oldAdmin/css/baselayout.css" />
+<link rel="stylesheet" type="text/css" href="$!staticRoot/oldAdmin/css/putin.css" />
+<link rel="stylesheet" href="${staticRoot}/kindeditor-4.1.7/themes/default/default.css" />
+<script type="text/javascript" src="$!staticRoot/oldAdmin/jquery.js"></script>
+<script type="text/javascript" src="$!staticRoot/oldAdmin/base.js"></script>
+<script type="text/javascript" src="$!staticRoot/My97DatePicker/WdatePicker.js"></script>
+<script charset="utf-8" src="${staticRoot}/kindeditor-4.1.7/kindeditor-min.js"></script>
+<script charset="utf-8" src="${staticRoot}/kindeditor-4.1.7/lang/zh_CN.js"></script>
+
+<style> 
+	.search .unity-table{background:none;width:auto;}
+	.search .unity-table td{border:none;}
+	.sunday-button-a {
+		display:block;
+		width:100px;
+		height:30px;
+		color:#353535;
+		line-height:30px;
+		text-decoration:none;
+		background:url($!staticRoot/img/btnbg.png) no-repeat 0 0;
+		margin:auto;
+	}
+	.sunday-button-a:hover {
+		color:#000;
+		background:url($!staticRoot/img/btnbg.png) no-repeat 0 -30px;
+	}
+</style>
+</head>
+<body>
+ $screen_content
+</body>
+</html>
