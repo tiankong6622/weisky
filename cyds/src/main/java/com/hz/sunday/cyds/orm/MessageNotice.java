@@ -17,7 +17,7 @@ public class MessageNotice extends BaseAdminEntity{
 	private String subhead;//副标题
 	private String summary;//摘要
 	private String comment;//内容
-	private int mtype;//信息类型  0:其他 1：新闻  2：通知公告 3：大赛介绍 4：参赛指南  5：联系我们  6:前端首页轮播的图片
+	private int mtype;//信息类型  0:其他 1：新闻  2：通知公告 3：大赛介绍 4：参赛条件  5：联系我们  6:前端首页轮播的图片 7:报名渠道及方式  8：赛程安排  9：政策支持  10：参赛资料下载
 	private String filePath;//文件路径
 	private String reource;//来源
 	private Date actionTime;//活动时间

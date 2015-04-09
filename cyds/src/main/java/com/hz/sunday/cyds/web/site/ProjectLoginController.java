@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.javafans.resources.ResourceConfig;
 import org.javafans.web.AjaxUtils;
 import org.javafans.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,13 @@ public class ProjectLoginController extends BaseController{
 	@RequestMapping("/toLoginPage")
 	public String toLoginPage(@RequestParam(value="toUrl", required=false) String toUrl,
 			Model model, HttpServletRequest request, HttpServletResponse response){
-		String defaultUrl = "/site";//设置一个默认的登陆成功后，跳转到的页面
+		
+		Customer cus = (Customer)request.getSession().getAttribute("cusInfo");
+		if(cus != null){//已登录   直接跳到参赛报名页
+			return "/cyds/site/signup";
+		}
+		
+		String defaultUrl = "/site/plogin/toLoginPage";//默认登陆成功后，跳转到参赛报名页
 		if(!StringUtils.isBlank(toUrl)){
 			defaultUrl = toUrl;//设置登陆成功后，将要跳转的页面
 		}
@@ -121,7 +128,6 @@ public class ProjectLoginController extends BaseController{
 				AjaxUtils.renderText(response, "-5");//该手机号已存在
 				return ;
 			}
-			
 			customerBO.insert(cus);//执行注册操作
 			request.getSession().setAttribute("cusInfo", cus);//将参赛选手基本信息放入内存中
 			AjaxUtils.renderText(response, "1");//注册成功
@@ -129,5 +135,17 @@ public class ProjectLoginController extends BaseController{
 			e.printStackTrace();
 			AjaxUtils.renderText(response, "-1");//注册失败，未知原因
 		}
+	}
+	
+	/**
+	 * 退出登录
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response){
+		request.getSession().setAttribute("cusInfo", null);
+		return "redirect:"+ResourceConfig.getSysConfig("webPath")+"/site/"; 
 	}
 }

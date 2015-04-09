@@ -29,6 +29,7 @@ public class CustomerBO {
 	 * @param customer
 	 */
 	public void insert(Customer customer){
+		customer.setPassw(Digests.md5(customer.getPassw()));//密码MD5加密
 		customerMapper.insert(customer);
 	}
 	

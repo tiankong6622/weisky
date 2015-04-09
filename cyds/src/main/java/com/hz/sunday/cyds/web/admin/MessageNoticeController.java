@@ -56,7 +56,7 @@ public class MessageNoticeController extends BaseController{
 	 * @param customer
 	 */
 	@RequestMapping("/save")
-	public String save(@RequestParam("files") CommonsMultipartFile achmentFiles, Model model,
+	public String save(@RequestParam("files") CommonsMultipartFile[] achmentFiles, Model model,
 			HttpServletRequest request, HttpServletResponse response, MessageNotice messageNotice){
 		try{
 			
