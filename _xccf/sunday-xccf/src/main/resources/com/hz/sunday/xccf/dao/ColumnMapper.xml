@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.sunday.xccf.dao.ColumnMapper">
+
+	<resultMap id="columnBeanMap" type="com.hz.sunday.xccf.orm.ColumnBean">
+		<result property="id" column="id" />
+		<result property="creator" column="creator" />
+		<result property="createTime" column="create_time" />
+		<result property="updater" column="updater" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="COLUMN_SQL">
+		creator,create_time,is_deleted
+	</sql>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.hz.sunday.xccf.orm.ColumnBean"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		project_customer(
+		<include refid="COLUMN_SQL" />
+		)VALUES(#{creator},#{createTime},1)
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.hz.sunday.xccf.orm.ColumnBean">
+		update project_customer set id=#{id}
+		<if test="updater != null">
+		    <![CDATA[ ,updater= #{updater}]]>
+		</if>
+		<if test="updateTime != null">
+		    <![CDATA[ ,update_time = #{updateTime}]]>
+		</if>
+		where id =#{id} and is_deleted = 1
+	</update>
+
+	<!-- 获取客户分页数据 -->
+	<select id="findAll" parameterType="java.util.HashMap"
+		resultMap="columnBeanMap">
+		select id,
+		<include refid="COLUMN_SQL" />
+		from project_customer
+		<where>
+			is_deleted=1
+			<if test="medicalNumber != null and medicalNumber != ''">
+				<![CDATA[ and medical_number like CONCAT('%',#{medicalNumber},'%')]]>
+			</if>
+			<if test="createTime != null and createTime != ''">
+				<![CDATA[ and DATE_FORMAT(create_time, '%Y-%m-%d') >=  DATE_FORMAT(#{createTime}, '%Y-%m-%d')]]>
+			</if>
+		</where>
+		order by create_time desc
+		<if test="rowStart != null and pageSize != null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+
+	<!-- 获取客户记录总条数 -->
+	<select id="findCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Long">
+		select COUNT(*) FROM project_customer
+		<where>
+			is_deleted=1
+			<if test="medicalNumber != null and medicalNumber != ''">
+				<![CDATA[ and medical_number like CONCAT('%',#{medicalNumber},'%')]]>
+			</if>
+			<if test="createTime != null and createTime != ''">
+				<![CDATA[ and DATE_FORMAT(create_time, '%Y-%m-%d') >=  DATE_FORMAT(#{createTime}, '%Y-%m-%d')]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据ID，获取客户信息 -->
+	<select id="findById" resultMap="columnBeanMap">
+		select id,
+		<include refid="COLUMN_SQL" />
+		from project_customer
+		where id=#{id} and is_deleted=1
+	</select>
+
+	<!-- 根据ID，删除客户信息 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		update project_customer
+		set
+		is_deleted=0,update_time=now()
+		where id=#{id} and is_deleted = 1
+	</delete>
+
+</mapper>
+	

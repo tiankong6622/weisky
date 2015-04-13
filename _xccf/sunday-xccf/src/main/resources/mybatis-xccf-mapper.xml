@@ -9,11 +9,10 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
 	default-lazy-init="true">
 
-<!-- 	<bean id="projectCustomerMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> -->
-<!-- 		<property name="mapperInterface" value="com.hz.sunday.xccf.dao.ProjectCustomerMapper" /> -->
-<!-- 		<property name="sqlSessionFactory" ref="xccfSessionFactory" /> -->
-<!-- 	</bean> -->
+	<!-- 栏目管理 -->
+	<bean id="columnMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.sunday.xccf.dao.ColumnMapper" />
+		<property name="sqlSessionFactory" ref="xccfSessionFactory" />
+	</bean>
 	
-	
-
 </beans>
