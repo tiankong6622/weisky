@@ -1,0 +1,28 @@
+	<div style="width:900px;height:700px;padding:10px 0 10px 60px">
+		<form id="userEditForm" method="post">
+			<table>
+				<tr>
+					<td>姓名:</td>
+					<td><input name="name" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div style="text-align:center;padding:5px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitUserForm()">确定</a>
+	</div> 
+	<script>
+		function submitUserForm(){
+			if($('#userEditForm').form('validate')){
+				$('#userEditForm').form({   
+					url:'/admin/user/save',   
+					success:function(data){
+						if(data=='success'){
+							$("#userTable").datagrid('reload'); 
+						}
+					}   
+				});   
+			}
+			$('#userEditDialog').dialog('close');
+		}
+	</script>

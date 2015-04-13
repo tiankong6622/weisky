@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<toolbox>
+	<tool>
+		<key>timeUtils</key>
+		<scope>application</scope>
+		<class>org.javafans.common.utils.time.TimeUtils</class>
+	</tool>
+	<tool>
+		<key>commonUtils</key>
+		<scope>application</scope>
+		<class>org.javafans.common.utils.CommonUtils</class>
+	</tool>
+	<tool>
+		<key>math</key>
+		<scope>application</scope>
+		<class>org.apache.velocity.tools.generic.MathTool</class>
+	</tool>
+</toolbox> 

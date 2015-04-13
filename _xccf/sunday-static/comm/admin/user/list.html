@@ -1,0 +1,374 @@
+<div style="margin:10px 0;"></div>
+
+<div id="userSearchForm" style="padding:5px;height:auto">
+	<div style="margin-bottom:5px">
+		<a href="#"  onclick="addUser()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增用户</a>
+	</div>
+	<div>
+		<form id="queryUserForm">
+			用户名:<input class="easyui-validatebox" name="filter_S_userName" style="width:100px">
+			姓名:<input class="easyui-validatebox" name="filter_S_name" style="width:100px">
+			最后登入时间: <input class="easyui-datebox" name="filter_S_startTime" style="width:80px">
+			To: <input class="easyui-datebox"  name="filter_S_endTime" style="width:80px">
+			<a href="javascript:doSearchObject('userTable','queryUserForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+	
+  <div id="modifyPass" class="easyui-window" title="修改密码" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:330px;padding:10px;">
+	<div style="padding:10px 0 10px 60px">
+	   <form id="modifyPassForm" method="post" action="/admin/user/modifyPass" enctype="multipart/form-data">
+	   <input  name="id" type="hidden"/>
+	    <table>
+			<tr>
+				<td>原密码:</td>
+				<td><input name="password" autoComplete="off" class="easyui-validatebox" type="password"  data-options="required:true,validType:'charOrDigit'"></input></td>
+			</tr>
+			<tr>
+				<td>新密码:</td>
+				<td><input name="new_password" autoComplete="off" class="easyui-validatebox" type="password"  data-options="required:true,validType:'charOrDigit'"></input></td>
+			</tr>
+			<tr>
+				<td>新密码确认:</td>
+				<td><input name="new_password_confirm" autoComplete="off" class="easyui-validatebox" type="password"  data-options="required:true,validType:'charOrDigit'"></input></td>
+			</tr>
+			<tr>
+	            <td>&nbsp;</td>
+	            <td>
+	            	<input type="button" value="提交" onclick="doModifyPass()"></input>
+	            	<input type="reset" value="重置" ></input>
+	            </td>
+	        </tr>
+		</table>
+	  </form>
+	</div>
+</div>
+
+<div id="add_user" class="easyui-window" title="用户管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:630px;padding:10px;">
+	<div style="padding:10px 0 10px 60px">
+	   <form id="adminUserForm" method="post" action="/admin/user/save" enctype="multipart/form-data">
+	   <input  name="id" type="hidden"/>
+	    <table>
+			<tr>
+				<td style="width:130px">用户名:</td>
+				<td><input  name="userName" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true" ></input></td>
+			</tr>
+			<tr>
+				<td>姓名:</td>
+				<td><input name="name" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>密码:</td>
+				<td><input name="password" autoComplete="off" class="easyui-validatebox" type="password"  data-options="required:true,validType:'charOrDigit'"></input></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input name="email" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true,validType:'email'"></input></td>
+			</tr>
+			<tr>
+				<td>手机号码:</td>
+				<td><input name="mobile" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>所属部门</td>
+				<td>
+					<input class="easyui-combogrid" name="orgId" style="width:420px" value="EST-12" data-options="
+						panelWidth: 400,
+						idField: 'id',
+						textField: 'fullNamePath',
+						url: '/admin/org/list',
+						columns: [[
+							{field:'fullNamePath',title:'部门名称',width:190}
+						]],
+						fitColumns: true
+					">
+				</td>		
+			</tr>
+			<tr>
+				<td>职务</td>
+				<td>
+					<input class="easyui-combogrid" name="postId" style="width:220px" value="" data-options="
+						panelWidth: 200,
+						idField: 'id',
+						textField: 'name',
+						url: '/admin/post/getAll',
+						columns: [[
+							{field:'name',title:'职务名称',width:190},
+						]],
+						fitColumns: true
+					">
+				</td>		
+			</tr>
+			<tr>
+				<td>头像:</td>
+				<td>
+					<input name="logos" type="file"  data-options="required:true"></input>
+				</td>
+			</tr>
+			<tr id="adminUserLogotr" style="display: none;">
+				<td>&nbsp;</td>
+				<td id="adminUserLogoSpan">
+				</td>
+			</tr>
+			<tr>
+				<td>选择城市</td>
+				<td>
+					<select id="adminprovinceId" name="provinceId"></select>
+					<select id="admindistrictId" name="districtId"></select>
+					<select id="admincityId" name="cityId"></select>
+				</td>
+			</tr>
+			<tr>
+				<td>生日:</td>
+				<td><input class="easyui-datebox" name="birthday" style="width:100px"></input></td>
+			</tr>
+			<tr>
+				<td>性别:</td>
+				<td>
+					<input name="sex" type="radio" value="1">男
+					<input name="sex" type="radio" value="2">女
+				</td>
+			</tr>
+			<tr>
+				<td>是否管理者:</td>
+				<td>
+				    <input name="userOrgPostId" value="" type="hidden" >
+					<input name="userOrgPostIsManager" value="0" type="radio">是
+					<input name="userOrgPostIsManager" value="1" type="radio"></input>不是
+				</td>
+			</tr>
+			<tr>
+	            <td>&nbsp;</td>
+	            <td>
+	            	<input type="button" value="提交" onclick="doSubmitAdminUser()"></input>
+	            	<input type="reset" value="重置" ></input>
+	            </td>
+	        </tr>
+		</table>
+	  </form>
+	</div>
+</div>
+
+<div class="easyui-layout" style="width:1150px;height:550px;">
+	<div data-options="region:'east',split:true" title="用户分配角色" style="width:200px;" id="userFenpeiDiv">
+		<ul id="userRoleTree" class="easyui-tree" data-options="animate:true,checkbox:true"></ul>
+		<ul id="userAreaTree" class="easyui-tree" style="display:none" data-options="animate:true,checkbox:true"></ul>
+		<br/>
+		&nbsp;
+		<a href="javascript:doUserRole()" id='uroles' class="easyui-linkbutton"  style="display:none">确定</a>
+		<a href="javascript:doUserArea()" id='uAreas' class="easyui-linkbutton"  style="display:none">确定</a>
+	</div>
+	<div data-options="region:'center',title:'用户管理'">
+	
+	<table id="userTable" style="width:950px"></table>
+
+	</div>
+</div>
+
+<script>
+	$('#userTable').datagrid({   
+		url:'/admin/user/list',   
+		toolbar: '#userSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		autoRowHeight:true,
+		columns:[[   
+					{field:'userName',title:'用户名',width:100},
+					{field:'name',title:'姓名',width:90},
+					{field:'mobile',title:'手机号',width:95},
+					{field:'deptName',title:'部门',width:190,
+						formatter: function(value,row,index){
+							if(row && row.userOrgPost){
+								return row.userOrgPost.deptName;
+							}
+						}
+					},
+					{field:'postName',title:'职务',width:115,
+						formatter: function(value,row,index){
+							if(row && row.userOrgPost){
+								return row.userOrgPost.postName;
+							}
+						}	
+					},
+					{
+						field:'type',title:'类型',width:50,
+						formatter: function(value,row,index){
+							if(row.type==1){
+								return '超级';
+							}else if(row.type=='0')
+								return '普通';
+						}
+						
+					},
+					{field:'operate',title:'操作',width:250,
+						formatter: function(value,row,index){
+							var retValue = outPutFunction("editUser",row.id,"编辑") + outPutFunction("modifyPass",row.id,"修改密码") + outPutFunction("freezeUser",row.id,"删除");
+
+							if(row.type==0){
+								retValue=retValue+'[<a href="javascript:doCheckedRole('+row.id+',\''+row.name+'\')">分配角色</a>]';
+							}
+							if(row.userOrgPost && row.userOrgPost.isArea==1){
+								retValue=retValue+'[<a href="javascript:doRealUserArea('+row.id+',\''+row.name+'\')">分管区域</a>]';
+							}	
+							return retValue;
+						}
+					}
+				]]
+		});
+	
+	function addUser(){
+		$("#adminUserForm").form('clear');
+		$("#adminUserForm input[name='userName'] ").attr("readonly",false);
+		$("#adminUserForm input[name='userOrgPostIsManager'][value='0']").attr("checked",true);
+		$("#adminUserForm input[name='sex'][value='1']").attr("checked",true);
+		$("#add_user").window('open');
+		doInitCitySelect("adminprovinceId","admindistrictId","admincityId");
+		$("#adminUserLogotr").hide();
+		$("#add_user #adminUserForm tr:eq(1) ").show();
+	}
+	
+	
+	
+	function editUser(uid){
+		$.get("/admin/user/getUser/"+uid,function(data){
+			//$("#adminUserForm input[name='userName'] ").attr("readonly",true);
+			$("#add_user #adminUserForm tr:eq(2) ").hide();
+			doInitCitySelect("adminprovinceId","admindistrictId","admincityId",data.provinceId,data.districtId,data.cityId);
+			if(data.userOrgPost && data.userOrgPost!=null){
+				data.orgId=data.userOrgPost.orgId;
+				data.postId=data.userOrgPost.postId;
+				data.userOrgPostId=data.userOrgPost.id;
+				data.userOrgPostIsManager=data.userOrgPost.isManager;
+			}
+			$("#adminUserLogotr").show();
+			if(data.logo){
+				var ipth = img_path+data.logo;
+				$("#adminUserLogoSpan").html('<a href="'+ipth+'" target="_blank"><img src="'+ipth+'" width="80"/></a>');
+			}
+			$('#add_user').window('open');
+			$('#adminUserForm').form('load',data);
+		});
+	}
+	
+	function modifyPass(uid){
+		$.get("/admin/user/getUser/"+uid,function(data){
+			$('#modifyPass').window('open');
+			$('#modifyPassForm').form('load',data);
+		});
+	}
+		
+	function freezeUser(uid){
+		$.messager.confirm('用户管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/admin/user/delete/"+uid,{},function(data){
+		    		if(data=='1'){
+						$("#userTable").datagrid('reload'); 
+					}else{
+						$.messager.alert('Info', "删除失败", 'info');			
+					}
+		    	});
+			}
+		});  	
+	}
+	
+	function doSubmitAdminUser(){
+		var orgId = $("#adminUserForm input[name='orgId']").val();
+		var postId = $("#adminUserForm input[name='postId']").val();
+		if(orgId==""||postId==""){
+			alert("职务和部门是必选的！");
+			return false;
+		}
+		$('#adminUserForm').form("submit",{
+			   success:function(data){
+			      $('#add_user').window('close');
+			     if(data == 'success'){
+				    $("#userTable").datagrid('reload'); 
+				    $(".easyui-validatebox").val('');
+				  }else{
+				 	$.messager.alert('Info', "添加失败,可能是用户名存在或曾经存在", 'info');
+				   }   
+			   }
+		});
+	}
+	
+	function doModifyPass(){
+		if($("input[name=new_password]").val() != $("input[name=new_password_confirm]").val()){
+			alert("两次输入密码不一致！");
+			return;
+		}
+		$('#modifyPassForm').form("submit",{
+			   success:function(data){
+			      $('#modifyPass').window('close');
+			     if(data == 'success'){
+			    	 alert('修改成功');
+				  }else{
+				 	$.messager.alert('Info', "修改失败", 'info');
+				   }   
+			   }
+		});
+	}
+	
+	
+	
+	var _current_user_role_id = null;
+	function doCheckedRole(_id,_name){
+			_current_user_role_id=_id;
+			$('#userFenpeiDiv').panel({"title":"分配"+_name+"的角色"});
+			$("#userAreaTree").hide();
+			$("#userRoleTree").show();
+			$('#userRoleTree').tree({
+				url:'/admin/user/getUserRole/'+_id,
+				onlyLeafCheck:true
+			}); 
+			$("#uroles").show();
+			$("#uAreas").hide();
+	}
+	
+	var _current_user_city_id = null;
+	function doRealUserArea(_id,_name){
+			_current_user_city_id=_id;
+			$('#userFenpeiDiv').panel({"title":"分配"+_name+"的管辖区域"});
+			$("#userAreaTree").show();
+			$("#userRoleTree").hide();
+			$('#userAreaTree').tree({
+				url:'/admin/org/city/getUserRealCitys?userId='+_id,
+				cascadeCheck:true,
+				onlyLeafCheck:false
+			}); 
+			$("#uroles").hide();
+			$("#uAreas").show();
+	}
+	
+	function doUserArea(){
+		var nodes = $('#userAreaTree').tree('getChecked');
+		var s = '';
+		for(var i=0; i<nodes.length; i++){
+			if (s != '') s += ',';
+				s += nodes[i].id;
+		}
+		jQuery.post("/admin/org/city/realUserCitys",{userId:_current_user_city_id,cityIds:s},function(data){
+			if(data=='success'){
+				$.messager.alert('Info', "分配成功", 'info');
+			}else{
+				$.messager.alert('Info', "分配失败", 'info');
+			}
+		});
+	}
+
+	function doUserRole(){
+		var nodes = $('#userRoleTree').tree('getChecked');
+		var s = '';
+		for(var i=0; i<nodes.length; i++){
+			if (s != '') s += ',';
+				s += nodes[i].id;
+		}
+		jQuery.post("/admin/user/setUserRoles",{userId:_current_user_role_id,roleIds:s},function(data){
+			if(data=='success'){
+				$.messager.alert('Info', "分配成功", 'info');
+			}else{
+				$.messager.alert('Info', "分配失败", 'info');
+			}
+		});
+	}
+</script>

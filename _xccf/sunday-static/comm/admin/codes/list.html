@@ -1,0 +1,108 @@
+<div style="margin: 10px 0;"></div>
+	<div id="codesSearchForm" style="padding:5px;height:auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="openInputAndClearForm('add_codes','adminCodesForm')" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增数据字典</a>
+	</div>
+	<div>
+		<form id="queryCodesForm">
+			value值:<input class="easyui-validatebox" name="filter_S_value" style="width:100px">
+			key:<input class="easyui-validatebox" name="filter_S_key" style="width:100px">
+			<a href="javascript:doSearchObject('codesTable','queryCodesForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+
+<div id="add_codes" class="easyui-window" title="数据字典管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px; height: 300px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminCodesForm" method="post" action="/common/codes/admin/save">
+			<input name="id" type="hidden" />
+			<table>
+				<tr>
+					<td>类型</td>
+					<td><input type="text" autoComplete="off" name="type" class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>Key值</td>
+					<td><input type="text" autoComplete="off" name="key" class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>Value值</td>
+					<td><input type="text" autoComplete="off" name="value" class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>描述</td>
+					<td>
+						<textarea name="desc" data-options="required:true" style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+
+<table id="codesTable" style="width:1100px"></table>
+
+<script>
+	$('#codesTable').datagrid({
+		url : '/common/codes/admin/list?filter_S_relObjectId=0&filter_S_app_key=0',
+		toolbar : '#codesSearchForm',
+		pagination : true,
+		singleSelect : true,
+		rownumbers : true,
+		columns : [[
+			{field : 'type',title : '类型',width:200},
+			{field : 'key',title : 'Key值',width:170},
+			{field : 'value',title : 'Value值',width:200},
+			{field : 'desc',title : '描述',width:200},
+			{field : 'operate',title : '操作',width:250,
+				formatter : function(value, row, index) {
+						return outPutFunction("editCodes",row.id,"编辑")+outPutFunction("freezeCodes",row.id,"删除");
+				}
+			} 
+		]]
+	});
+
+	function editCodes(uid) {
+		$.get("/common/codes/getCodes/"+uid, function(data) {
+			$('#add_codes').window('open');
+			$("#adminCodesForm").form('load',data);
+		});
+	}
+
+	function freezeCodes(uid) {
+		$.messager.confirm('数据字典管理',"确定要删除吗?",function(r){
+			 if (r){   
+			jQuery.post("/common/codes/delete/"+uid, {}, function(data) {
+				if (data == '1') {
+					$("#codesTable").datagrid('reload');
+				} else {
+					$.messager.alert('Info', "删除失败", 'info');
+				}
+			});
+			 }
+		})
+	}
+
+	$('#adminCodesForm').form({
+		success : function(data) {
+			$('#add_codes').window('close');
+			var str='success';
+			if (data==str) {
+				$("#codesTable").datagrid('reload');
+				$(".easyui-validatebox").val('');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>
+

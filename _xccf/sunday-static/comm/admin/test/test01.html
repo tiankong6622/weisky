@@ -1,0 +1,36 @@
+这个测试01...
+
+<div style="margin: 10px 0;"></div>
+
+<table id="admintest01" style="width:1100px"></table>
+
+<script>
+	$('#admintest01').datagrid({
+		url : '/test/students',
+		pagination : true,
+		singleSelect : true,
+		rownumbers : true,
+		columns : [[
+
+			{field : 'id',title : '编号',width:130},
+			{field : 'name',title : '姓名',width:130},
+			{field : 'sex',title : '性别',width:140},
+			{field : 'age',title : '年龄',width:140},
+			{field : 'hobby',title : '爱好',width:140},
+			{field : 'stuNumber',title : '学号',width:140},
+			{field : 'operate',title : '操作',width:170,
+				formatter : function(value, row, index) {
+						return outPutFunction("update",row.id,"编辑")+outPutFunction("delete",row.id,"删除");
+				}
+			} 
+		]]
+	});
+
+	function update(uid) {
+		$.get("/admin/menu/getMenu/"+uid, function(data) {
+			$('#add_menu').window('open');
+			$("#adminMenuForm").form('load',data);
+		});
+	}
+</script>
+

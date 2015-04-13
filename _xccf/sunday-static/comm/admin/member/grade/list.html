@@ -1,0 +1,238 @@
+<div style="margin:10px 0;"></div>
+	<div id="memberGradeSearchForm" style="padding:5px;height:auto">
+		<div style="margin-bottom:5px">
+			<a href="#" onclick="openInputAndClearForm('add_memberGrade','memberGradeForm')" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增会员等级</a>
+		</div>
+		<div>
+			<form id="queryMemberGradeForm">
+				等级名称:<input class="easyui-validatebox" name="filter_S_name" style="width:100px">
+				<a href="javascript:doSearchObject('memberGradeTable','queryMemberGradeForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+			</form>
+		</div>
+	</div>
+	
+	
+	<div id="add_memberGrade" class="easyui-window" title="会员等级管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px;height:230px;padding:10px;">
+		<div style="padding:10px 0 10px 60px">
+	    <form id="memberGradeForm" method="post" action="/member/grade/save">
+	    <input  name="id"   id="id" type="hidden"  />
+	    	<table>
+	    		<tr>
+					<td>等级名称:</td>
+					<td><input  name="name" autoComplete="off"  id="roleName" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+				</tr>
+				<tr>
+					<td>描述:</td>
+					<td>
+						<textarea name="desc" class="easyui-validatebox"  style="width:230px;height:70px;"></textarea>
+					</td>
+				</tr>
+	    		<tr>
+	                <td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+	            </tr>
+	    	</table>
+	    </form>
+	    </div>
+	</div>
+	
+	<div id="chose_memberGrade" class="easyui-window" title="会员等级模板管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px;height:230px;padding:10px;">
+		<div style="padding:10px 0 10px 120px">
+	    <form id="memberMoudleForm" method="post" >
+	    <input  name="gradeid"   id="gradeid" type="hidden"  />
+	    <input  name="moduleId"   id="moduleId" type="hidden" />
+	    <input  name="moudleids"   id="moudleids" type="hidden"  />
+	    	<table>
+	    		<tr>
+					<td>模板一:</td> 
+					<td><input type="checkbox" name="moudleid"  value="1" ></input></td>
+				</tr>
+				<tr>
+					<td>模板二:</td>
+					<td>
+						<input type="checkbox" name="moudleid" value="2"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>模板三:</td>
+					<td>
+						<input type="checkbox" name="moudleid" value="3"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>模板四:</td>
+					<td>
+						<input type="checkbox" name="moudleid" value="4"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>模板五:</td>
+					<td>
+						<input type="checkbox" name="moudleid" value="5"></input>
+					</td>
+				</tr>
+	    		<tr>
+	            	<td colspan="2">
+	            		<input type="button" value="提交" onclick="checkModule();"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+	            </tr>
+	    	</table>
+	    </form>
+	    </div>
+	</div>
+
+
+
+	<div class="easyui-layout" style="width:1100px;height:550px;">
+		<div data-options="region:'east',split:true" title="分配权限" style="width:200px;">
+			<ul id="memberGradeTree" class="easyui-tree" data-options="animate:true,checkbox:true"></ul>
+			<br/>
+			<a href="javascript:void(0)" id='mgrade' class="easyui-linkbutton"  style="display:none">确定</a> 
+		</div>
+		<div data-options="region:'center',title:'权限管理'">
+		
+		<table id="memberGradeTable" ></table>
+		
+<script>				
+	$('#memberGradeTable').datagrid({   
+		url:'/member/grade/list',   
+		toolbar: '#memberGradeSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		columns:[[  
+		      	{field:'id',title:'ID',width:100},
+				{field:'name',title:'名称',width:220},
+				{field:'desc',title:'描述',width:230},
+				{
+					field:'operate',title:'操作',width:250,
+					formatter: function(value,row,index){
+						 var ophtml = outPutFunction("editGrade",row.id,"编辑")+outPutFunction("freezeGrade",row.id,"删除")+'[<a href="javascript:doCheckedRelPermission('+row.id+')">分配功能权限</a>]';
+						 if(typeof row.name!='undefined' && row.name!=null && row.name!='采购商'){
+								ophtml=ophtml+'[<a href="javascript:doCheckedModule('+row.id+','+row.moduleId+')">分配模板</a>]';
+							}
+						 return ophtml;
+				}
+			}
+		]]
+	});
+					
+	function editGrade(id){
+		$.get("/member/grade/getMemberGrade/"+id,function(data){
+			$('#add_memberGrade').window('open');
+			$('#memberGradeForm').form('load',data);
+		});
+	}
+	//设置模板
+	function doCheckedModule(id){
+		$("[name='moudleid']").removeAttr("checked");//取消选中的 
+		$.get("/member/grade/getMemberGrade/"+id,function(data){
+			$('#chose_memberGrade').window('open');
+			$('#gradeid').val(id);
+			$('#memberMoudleForm').form('load',data);
+			var arr=new Array();
+			var modus = $('#moduleId').val();
+			arr=modus.split(',');
+			if(arr != ''){
+				$('input[name="moudleid"]').each(function(){    
+					for(var i=0;i<arr.length;i++){
+						if(arr[i] == $(this).val()){
+							//如果已设置就选中
+							$(this).attr("checked","checked"); 
+						}
+					}
+				});
+			}
+		});
+	}
+	
+		    
+	function checkModule(){  //jquery获取复选框值     
+		var chk_value =[];    
+		$('input[name="moudleid"]:checked').each(function(){    
+		 chk_value.push($(this).val());     
+		});
+		if(chk_value.length==0){
+			$.messager.alert('info',"你还没有选择任何模板！",'info');
+			return;
+		}
+		$('#moudleids').val(chk_value);
+		$('#memberMoudleForm').attr("action","/member/grade/updateModuleId");
+		$('#memberMoudleForm').submit();
+	}    				
+	$('#memberMoudleForm').form({
+		success:function(data){
+			if(data =="success"){
+				$('#chose_memberGrade').window('close');
+				$("#memberGradeTable").datagrid('reload'); 
+				$(".easyui-validatebox").val('');
+			}else{
+				$.messager.alert('Info', "失败", 'info');
+			}
+		}
+	});			
+	function freezeGrade(id){
+		$.messager.confirm('等级管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/member/grade/delete/"+id,{},function(data){
+					if(data=='1'){
+						$("#memberGradeTable").datagrid('reload'); 
+					}else{
+						$.messager.alert('Info', "删除失败", 'info');	
+					}
+				});
+			}
+		});
+	}
+					
+	$('#memberGradeForm').form({
+		success:function(data){
+			if(data =="success"){
+				$('#add_memberGrade').window('close');
+				$("#memberGradeTable").datagrid('reload'); 
+				$(".easyui-validatebox").val('');
+			}else{
+				$.messager.alert('Info', "失败", 'info');
+			}
+		}
+	});			
+</script>
+					
+<script>
+	var _current_member_grade_id = null;
+
+	function doCheckedRelPermission(_id){
+		_current_member_grade_id=_id;
+		$('#memberGradeTree').tree({
+			url:'/member/grade/getGradePermission/'+_id,
+			onlyLeafCheck:true
+		}); 
+		$("#mgrade").show();
+		$('#mgrade').unbind("click")
+		$("#mgrade").click(function(){
+			doRelRolePermission();
+		})
+	}
+
+	function doRelRolePermission(){
+		var nodes = $('#memberGradeTree').tree('getChecked');
+		var s = '';
+		for(var i=0; i<nodes.length; i++){
+			if (s != '') s += ',';
+				s += nodes[i].id;
+		}
+		jQuery.post("/member/grade/setGradePermission",{level:_current_member_grade_id,permissionIds:s},function(data){
+			if(data=='success'){
+				$.messager.alert('Info', "成功", 'info');
+			}else{
+				$.messager.alert('Info', "失败", 'info');
+			}
+		});
+	}
+</script>
+	</div>
+</div>

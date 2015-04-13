@@ -1,0 +1,145 @@
+<div style="margin: 10px 0;"></div>
+	<div id="configTemplateSearchForm" style="padding:5px;height:auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="openInputAndClearForm('add_configtemplate','adminConfigTemplateForm')" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增配置参数</a>
+	</div>
+	<div>
+		<form id="queryConfigTemplateForm">
+			value值:<input class="easyui-validatebox" name="filter_S_value" style="width:100px">
+			key:<input class="easyui-validatebox" name="filter_S_key" style="width:100px">
+			<a href="javascript:doSearchObject('configTemplateTable','queryConfigTemplateForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+<div id="add_configtemplate" class="easyui-window" title="参数配置管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px; height: 380px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminConfigTemplateForm" method="post" action="/config/param/admin/save">
+			<input name="id" type="hidden" />
+			<table>
+				<tr>
+					<td>类型</td>
+					<td><input type="text" autoComplete="off" name="type" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>参数类型</td>
+					<td>
+						<select name="paramType">
+							<option value="">--请选择--</option>
+							<option value="TYPE_INPUT">文本框</option>
+							<option value="TYPE_TEXTAREA">文本区</option>
+							<option value="TYPE_CHECKBOX">复选框</option>
+							<option value="TYPE_SINGLE_CHECKBOX">单选框</option>
+							<option value="TYPE_RADIO">单选按钮</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Key值</td>
+					<td><input type="text" autoComplete="off" name="key" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>value值</td>
+					<td><input type="text" autoComplete="off" name="value" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>扩展值</td>
+					<td><textarea name="extendField"   style="width:230px;height:50px;"></textarea></td>
+				</tr>
+				<tr>
+					<td>描述</td>
+					<td>
+						<textarea name="desc" data-options="required:true" style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+
+<table id="configTemplateTable" style="width:1110px"></table>
+
+<script>
+	$('#configTemplateTable').datagrid({
+		url : '/config/param/admin/list?filter_S_relObjectId=0&filter_S_app_key=0',
+		toolbar : '#configTemplateSearchForm',
+		pagination : true,
+		singleSelect : true,
+		rownumbers : true,
+		columns : [[
+			{field : 'type',title : '参数key',width:130},
+			{field : 'paramType',title : '参数类型',width:170,
+				formatter : function(value, row, index) {
+					if(row.paramType){
+						if(row.paramType=='TYPE_INPUT'){
+							return '文本框';
+						}else if(row.paramType=='TYPE_TEXTAREA'){
+							return '文本域';
+						}else if(row.paramType=='TYPE_CHECKBOX'){
+							return '复选框';
+						}else if(row.paramType=='TYPE_RADIO'){
+							return '单选按钮';
+						}else if(row.paramType=='TYPE_SINGLE_CHECKBOX'){
+							return '单选框';
+						}else{
+							return '未定义';
+						}
+					}else{
+						return '未定义';
+					}
+				}
+			},
+			{field : 'key',title : 'Key值',width:170},
+			{field : 'value',title : 'Value值',width:170},
+			{field : 'desc',title : '描述',width:240},
+			{field : 'operate',title : '操作',width:150,
+				formatter : function(value, row, index) {
+						return outPutFunction("editCodes",row.id,"编辑")+outPutFunction("freezeCodes",row.id,"删除");
+				}
+			} 
+		]]
+	});
+
+	function editCodes(cid) {
+		$.get("/config/param/getConfig/"+cid, function(data) {
+			$('#add_configtemplate').window('open');
+			$("#adminConfigTemplateForm").form('load',data);
+		});
+	}
+
+	function freezeCodes(cid) {
+		$.messager.confirm('数据字典管理',"确定要删除吗?",function(r){
+			 if (r){   
+			jQuery.post("/config/param/delete/"+cid, {}, function(data) {
+				if (data == '1') {
+					$("#configTemplateTable").datagrid('reload');
+				} else {
+					$.messager.alert('Info', "删除失败", 'info');
+				}
+			});
+			 }
+		})
+	}
+
+	$('#adminConfigTemplateForm').form({
+		success : function(data) {
+			$('#add_configtemplate').window('close');
+			var str='success';
+			if (data==str) {
+				$("#configTemplateTable").datagrid('reload');
+				$(".easyui-validatebox").val('');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>
+

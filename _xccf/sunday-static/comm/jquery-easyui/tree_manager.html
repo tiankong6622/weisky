@@ -1,0 +1,57 @@
+
+<div class="easyui-layout" style="width:1000px;height:550px;">
+	<div data-options="region:'west',split:true" title="菜单管理" style="width:300px;height:500px;">
+		<div style="margin:10px 0;">
+			<a href="#" class="easyui-linkbutton" onclick="getChecked()">保存修改</a> 
+		</div>
+		<div id="editMenuDiv" class="easyui-menu" style="width:120px;">
+			<div onclick="appendMenu()" data-options="iconCls:'icon-add'">新增菜单</div>
+			<div onclick="remove()" data-options="iconCls:'icon-remove'">删除菜单</div>
+		</div>
+		<ul id="menuManagerUl" class="easyui-tree" 
+			data-options="url:'tree_data1.json',
+			animate:true,
+			checkbox:true,
+			
+			onClick: function(node){
+					if(node.id==111){
+						$('#psssss').panel('refresh', 'custompager.html');
+					}else{
+						$('#psssss').panel('refresh', 'basic.html');
+					}
+					
+			}
+			">
+		</ul>
+	</div>
+	<div id="psssss" class="easyui-panel" data-options="region:'center'" title="信息管理" style="width:600px;height:200px;padding:10px;">
+		
+	</div>
+	<script>
+		function getChecked(){
+			var nodes = $('#menuManagerUl').tree('getChecked');
+			var s = '';
+			for(var i=0; i<nodes.length; i++){
+				if (s != '') s += ',';
+				s += nodes[i].text;
+			}
+			alert(s);
+		}
+		function appendMenu(){
+			var t = $('#menuManagerUl');
+			var node = t.tree('getSelected');
+			t.tree('append', {
+				parent: (node?node.target:null),
+				data: [{
+					text: '点击修改名称'
+				}]
+			});
+		}
+
+		function remove(){
+			var node = $('#menuManagerUl').tree('getSelected');
+			$('#menuManagerUl').tree('remove', node.target);
+		}
+	</script>
+</div>
+

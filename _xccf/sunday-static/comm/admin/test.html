@@ -1,0 +1,165 @@
+<div style="margin: 10px 0;"></div>
+<div id="postSearchForm" style="padding: 5px; height: auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="$('#add_post').window('open')" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增职务</a>
+		<a href="#" onclick="cccccc()" class="easyui-linkbutton" iconCls="icon-add"  plain="true">测试在线编辑器</a>
+		<a href="#" onclick="ddddd()" class="easyui-linkbutton" iconCls="icon-add"  plain="true">loadtable</a>
+	</div>
+	<form id="queryPostForm">
+		<div>
+			职务名称: <input class="easyui-validatebox" name="filter_S_name" style="width: 100px">
+			<a href="javascript:doSearchObject('postTable','queryPostForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</div>
+	</form>
+</div>
+
+
+
+<div id="add_post" class="easyui-window" title="职务管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:620px; height: 500px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminPostForm" method="post" action="/admin/post/save">
+			<input name="id" type="hidden" />
+			<table>
+				<tr>
+					<td>名称</td>
+					<td><input type="text" name="name" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>描述</td>
+					<td>
+						<textarea name="desc" class="easyui-validatebox" data-options="required:true" style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>上传图片</td>
+					<td>
+						<input id="aaaa" name="file" type="file" multiple="true">
+					</td>
+				</tr>
+				<tr>
+					<td>选择城市</td>
+					<td>
+						<select id="qqqq" ></select>
+						<select id="wwww" ></select>
+						<select id="eeee" ></select>
+					</td>
+				</tr>
+				<tr>
+					<td>上传图片b</td>
+					<td>
+						<input id="bbbb" name="file" type="file" multiple="true">
+					</td>
+				</tr>
+				<tr>
+					<td>上传图片</td>
+					<td>
+						<input id="cccc" name="file" type="file" multiple="true">
+					</td>
+				</tr>
+				<tr>
+					<td>职务级别</td>
+					<td><input type="text" name="level" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<div id="bbb-ddd" class="easyui-window" title="测试在线编辑器" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:920px; height: 450px; padding: 10px;">
+	<iframe src="#"  id="asdfasdfasdflkjljlk"    marginwidth="0" marginheight="0"   width="0" 
+			height="0"    frameborder="0" scrolling="no"     allowtransparency="true"></iframe>
+			
+</div>
+
+<div id="dddddddd" class="easyui-window" title="测试load表格" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:920px; height: 450px; padding: 10px;">
+	
+			
+</div>
+
+<table id="postTable" style="width: 800px"></table>
+
+<script>
+	$('#postTable').datagrid({
+		url : '/admin/post/list',
+		toolbar : '#postSearchForm',
+		pagination : true,
+		singleSelect : true,
+		rownumbers : true,
+		columns : [[
+			{field : 'name',title : '名称',width:250},
+			{field : 'desc',title : '描述',width:250},
+			{field : 'operate',title : '操作',width:265,
+				formatter : function(value, row, index) {
+						return outPutFunction("editPost",row.id,"编辑")+outPutFunction("freezePost",row.id,"删除")+outPutFunction("ddddd",row.id,"参数配置");
+				}
+			} 
+		]]
+	});
+
+	 doInitCitySelect("qqqq","wwww","eeee");
+	//编辑时候用这个
+	//doInitCitySelect("qqqq","wwww","eeee",6,76,693);
+	// initUploadifys("aaaa",true,5,'10M');
+	 initUploadifys("bbbb",true,5,'10M');
+	 initUploadifys("cccc",true,5,'10M');
+	
+	function ddddd(catid){
+		$("#dddddddd").dialog({   
+			 closed: false,   
+			 cache: false,   
+			 title:"类目参数配置",
+			 href: "/admin/test3.html?catId=catid",   
+		     width:800,
+			 modal: true  
+		});  
+	}
+	
+	function editPost(uid) {
+		$.get("/admin/post/getPost/"+uid, function(data) {
+			$('#add_post').window('open');
+			$("#adminPostForm").form('load',data);
+		});
+	}
+
+	function freezePost(uid) {
+		$.messager.confirm('职务管理',"确定要删除吗?",function(){
+			jQuery.post("/admin/post/delete/"+uid, {}, function(data) {
+				if (data == '1') {
+					$("#postTable").datagrid('reload');
+				} else {
+					$.messager.alert('Info', "删除失败", 'info');
+				}
+			});
+		})
+	}
+
+	$('#adminPostForm').form({
+		success : function(data) {
+			$('#add_post').window('close');
+			var str = 'success';
+			if (data == str) {
+				$("#postTable").datagrid('reload');
+				$(".easyui-validatebox").val('');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+			console.log( initUploadifys("bbbb",true,5,'10M'));
+		}
+	});
+
+	function cccccc(id){
+		$("#asdfasdfasdflkjljlk").attr("src","/admin/test2.html");
+		$("#asdfasdfasdflkjljlk").attr("width","900px");
+		$("#asdfasdfasdflkjljlk").attr("height","500px");
+		$('#bbb-ddd').window('open');
+	}
+
+</script>
+

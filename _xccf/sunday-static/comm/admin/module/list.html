@@ -1,0 +1,98 @@
+<div style="margin:10px 0;"></div>
+	<div id="moduleSearchForm" style="padding:5px;height:auto">
+		<div style="margin-bottom:5px">
+			<a href="#"  onclick="openInputAndClearForm('add_module','adminModuleForm')"  class="easyui-linkbutton" iconCls="icon-add" plain="true">新增功能模块</a>
+		</div>
+	<div>
+		<form id="queryModuleForm">
+			模块名称:<input class="easyui-validatebox" name="filter_S_name" style="width:100px">
+			<a href="javascript:doSearchObject('moduleTable','queryModuleForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+	
+	
+<div id="add_module" class="easyui-window" title="模块管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:400px;height:300px;padding:10px;">
+	<div style="padding:10px 0 10px 60px">
+	   <form id="adminModuleForm" method="post" action="/admin/module/save">
+	   <input  name="id" type="hidden"  />
+	    <table>
+	    	<tr>
+				<td>模块名称:</td>
+				<td><input  name="name" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>描述:</td>
+				<td>
+					<textarea name="desc" class="easyui-validatebox"   style="width:230px;height:50px;"></textarea>
+				</td>
+			</tr>
+	    	<tr>
+	            <td>&nbsp;</td>
+	            <td>
+	            	<input type="submit" value="提交"></input>
+	            	<input type="reset" value="重置" ></input>
+	           	</td>
+	        </tr>
+	   </table>
+	  </form>
+	 </div>
+</div>
+	
+	
+<table id="moduleTable" style="width:1000px"></table>
+
+<script>
+	$("#moduleTable").datagrid({
+		url:'/admin/module/list',   
+		toolbar: '#moduleSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		columns:[[ 
+		           {field:'name',title:'名称',width:250},
+		           {field:'desc',title:'描述',width:350},
+		           {field:'operate',title:'操作',width:320,
+		        		formatter:function(value,row,index){
+		        			return outPutFunction("editModule",row.id,"编辑")+outPutFunction("freezeModule",row.id,"删除");
+		        		}   
+		           },
+		     ]]  
+	});
+	
+	
+	function editModule(mid){
+		$.post("/admin/module/getModule/"+mid,function(data){
+			$("#add_module").window('open');
+			$("#adminModuleForm").form('load',data);
+		});
+	}
+	
+	function freezeModule(mid){
+		$.messager.confirm('模块管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/admin/module/delete/"+mid,{},function(data){
+		    		if(data=='1'){
+						$("#moduleTable").datagrid('reload'); 
+					}else{
+						$.messager.alert('Info', "删除失败", 'info');
+					}
+		    	});
+			}
+		});
+	}
+	
+
+	$("#adminModuleForm").form({
+		success:function(data){
+			var str = "success";
+			$("#add_module").window('close');
+			if(data==str){
+				$("#moduleTable").datagrid('reload'); 
+		    	$(".easyui-validatebox").val('');
+			}else{
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>

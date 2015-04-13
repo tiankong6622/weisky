@@ -1,0 +1,95 @@
+<div style="margin: 10px 0;"></div>
+	<div id="forbiddenwordsSearchForm" style="padding:5px;height:auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="openInputAndClearForm('add_forbiddenwords','adminForbiddenWordsForm')" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增违禁词</a>
+	</div>
+	<div>
+		<form id="queryForbiddenWordsForm">
+			关键词:<input class="easyui-validatebox" name="filter_S_word" style="width:100px">
+			<a href="javascript:doSearchObject('forbiddenwordsTable','queryForbiddenWordsForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+
+<div id="add_forbiddenwords" class="easyui-window" title="违禁词管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px; height: 300px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminForbiddenWordsForm" method="post" action="/common/forbiddenwords/admin/save">
+			<input name="id" type="hidden" />
+			<table>
+				<tr>
+					<td>关键词</td>
+					<td><input type="text" autoComplete="off" name="word" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>优先级</td>
+					<td><input type="text" autoComplete="off" name="sort" class="easyui-validatebox" type="text" data-options="required:true,validType:'number'"></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+
+<table id="forbiddenwordsTable" style="width:1100px"></table>
+
+<script>
+	$('#forbiddenwordsTable').datagrid({
+		url : '/common/forbiddenwords/admin/list?filter_S_relObjectId=0&filter_S_app_key=0',
+		toolbar : '#forbiddenwordsSearchForm',
+		pagination : true,
+		singleSelect : true,
+		rownumbers : true,
+		columns : [[
+			{field : 'word',title : '关键词',width:450},
+			{field : 'sort',title : '优先级',width:450},
+			{field : 'operate',title : '操作',width:200,
+				formatter : function(value, row, index) {
+						return outPutFunction("editForbiddenWords",row.id,"编辑")+outPutFunction("freezeForbiddenWords",row.id,"删除");
+				}
+			} 
+		]]
+	});
+
+	function editForbiddenWords(uid) {
+		$.get("/common/forbiddenwords/getForbiddenWords/"+uid, function(data) {
+			$('#add_forbiddenwords').window('open');
+			$("#adminForbiddenWordsForm").form('load',data);
+		});
+	}
+	
+	function freezeForbiddenWords(uid) {
+		$.messager.confirm('违禁词管理',"确定要删除吗?",function(r){
+			 if (r){   
+			jQuery.post("/common/forbiddenwords/delete/"+uid, {}, function(data) {
+				if (data == '1') {
+					$("#forbiddenwordsTable").datagrid('reload');
+				} else {
+					$.messager.alert('Info', "删除失败", 'info');
+				}
+			});
+			 }
+		})
+	}
+
+	$('#adminForbiddenWordsForm').form({
+		success : function(data) {
+			$('#add_forbiddenwords').window('close');
+			var str='success';
+			if (data==str) {
+				$("#forbiddenwordsTable").datagrid('reload');
+				$(".easyui-validatebox").val('');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>
+

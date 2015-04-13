@@ -1,0 +1,159 @@
+<div style="margin: 10px 0;"></div>
+<div id="codesConfigAddDiv" style="padding: 5px; height: auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="addCodesConfig()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增字典配置项</a>
+	</div>
+</div>
+
+<div id="add_codes_config" class="easyui-window" title="字典s配置项管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:550px; height: 250px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="codesConfigForm" method="post" action="/common/codes/admin/saveCodesConfig?projectId=0">
+			<table>
+				<tr>
+					<td>字典类型</td>
+					<td><input type="text" autoComplete="off"  id="zidiankey" name="type" class="easyui-validatebox" type="text"  style="width:250px"  data-options="required:true"></td>
+				</tr>
+				<tr>
+				<td>&nbsp;</td>
+				<td > (请输入英文,不可有重复的类型 字典类型一经保存,不可修改)</td></tr>
+				<tr>
+					<td>字典名称</td>
+					<td><input type="text" autoComplete="off" name="name" class="easyui-validatebox" type="text"  style="width:250px"  data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<div id="add_codes_div" class="easyui-window" title="数据字典管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px; height: 300px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminCodesForm2" method="post" action="/common/codes/admin/save">
+			<input name="id" type="hidden" />
+			<table>
+				<tr>
+					<td>类型</td>
+					<td><input type="text"  id="zidianleixin" autoComplete="off" name="type" class="easyui-validatebox"   readonly  data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>Key值</td>
+					<td><input type="text" autoComplete="off" name="key" class="easyui-validatebox"  data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>Value值</td>
+					<td><input type="text" autoComplete="off" name="value" class="easyui-validatebox" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>描述</td>
+					<td>
+						<textarea name="desc"   style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<table id="codesConfigTable" style="width:1000px"></table>
+
+<script>
+	
+	$('#codesConfigTable').treegrid({
+		url : '/common/codes/tree?projectId=0',
+		toolbar : '#codesConfigAddDiv',
+		idField: 'id',
+		treeField: 'value',
+		columns : [[
+			{field : 'value',title : '字典项',width:350},
+			{field : 'type',title : '字典类型',width:180},
+			{field : 'key',title : '字典key',width:200},
+			{field : 'operate',title : '操作',width:200,
+				formatter : function(value, row, index) {
+						if(row.root){
+							return"[<a href='javascript:editCodesConfig(\""+row.type+"\")'>编辑</a>][<a href='javascript:doAddConfigCodes(\""+row.type+"\")'>新增字典项</a>]";
+						}else{
+							return outPutFunction("doEditCodesConfig",row.id,"编辑")+outPutFunction("deleteConfCodes",row.id,"删除");
+						}
+				}
+			} 
+		]]
+	});
+	
+	function addCodesConfig(){
+		clearInputForm("codesConfigForm");
+		$("#zidiankey").attr("readonly",false);
+		$('#add_codes_config').window('open');
+	}
+	
+	function editCodesConfig(_type){
+		$.get("/common/codes/codesConfig?projectId=0&type="+_type, function(data) {
+			$("#zidiankey").attr("readonly",true);
+			clearInputForm("codesConfigForm");
+			$("#codesConfigForm").form('load',data);
+			$('#add_codes_config').window('open');
+		});
+	}
+
+	
+	function doAddConfigCodes(_type){
+		openInputAndClearForm('add_codes_div','adminCodesForm2');
+		$("#zidianleixin").val(_type);
+	}
+	
+	function doEditCodesConfig(uid) {
+		$.get("/common/codes/getCodes/"+uid, function(data) {
+			$("#adminCodesForm2").form('load',data);
+			$('#add_codes_div').window('open');
+		});
+	}
+	
+	function deleteConfCodes(uid) {
+		$.messager.confirm('数据字典管理',"确定要删除吗?",function(r){
+			 if (r){   
+				jQuery.post("/common/codes/delete/"+uid, {}, function(data) {
+					if (data == '1') {
+						$("#codesConfigTable").treegrid('reload');
+					} else {
+						$.messager.alert('Info', "删除失败", 'info');
+					}
+				});
+			 }
+		})
+	}
+	
+	$('#codesConfigForm').form({
+		success : function(data) {
+			if (data=='success') {
+				$('#add_codes_config').window('close');
+				$("#codesConfigTable").treegrid('reload');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+	
+
+	$('#adminCodesForm2').form({
+		success : function(data) {
+			if (data=='success') {
+				$('#add_codes_div').window('close');
+				$("#codesConfigTable").treegrid('reload');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>

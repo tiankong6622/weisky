@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configs>
+	<config key="staticRoot">http://static.sunday-xccf.com</config>
+	<config key="imageRoot">http://static.sunday-xccf-img.com</config>
+	<config key="webPath">http://admin.sunday-xccf.com</config>
+	<config key="fileUploadPath">D:/uploadfile</config>
+	<config key="fileUploadTmpPath">D:/uploadfile/tmp</config>
+	<config key="excelFileUploadPath">${excel.file.upload.path}</config>
+	<config key="countKey">total</config>
+	<config key="rows">rows</config>
+	<config key="pageNoKey">page</config>
+	<config key="pageSizeKey">rows</config>
+	<config key="loginUrl">/admin/login</config>
+	<config key="defaultDomain">${default.domain}</config>
+	<config key="fileRoot">${file.root}</config>
+	<config key="logPath">D:/test.log</config>
+	<config key="yzmPath">/yzm</config>
+</configs>

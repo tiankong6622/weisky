@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* css 初始化 */
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p, a,img,ul, li, form, label, table, tr, td { margin:0; padding:0; border:0; outline:0; font-size:100%;}
+ol, ul { list-style:none; }
+
+body { font-size:12px; font-family:'宋体',Arial, Helvetica, sans-serif; color:#000; line-height:24px;}
+input { font-family:Arial,Helvetica,sans-serif; vertical-align:middle; }
+a { color:#333; text-decoration: none; outline:medium none; }
+
+/*后台运营管理登录*/
+.body { width:1200px; margin:0 auto;}
+.header { width:1200px; padding-top:60px; margin:0 auto;}
+.login_con { width:775px; margin:85px auto 0; overflow:auto;}
+.login_l { width:297px; float:left; padding-top:30px;}
+.login_r { float:left; margin-left:80px; width:228px;}
+.login_r p { margin-top:5px; overflow:auto;}
+.login_r p.forget span { float:left;}
+.login_r p.forget a { float:right; color:#71797e;}
+.login_r p.login_y input { float:left;}
+.login_r p.login_y img { float:left; padding:8px 0 0 8px;}
+.login_r p.login_y a { float:left; padding:5px 0 0 8px; color:#71797e;}
+.login_r p.login_btn { margin-top:15px;}
+
+
+
+
+
+
+
+
+
+
+
+

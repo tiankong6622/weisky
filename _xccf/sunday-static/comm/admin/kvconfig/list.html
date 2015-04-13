@@ -1,0 +1,103 @@
+<div style="margin: 10px 0;"></div>
+	<div id="kvConfigSearchForm" style="padding:5px;height:auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="openInputAndClearForm('add_kvConfig','adminKvConfigForm')" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增配置参数</a>
+	</div>
+	<div>
+		<form id="queryKvConfigForm">
+			value值:<input class="easyui-validatebox" name="filter_S_value" style="width:100px">
+			key:<input class="easyui-validatebox" name="filter_S_key" style="width:100px">
+			<a href="javascript:doSearchObject('kvConfigTable','queryKvConfigForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+
+<div id="add_kvConfig" class="easyui-window" title="配置信息管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px; height: 300px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminKvConfigForm" method="post" action="/common/kvconfig/save">
+			<input name="id" type="hidden" />
+			<table>
+				<tr>
+					<td>Key值</td>
+					<td><input type="text" autoComplete="off" name="key" class="easyui-validatebox" type="text" data-options="required:true" onblur="check()"></td>
+				</tr>
+				<tr>
+					<td>Value值</td>
+					<td><input type="text" autoComplete="off" name="value" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>描述</td>
+					<td>
+						<textarea name="desc" data-options="required:true" style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+
+<table id="kvConfigTable" class="easyui-datagrid" style="width:1050px"></table>
+
+<script>
+
+	$('#kvConfigTable').datagrid({
+		url : '/common/kvconfig/admin/list?appKey=0',
+		toolbar : '#kvConfigSearchForm',
+		singleSelect : true,
+		rownumbers : true,
+		columns : [[
+			{field : 'key',title : 'Key值',width:260},
+			{field : 'value',title : 'Value值',width:320},
+			{field : 'desc',title : '描述',width:260},
+			{field : 'operate',title : '操作',width:100,
+				formatter : function(value, row, index) {
+						return outPutFunction("editConfig",row.id,"编辑")+outPutFunction("freezeConfig",row.id,"删除");
+				}
+			} 
+		]]
+	});
+
+	function editConfig(cid) {
+		$.get("/common/kvconfig/getConfig/"+cid, function(data) {
+			$('#add_kvConfig').window('open');
+			$("#adminKvConfigForm").form('load',data);
+		});
+	}
+
+	function freezeConfig(cid) {
+		$.messager.confirm('配置信息管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/common/kvconfig/delete/"+cid, {}, function(data) {
+					if (data == 'success') {
+						$("#kvConfigTable").datagrid('reload');
+					} else {
+						$.messager.alert('Info', "删除失败", 'info');
+					}
+				});
+			}
+		});
+	}
+
+	$('#adminKvConfigForm').form({
+		success : function(data) {
+			if(data=='fail') {
+				$.messager.alert('Info', "添加失败", 'info');
+			}else{
+				$('#add_kvConfig').window('close');
+				$("#kvConfigTable").datagrid('reload');
+				$(".easyui-validatebox").val('');
+		
+			}
+		}
+	});
+</script>
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://static.o2o2m.com/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="http://static.o2o2m.com/oldAdmin/floatDiv.js"></script>
+<title>测试异步上传</title>
+
+<script>
+	var currentXXX = null;
+	function  doAsynUpload(domId){
+		currentXXX = domId;
+		floadDivToMiddle("woxxxx");
+	}
+	
+	function reSetImageFile(imgUrl){
+		//到时候把 http://image.yisheng-media.com/aaa 换成velocity 的 $!{imageRoot}
+		$("#image_"+currentXXX).attr("src","http://image.yisheng-media.com/aaa"+imgUrl);
+		$("#aaa_"+currentXXX).val(imgUrl);
+		hidenFloatDiv("woxxxx");
+	}
+</script>
+</head>
+
+
+<body>
+	<img id="image_1_2" src="http://www.baidu.com/img/bdlogo.gif"  width="30px"  height="30px" />
+	<input type="hidden"  id="aaa_1_2"  name="aa_1" value="http://www.baidu.com/img/bdlogo.gif" />
+	<a href="javascript:doAsynUpload('1_2')">点击换图片</a>
+	<br/>
+	<img id="image_1_3" src="http://www.baidu.com/img/bdlogo.gif"  width="30px"  height="30px" />
+	<input type="hidden"  id="aaa_1_3"  name="aa_1" value="http://www.baidu.com/img/bdlogo.gif" />
+	<a href="javascript:doAsynUpload('1_3')">点击换图片</a>
+	
+	<div id="woxxxx"  style="border:4px solid #E8E8E8;position:absolute;z-index:6000;background:#fff;margin-top:10px;display:none;width:300px;height:100px;">
+		<iframe src="/singleAsnyUpload"  frameborder=0/>
+	</div>
+</body>
+
+</html>

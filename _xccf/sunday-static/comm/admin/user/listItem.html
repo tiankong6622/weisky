@@ -1,0 +1,90 @@
+   <div style="margin:10px 0;"></div>
+	<div id="userSearchForm" style="padding:5px;height:auto">
+		<div style="margin-bottom:5px">
+			<a href="javascript:newUser()" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+		</div>
+		<div>
+			用户名:  <input class="easyui-validatebox" id="adminuser_userName" style="width:100px">
+			最后登入时间: <input class="easyui-datebox" id="adminuser_startTime"  style="width:80px">
+			To: <input class="easyui-datebox"  id="adminuser_endTime"  style="width:80px">
+			<a href="javascript:doSearchUsers()" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+		</div>
+	</div>
+	<table id="userTable" style="width:900px"></table>
+	<script>
+		$('#userTable').datagrid({   
+			url:'/admin/user/list',   
+			toolbar: '#userSearchForm',
+			pagination:true,
+			singleSelect:true,
+			rownumbers:true,
+			columns:[[   
+				{field:'id',title:'用户ID',width:80},
+				{field:'userName',title:'用户名',width:100},
+				{field:'name',title:'姓名',width:100},
+				{field:'email',title:'姓名',width:120},
+				{
+					field:'type',title:'类型',width:60,
+					formatter: function(value,row,index){
+						if(row && row.type){
+							return row.type==1?"超级":"普通";
+						}
+					}
+				},
+				{
+					field:'status',title:'状态',width:60,
+					formatter: function(value,row,index){
+						if(row && row.status){
+							return row.type==1?"有效":"冻结";
+						}
+					}
+					
+				},
+				{field:'loginTime',title:'最后登入时间',width:120},
+				{field:'loginip',title:'最后登入IP',width:120},
+				{
+					field:'operate',title:'操作',width:100,
+					formatter: function(value,row,index){
+							return '[<a href="javascript:editUser('+row.id+')">编辑</a>][<a href="freezeUser('+row.id+')">冻结</a>]';
+					}
+				}
+			]],
+		});
+
+		function doSearchUsers(){
+			 var queryParams = $('#userTable').datagrid('options').queryParams; 
+			 $('#userTable').datagrid('options').queryParams=queryParams;
+			 $("#userTable").datagrid('reload'); 
+		}
+		function newUser(){ 
+			$('#userEditDialog').dialog({  
+				title: '用户管理',  
+				width: 400,  
+				height: 200,  
+				closed: false,  
+				cache: false,  
+				iconCls:'icon-save',
+				href: '/admin/user/input.html',  
+				modal: true  
+			}); 
+        }  
+		
+		function editUser(uid){
+			$.get("/admin/user/getUser/"+uid,function(data){
+				newUser();
+				doBindAdminUserForm(data);
+			});
+		}
+		//为什么要这样做 因为dialog是个异步加载过程 div还没加载完 就load不到form 所以搞个定时延时 编辑的时候才能绑定form
+		function doBindAdminUserForm(_adminUserRow){
+			if($('#userEditForm').size()==0){
+				setTimeout(function() {
+					doBindAdminUserForm(_adminUserRow);
+				}, 500);
+			}else{
+				$('#userEditForm').form('load',_adminUserRow);
+			}
+		}
+	</script>
+
+	<div id="userEditDialog"></div>

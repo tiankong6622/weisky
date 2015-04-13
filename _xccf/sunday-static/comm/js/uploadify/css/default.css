@@ -1,0 +1,98 @@
+/* -----------------------------------------------
+    ������upload�ϴ���������ʽ
+    ���ߣ�mmcai(ʰ����)
+    �¼���2014-1-9
+----------------------------------------------- */
+.progressWrapper { float: left; margin: 0 10px 5px 0; overflow: hidden; }
+
+.progressContainer { position: relative; width: 285px; margin: 5px 0 0 0; padding: 5px; height: 40px; border-radius: 2px; background-color: #E6ECF5; font-size: 12px; overflow: hidden; *zoom: 1; }
+
+/*������������״̬���ɹ���ʧ�ܡ�һ��*/
+.progressInfo { }
+.progressError { background-color: #F8E9E9; }
+.progressError .progressName { color: #c00; }
+.progressError .progressBarStatus { color: #c00; }
+.progressError a.progressDel:hover, .progressError a.progressCancel:hover { color: #fff; background-color: #DF9C9C; text-decoration: underline; }
+.progressSuccess { }
+
+
+.progressName, .progressBarStatus, .progressBarInProgress { display: block; margin: 0 0 3px 40px; }
+.progressName { width: 195px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: #666; text-align: left; }
+.progressBarStatus { float: left; margin: -2px 0 0 9px; line-height: 1.2em; white-space: nowrap; color: #3d882d; }
+.progressStatusInfo { margin: 0px 0 0 9px; color: #c0c0c0; }
+.progressSize { float: left; margin: 0px 0 0 9px; display: none; color: #b0b0b0; line-height: 1.2em; }
+.progressRate { float: left; margin: -3px 0px 0 5px; color: #b0b0b0; }
+.progressBarInProgress { float: left; width: 100px; height: 8px; padding: 1px; margin-left: 9px; border: 1px solid #ABABAB; background: #ffffff; }
+.progressBarInner { display: block; height: 100%; width: 0%; background: #74C655; }
+.progresshide { display: none; }
+/*ȡ���ϴ���ť*/
+.progressDel, .progressCancel { display: block; padding: 3px 4px; border-radius: 2px; position: absolute; top: 3px; right: 8px; line-height: 1.2em; color: #547EBB; }
+a.progressDel:hover, a.progressCancel:hover { color: #fff; background-color: #0088CC; text-decoration: underline; }
+.progressDel { display: none; }
+
+.progressLook { display: block; padding: 3px 4px; border-radius: 2px; position: absolute; top: 30px; right: 8px; line-height: 1.2em; color: #547EBB; }
+a.progressLook:hover { color: #fff; background-color: #0088CC; text-decoration: underline; }
+.progressLook { display: none; }
+
+/* -- �ϴ�flash��ʽ ------------------------------- */
+.swfupload { vertical-align: top; margin: 3px 0 0 0; }
+
+
+/*--------�ϴ����ļ�����---------*/
+.progressTypes { float: left; display: block; width: 32px; height: 32px; margin: 3px 0 0 0; background-image: url(imgs/fileico.png); background-repeat: no-repeat; }
+.twy163 { background-position: 0 -64px; }
+.txls { background-position: -32px -64px; }
+.tdoc, .tdocx { background-position: -64px -64px; }
+.tppt, .tpptx { background-position: -96px -64px; }
+.t7z { background-position: -128px -64px; }
+.trar { background-position: -160px -64px; }
+.tzip { background-position: -192px -64px; }
+.tiso { background-position: -224px -64px; }
+.nui-ico-file32-9 { background-position: -256px -64px; }
+.thtml { background-position: -288px -64px; }
+.tjs { background-position: -320px -64px; }
+.txml, .tcss { background-position: -352px -64px; }
+.tother { background-position: -384px -64px; }
+.nui-ico-file32-14 { background-position: -416px -64px; }
+.texe { background-position: -448px -64px; }
+.tnui-ico-file32-16 { background-position: -480px -64px; }
+.tpdf { background-position: -512px -64px; }
+.tps { background-position: -544px -64px; }
+.tai { background-position: -576px -64px; }
+.tfl { background-position: -608px -64px; }
+.tswf { background-position: -640px -64px; }
+.ttxt { background-position: -672px -64px; }
+.tnui-ico-file32-23 { background-position: -704px -64px; }
+.tnui-ico-file32-24 { background-position: -736px -64px; }
+.tnui-ico-file32-25 { background-position: -768px -64px; }
+.tnui-ico-file32-26 { background-position: -800px -64px; }
+.tnui-ico-file32-27 { background-position: -832px -64px; }
+.tnui-ico-file32-28 { background-position: -864px -64px; }
+.tnui-ico-file32-29 { background-position: -896px -64px; }
+.tjpg { background-position: 0 -96px; }
+.tgif { background-position: -32px -96px; }
+.tpng { background-position: -64px -96px; }
+.tbmp { background-position: -96px -96px; }
+.ttif { background-position: -128px -96px; }
+.temf { background-position: -160px -96px; }
+.twmf { background-position: -192px -96px; }
+.tico { background-position: -224px -96px; }
+.traw { background-position: -256px -96px; }
+.tnui-ico-file32-40 { background-position: -288px -96px; }
+.tnui-ico-file32-41 { background-position: -320px -96px; }
+.tnui-ico-file32-42 { background-position: -352px -96px; }
+.tnui-ico-file32-43 { background-position: -384px -96px; }
+.tnui-ico-file32-44 { background-position: -416px -96px; }
+.tnui-ico-file32-45 { background-position: -448px -96px; }
+.tnui-ico-file32-46 { background-position: -480px -96px; }
+.tdir { background-position: -384px -96px; }
+
+/*#region �ϴ�ͼƬ�б�*/
+.uploadFileThumbnails { }
+.uploadFileThumbnails h5 { height: 24px; margin: 2px 5px; line-height: 24px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 100%; font-size: 12px; font-weight: 300; color: #08c; }
+.uploadFileThumbnails img { height: 170px; }
+.uploadTime { color: #b0b0b0; }
+/*#endregion */
+
+.upload-container{ margin: 5px;}
+.upload-container hr { margin: 2px auto;}
