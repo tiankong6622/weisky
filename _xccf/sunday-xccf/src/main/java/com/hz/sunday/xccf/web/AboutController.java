@@ -5,7 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.javafans.web.controller.BaseController;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.hz.sunday.xccf.constants.ColumnType;
 
 /**
  * 论坛介绍
@@ -23,11 +26,13 @@ public class AboutController extends BaseController {
 	 * 
 	 * @param request
 	 * @param response
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/index")
-	public String index(HttpServletRequest request, HttpServletResponse response) {
-
+	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("columnValue", ColumnType.ABOUT_TYPE);
+		
 		return "/website/about";
 	}
 

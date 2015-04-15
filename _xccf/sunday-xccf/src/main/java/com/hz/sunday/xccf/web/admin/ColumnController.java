@@ -1,4 +1,4 @@
-package com.hz.sunday.xccf.web;
+package com.hz.sunday.xccf.web.admin;
 
 import java.util.Map;
 
