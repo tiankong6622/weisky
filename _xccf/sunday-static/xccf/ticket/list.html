@@ -1,0 +1,46 @@
+<div style="margin: 10px 0;"></div>
+<!--查询条件-->
+<div id="ticketMemberSearchForm" style="padding: 5px; height: auto">
+	<div>
+		<form id="queryTicketMemberForm">
+			用户名：<input class="easyui-validatebox" name="filter_S_name" >&nbsp;&nbsp;
+			公司：<input class="easyui-validatebox" name="filter_S_company" >&nbsp;&nbsp;
+			职务：<input class="easyui-validatebox" name="filter_S_post" >&nbsp;&nbsp;
+			<a href="javascript:doSearchObject('ticketMemberTable','queryTicketMemberForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+<div id="ticket_member_info_div" class="easyui-window" title="报名管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width: 800px; height: 360px; padding: 10px;">
+	<iframe src="#" id="ticket_member_info_ifr" marginwidth="0" marginheight="0" style="width: 765px; height: 300px;" frameborder="0" scrolling="false" allowtransparency="true"></iframe>
+</div>
+
+<div class="easyui-layout" style="width: 1400px; height: 550px;">
+	<div data-options="region:'center',title:'报名信息管理'">
+		<table id="ticketMemberTable" style="width: 1380px"></table>
+	</div>
+</div>
+
+
+<!--新增数据页面-->
+<script type="text/javascript">
+	$('#ticketMemberTable').datagrid({
+		url : '/admin/ticket/list',
+		toolbar : '#ticketMemberSearchForm',
+		pagination : true,
+		singleSelect : true,
+		rownumbers : true,
+		autoRowHeight : true,
+		columns : [ [
+					{field : 'name', title : '姓名', width : 100, align : 'center'},
+					{field : 'company', title : '公司', width : 200, align : 'center'},
+					{field : 'post',title : '职务',width : 100,align : 'center'},
+					{field : 'phone', title : '手机号', width : 200, align : 'center'},
+					{field : 'goal', title : '意向', width : 300, align : 'center'}
+				] ]
+	});
+
+	
+</script>
+
+
