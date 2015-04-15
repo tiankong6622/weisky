@@ -15,4 +15,9 @@
 		<property name="sqlSessionFactory" ref="xccfSessionFactory" />
 	</bean>
 	
+	<bean id="messageNoticeMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.sunday.xccf.dao.MessageInfoMapper" />
+		<property name="sqlSessionFactory" ref="xccfSessionFactory" />
+	</bean>
+	
 </beans>

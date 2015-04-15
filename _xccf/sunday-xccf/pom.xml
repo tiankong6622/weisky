@@ -47,6 +47,11 @@
 			<artifactId>yisheng-common-data</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.hz.yisheng</groupId>
+			  <artifactId>yisheng-admin-template</artifactId>
+			  <version>1.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
