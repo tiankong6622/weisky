@@ -1,0 +1,121 @@
+#set( $layout = "/layout/web-layout.vm")
+
+<div class="wrapper">
+	<div class="leftWrapper">
+		<div class="item xwzx">
+			<h1>新闻中心</h1>
+			<div class="list">
+				<ul>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设，树开品牌飞速发展，铺进全国600个省市、地区，为了满足更多消费者更深层次的需求与答谢广大消费者的厚爱，在国庆到来之际，开开木门将拿出最好、最畅销的产品真情回馈活</div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
+						</div>
+					</li>
+				</ul>
+				<div class="moreList" onClick="getAjax()">查看更多</div>
+			</div>
+		</div>
+	</div>
+	<div class="rightWrapper">
+		<div class="panelBox data">
+			<div class="dataLine">
+				<div class="title"><span>论坛主题</span></div>
+				<div class="content">中国能继续引领世界经济增长吗？</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>时　　间</span></div>
+				<div class="content">2015.07.04-06</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>地　　点</span></div>
+				<div class="content">杭州黄龙饭店</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>论坛规模</span></div>
+				<div class="content">800-1000位高管出席</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>主 持 人</span></div>
+				<div class="content">金融教授王家卓、中央电视台主持人</div>
+			</div>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>主办单位</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo1.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo2.jpg" /></a></li>
+			</ul>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>独家承办机构</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo3.jpg" /></a></li>
+			</ul>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>特邀承办机构</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo4.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo5.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo6.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo7.jpg" /></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+	

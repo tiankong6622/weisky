@@ -1,0 +1,19 @@
+#set( $layout = "/layout/web-layout.vm")
+
+<div class="item hzmt detail">
+	<h1>合作媒体</h1>
+	<div class="list">
+		<ul>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo1.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo2.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo3.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo4.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo5.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo6.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo7.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo8.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo9.jpg" /></a></li>
+		</ul>
+	</div>
+</div>
+	

@@ -1,0 +1,33 @@
+#set( $layout = "/layout/web-layout.vm")
+
+<div class="wrapper">
+	<div class="item zzjg">
+		<h1>组织机构</h1>
+		<div class="list">
+		
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>主办单位</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo1.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo2.jpg" /></a></li>
+			</ul>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>独家承办机构</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo3.jpg" /></a></li>
+			</ul>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>特邀承办机构</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo4.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo5.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo6.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo7.jpg" /></a></li>
+			</ul>
+		</div>
+		</div>
+	</div>
+</div>
+	

@@ -1,0 +1,71 @@
+#set( $layout = "/layout/web-layout.vm")
+
+<div class="wrapper">
+	<div class="item yqjb person">
+		<h1>拟邀请嘉宾</h1>
+		<div class="list">
+			<ul>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_07.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title"><a href="NewsDetail.html">汉能控股集团董事长</a></div>
+						<div class="time">李河君</div>
+						<div class="content">全球工商联副主席全国政协委员、全国工商联新能源商会会长、汉能控股集团有限公司董事局主席兼首席执行官。据“2014《新财富》500富人榜”显示，汉能控股集团李河君以870亿元的身家首次登顶首富。2014年入围2014年度华人经济领袖。从事新能源开发的汉能集团董事局主席李河君以1600亿元人民币财富超过马云成为16年来第12位中国首富。</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_08.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title"><a href="NewsDetail.html">阿里巴巴集团董事局主席</a></div>
+						<div class="time">马云</div>
+						<div class="content">现任阿里巴巴集团董事局主席、中国雅虎董事局主席、杭州师范大学阿里巴巴商学院院长、TNC（大自然保护协会）中国理事会主席、华谊兄弟传媒集团董事、菜鸟网络董事长等职务，是中国IT企业的代表性人物。
+在福布斯中文网发布的2014中国富豪榜中，马云以195亿美元身家名列第一。</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_09.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title"><a href="NewsDetail.html">杭州哇哈哈集团董事长</a></div>
+						<div class="time">宗庆后</div>
+						<div class="content">2010年荣登胡润全球百富榜内地榜首。2012胡润全球富豪榜发布，以105亿美金位列第78名，成为“2012年中国内地首富”，也是唯一一个上榜的中国大陆富豪。</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_10.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title"><a href="NewsDetail.html">联想集团董事局名誉主席</a></div>
+						<div class="time">柳传志</div>
+						<div class="content">曾任联想控股有限公司总裁、董事局主席，2011年11月2日缷任，现任联想集团有限公司董事局名誉主席，联想集团高级顾问，企业家，投资家，泰山会成员。2000年1月被《财富》杂志评选为“亚洲最佳商业人士”。</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_11.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title"><a href="NewsDetail.html">浙江能源集团董事长</a></div>
+						<div class="time">吴国潮</div>
+						<div class="content">2014年“风云浙商”，被称为浙江最能赚钱的国有企业掌门人。浙江能源集团的企业利润连续多年在省属国有企业中排名第一。2014年亚洲最大海水加肋冷却塔在浙能集团落成，年累计投入25亿元升级改造经费，通过两个阶段真正实现旗下所有火电厂废水“零排放”、环境“零影响”，这也是单个企业在“五水共治”中最大力度的投入。</div>
+					</div>
+				</li>
+				<li>
+					<div class="pic">
+						<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_12.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title topMargin"><a href="NewsDetail.html">更多神秘嘉宾，与你分享顶级智慧</a></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+	

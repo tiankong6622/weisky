@@ -1,0 +1,44 @@
+#set( $layout = "/layout/web-layout.vm")
+
+<div class="wrapper">
+	<div class="item lxfs detail">
+		<h1>联系方式</h1>
+		<div class="list">
+			<div class="content">
+				<dl>
+					<dt>电话 · Telephone</dt>
+					<dd>
+						<ul class="type1">
+							<li>400-009-2889</li>
+						</ul>
+					</dd>
+				</dl>
+				<dl>
+					<dt>地址 · Address</dt>
+					<dd>
+						<ul class="type2">
+							<li><span>总　部：</span>浙江省杭州市拱墅区莫干山路复地北城中心19楼</li>
+							<li><span>分公司：</span>辽宁省大连市中山区中山广场民意路16号三江商务大厦10楼</li>
+						</ul>
+					</dd>
+				</dl>
+				<dl>
+					<dt>投递 · Delivery</dt>
+					<dd>
+						<ul class="type3">
+							<li>网址：www.xcf2015.com</li>
+							<li>邮箱：service@xc2015.com</li>
+							<li>熙川集团官方网站：www.xichuangroup.com</li>
+							<li>熙川商品官方网站：www.hbot005.com</li>
+							<li>熙川文化官方网站：www.xcwhfz.com</li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<div class="content">
+				<img src="${staticRoot}/xccf/images/contact.jpg" />
+			</div>
+		</div>
+	</div>
+</div>
+	

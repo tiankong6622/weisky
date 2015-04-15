@@ -1,0 +1,358 @@
+#set( $layout = "/layout/web-layout.vm")
+
+<div class="banner"><a href="#"><img src="${staticRoot}/xccf/images/banner.jpg" /></a></div>
+<div class="wrapper">
+	<div class="leftWrapper">
+		<div class="focus">
+			<div class="ProPic">
+				<div class="pic">
+				  <div class="index_ban">
+						<div id='mySwipe' class='swipe'>
+							<div class='swipe-wrap'>
+								<div><a href="javascript:void(0)"><img src="${staticRoot}/xccf/images/banner1.jpg" alt='' /></a><span>新华大宗举办“合规及投诉处理培训”会议</span></div>
+								<div><a href="javascript:void(0)"><img src="${staticRoot}/xccf/images/banner1.jpg" alt='' /></a><span>新华大宗举办“合规及投诉处理培训”会议</span></div>
+								<div><a href="javascript:void(0)"><img src="${staticRoot}/xccf/images/banner1.jpg" alt='' /></a><span>新华大宗举办“合规及投诉处理培训”会议</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item xwzx">
+			<h1>新闻中心</h1>
+			<div class="list">
+				<ul>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设，树开品牌飞速发展，铺进全国600个省市、地区，为了满足更多消费者更深层次的需求与答谢广大消费者的厚爱，在国庆到来之际，开开木门将拿出最好、最畅销的产品真情回馈活</div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
+							<div class="time">2015-03-13</div>
+							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
+						</div>
+					</li>
+				</ul>
+				<div class="moreList" onClick="window.open('news.html')">查看更多</div>
+			</div>
+		</div>
+		<div class="item hdmp">
+			<h1>如何获得门票？</h1>
+			<div class="list"><img src="${staticRoot}/xccf/images/hdmp.jpg" />
+			</div>
+		</div>
+		<div class="item ltyc">
+			<h1>论坛议程</h1>
+			<div class="list">
+				<dl>
+					<dt><span class="span74">7月4日 星期六</span></dt>
+					<dd><div class="text">佛法修福讲坛/企业品牌塑造、推广交流大会</div></dd>
+				</dl>
+				<dl>
+					<dt><span class="span75">7月5日 星期日</span></dt>
+					<dd><img src="${staticRoot}/xccf/images/ltyc.jpg" /></dd>
+				</dl>
+				<dl class="last">
+					<dt><span class="span76">7月6日 星期一</span></dt>
+					<dd><div class="text">千人企业家现场资源对接圆桌会议</div></dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<div class="rightWrapper">
+		<div class="panelBox data">
+			<div class="dataLine">
+				<div class="title"><span>论坛主题</span></div>
+				<div class="content">中国能继续引领世界经济增长吗？</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>时　　间</span></div>
+				<div class="content">2015.07.04-06</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>地　　点</span></div>
+				<div class="content">杭州黄龙饭店</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>论坛规模</span></div>
+				<div class="content">800-1000位高管出席</div>
+			</div>
+			<div class="dataLine">
+				<div class="title"><span>主 持 人</span></div>
+				<div class="content">金融教授王家卓、中央电视台主持人</div>
+			</div>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>主办单位</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo1.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo2.jpg" /></a></li>
+			</ul>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>独家承办机构</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo3.jpg" /></a></li>
+			</ul>
+		</div>
+		<div class="panelBox dataLine datap">
+			<div class="title"><span>特邀承办机构</span></div>
+			<ul>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo4.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo5.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo6.jpg" /></a></li>
+				<li><a href="#"><img src="${staticRoot}/xccf/images/comLogo7.jpg" /></a></li>
+			</ul>
+		</div>
+		<div class="item lxt guest">
+			<h1>领袖团</h1>
+			<div class="list">
+				<ul>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_01.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">德国前总统</div>
+							<div class="title"><a href="NewsDetail.html">霍斯特·克勒</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_02.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">法国前总理</div>
+							<div class="title"><a href="NewsDetail.html">让-皮埃尔·拉法兰</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_03.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">全球中小企业联盟主席</div>
+							<div class="title"><a href="NewsDetail.html">卡洛斯·马格里诺斯</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_04.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">中国前外交部部长</div>
+							<div class="title"><a href="NewsDetail.html">李肇星</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_05.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">中国银监会前主席</div>
+							<div class="title"><a href="NewsDetail.html">刘明康</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_06.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">中国前商务参赞</div>
+							<div class="title"><a href="NewsDetail.html">何伟文</a></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="item yqjb guest">
+			<h1>拟邀请嘉宾</h1>
+			<div class="list">
+				<ul>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_07.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">汉能控股集团董事长</div>
+							<div class="title"><a href="NewsDetail.html">李河君</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_08.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">阿里巴巴集团董事局主席</div>
+							<div class="title"><a href="NewsDetail.html">马云</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_09.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">杭州哇哈哈集团董事长</div>
+							<div class="title"><a href="NewsDetail.html">宗庆后</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_10.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">联想集团董事局名誉主席</div>
+							<div class="title"><a href="NewsDetail.html">柳传志</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_11.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">浙江能源集团董事长</div>
+							<div class="title"><a href="NewsDetail.html">吴国潮</a></div>
+						</div>
+					</li>
+					<li>
+						<div class="pic">
+							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_12.jpg" /></a>
+						</div>
+						<div class="nameContent">
+							<div class="content">神秘嘉宾</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="banner"><a href="#"><img src="${staticRoot}/xccf/images/banner0.jpg" /></a></div>
+<div class="item zchr person">
+	<h1>论坛总策划人</h1>
+	<div class="list">
+		<ul>
+			<li>
+				<div class="pic">
+					<a href="organiger.html"><img src="${staticRoot}/xccf/images/ceo.jpg" /></a>
+				</div>
+				<div class="nameContent">
+					<div class="title"><a href="organiger.html">柳志伟</a></div>
+					<div class="time">浙江熙川控股集团有限公司董事长</div>
+					<div class="content">全球中小企业联盟副主席，中华柳氏文化促进会总会副秘书长，浙商全国理事会主席团主席浙江爱心事业基金会“最美浙江”专项基金管理委员会主任，浙江省河北商会发起人及常务副会长，浙江熙川控股集团有限公司董事长。</div>
+				</div>
+			</li>
+			<li>
+				<div class="ProPic">
+					<div class="pic">
+					  <div class="index_ban">
+							<div id='mySlide' class='swipe'>
+								<div class='swipe-wrap'>
+									<div class="swipePanel">
+										<div class="swipeUL">
+											<div class="swipeLI">
+												<div class="pics">
+													<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_01.jpg" /></a>
+												</div>
+												<div class="pict">
+													<a href="TraineeDetail.html">2014年7月，他应邀参加第六届中国（国际）资产管理大会</a>
+												</div>
+											</div>
+											<div class="swipeLI">
+												<div class="pics">
+													<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_02.jpg" /></a>
+												</div>
+												<div class="pict">
+													<a href="TraineeDetail.html">2014年12月应邀参加全球中小企业论坛</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="swipePanel">
+										<div class="swipeUL">
+											<div class="swipeLI">
+												<div class="pics">
+													<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_03.jpg" /></a>
+												</div>
+												<div class="pict">
+													<a href="TraineeDetail.html">法国前总理理让-皮埃尔·拉法兰先生与柳志伟董事长合影</a>
+												</div>
+											</div>
+											<div class="swipeLI">
+												<div class="pics">
+													<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_01.jpg" /></a>
+												</div>
+												<div class="pict">
+													<a href="TraineeDetail.html">韩国前总统李明博先生与柳志伟董事长合影</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="swipePanel">
+										<div class="swipeUL">
+											<div class="swipeLI">
+												<div class="pics">
+													<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_01.jpg" /></a>
+												</div>
+												<div class="pict">
+													<a href="TraineeDetail.html">韩国前总统李明博先生与柳志伟董事长合影</a>
+												</div>
+											</div>
+											<div class="swipeLI">
+												<div class="pics">
+													<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_01.jpg" /></a>
+												</div>
+												<div class="pict">
+													<a href="TraineeDetail.html">韩国前总统李明博先生与柳志伟董事长合影</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="prev" onclick='mySwipe.prev()'><img src="img/Sprev.png" /></div>
+					<div class="next" onclick='mySwipe.next()'><img src="img/Snext.png" /></div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="item hzmt">
+	<h1>合作媒体</h1>
+	<div class="list">
+		<ul>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo1.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo2.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo3.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo4.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo5.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo6.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo7.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo8.jpg" /></a></li>
+			<li><a href="#"><img src="${staticRoot}/xccf/images/brandLogo9.jpg" /></a></li>
+		</ul>
+	</div>
+</div>
+

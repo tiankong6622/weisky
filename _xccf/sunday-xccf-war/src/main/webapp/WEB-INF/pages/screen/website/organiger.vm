@@ -1,0 +1,126 @@
+#set( $layout = "/layout/web-layout.vm")
+
+<div class="wrapper">
+	<div class="item zchr person block allLine detail">
+		<h1>总策划人</h1>
+		<div class="list">
+			<ul>
+				<li>
+					<div class="pic">
+						<a href="organiger.html"><img src="${staticRoot}/xccf/images/ceo.jpg" /></a>
+					</div>
+					<div class="nameContent">
+						<div class="title"><a href="organiger.html">柳志伟</a></div>
+						<div class="content">全球中小企业联盟副主席，中华柳氏文化促进会总会副秘书长，浙商全国理事会主席团主席浙江爱心事业基金会“最美浙江”专项基金管理委员会主任，浙江省河北商会发起人及常务副会长，浙江熙川控股集团有限公司董事长。</div>
+					</div>
+				</li>
+			</ul>
+		<p>1982年生，河北承德人。2006年毕业于浙江科技学院，获文学学士学位。白手起家，先后创立浙江熙川商品经营有限公司、浙江熙川文化发展有限公司、杭州昭翠科技有限公司、香港大卫模特经纪集团有限公司，真正实现了从无到有，从有到精的跨越式发展。</p><br/>
+		<p>他凭借着敏锐的市场洞察力，创立了专业的金融投资和资产配置咨询服务平台，并打造了独一无二的金融产业链“金融+珠宝首饰+文化艺术品+金融软件开发”。他凭借着多年累积的管理经验带领团队紧密围绕公司发展大局，以求真务实的工作精神和脚踏实地的工作作风逐渐将公司壮大。他以实际行动将“忠诚、专业、极致、快速”企业文化深入到每位员工心中。</p><br/>
+		<p>他始终坚持企业发展就是要培养一批狼。狼有三大特性：一是敏锐的嗅觉；二是不屈不挠、奋不顾身的进攻精神；三是群体奋斗的意识。秉承着这样的理念，他以军事化的管理模式，以发展员工的“一素质两素养”（身体素质、专业素养、知识素养）为目标，打造了一个顺应企业发展的年轻团队。</p>
+		</div>
+		<div class="video">
+			<iframe width="826" height="505" src="http://cache.tv.qq.com/qqplayerout.swf?vid=q014694zzvb" frameborder=0 allowfullscreen></iframe>
+		</div>
+		
+		<div class="threePic">
+			<div class="ProPic">
+				<div class="pic">
+				  <div class="index_ban">
+						<div id='mySlide' class='swipe'>
+							<div class='swipe-wrap'>
+								<div class="swipePanel">
+									<div class="swipeUL">
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_01.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">2014年7月，他应邀参加第六届中国（国际）资产管理大会</a>
+											</div>
+										</div>
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_02.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">2014年12月应邀参加全球中小企业论坛</a>
+											</div>
+										</div>
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_03.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">法国前总理理让-皮埃尔·拉法兰先生与柳志伟董事长合影</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="swipePanel">
+									<div class="swipeUL">
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_02.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">2014年12月应邀参加全球中小企业论坛</a>
+											</div>
+										</div>
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_03.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">法国前总理理让-皮埃尔·拉法兰先生与柳志伟董事长合影</a>
+											</div>
+										</div>
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_01.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">2014年7月，他应邀参加第六届中国（国际）资产管理大会</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="swipePanel">
+									<div class="swipeUL">
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_03.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">法国前总理理让-皮埃尔·拉法兰先生与柳志伟董事长合影</a>
+											</div>
+										</div>
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_01.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">2014年7月，他应邀参加第六届中国（国际）资产管理大会</a>
+											</div>
+										</div>
+										<div class="swipeLI">
+											<div class="pics">
+												<a href="TraineeDetail.html"><img src="${staticRoot}/xccf/images/chr_02.jpg" /></a>
+											</div>
+											<div class="pict">
+												<a href="TraineeDetail.html">2014年12月应邀参加全球中小企业论坛</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="prev" onclick='mySwipe.prev()'><img src="img/Bprev.png" /></div>
+				<div class="next" onclick='mySwipe.next()'><img src="img/Bnext.png" /></div>
+			</div>
+		</div>
+	</div>
+</div>
+

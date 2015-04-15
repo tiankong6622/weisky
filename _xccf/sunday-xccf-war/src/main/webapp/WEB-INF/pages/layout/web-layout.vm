@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta property="wb:webmaster" content="d07450928f2d3ec0" />
+<link rel="shortcup icon" href="${staticRoot}/xccf/images/icon.ico"/>
+<link rel="stylesheet" href="${staticRoot}/xccf/css/index.css" type="text/css" media="screen" />
+<title>首页</title>
+<script src="${staticRoot}/xccf/js/jquery.js"></script>
+    <!--  兼容IE8以下的HTML5 标签-->
+    <!-[if lt IE 8]>
+    <script src='${staticRoot}/xccf/js/html5.js'></script>
+    <![endif]–>
+    <!-- 每个页面都要引入的脚本 end-->
+</head>
+<body>
+	<div class="header">
+		<header class="common-header">
+			<div class="logo"><a class="logo-href" href="index.html"></a></div>
+			<div class="navPanel">
+				<div class="nav">
+					<ul class="oneUL">
+						<li class="on"><a href="index.html">首页</a></li>
+						<li><a href="about.html">论坛介绍</a></li>
+						<li><a href="news.html">新闻中心</a></li>
+						<li><a href="leader.html">顶尖领袖团</a></li>
+						<li><a href="guest.html">拟邀请嘉宾</a></li>
+						<li class="oneLI"><a href="structure.html">组织机构</a>
+							<ul>
+								<li><a href="structure.html#id=1">主办机构</a></li>
+								<li><a href="structure.html#id=2">独家承办机构</a></li>
+								<li><a href="structure.html#id=3">特邀承办机构</a></li>
+							</ul>
+						</li>
+						<li><a href="program.html">论坛日程</a></li>
+						<li><a href="cooperation.html">合作媒体</a></li>
+						<li><a href="organiger.html">总策划人</a></li>
+						<li><a href="contact.html">联系方式</a></li>
+					</ul>
+				</div>
+			</div>
+	  	</header>
+	</div>
+	
+	$screen_content
+ 
+	<div id="footer">
+		<div class="foot" style="display:none;">
+			<ul>
+				<li><a>地址：浙江省杭州市拱墅区莫干山路复地·北城中心19楼</a></li>
+				<li><a>邮编：701045</a></li>
+				<li><a>传真：88556371</a></li>
+				<li><a>咨询邮箱：bmzx@cxcyds.com</a></li>
+			</ul>
+			<ul class="rightLink">
+				<li><a href="#">关于我们</a></li>
+				<li><a href="#">版权声明</a></li>
+				<li><a href="#">联系方式</a></li>
+			</ul>
+			<p>Copyright @ 2015全球新财富论坛（杭州） - All rights reserved</p>
+		</div>
+	</div>
+	
+	<!--在线客服代码begin-->
+	<div id="floatTools" class="rides-cs">
+	  <div class="floatL">
+		<a id="aFloatTools_Show" class="btnOpen" title="查看在线客服" style="top:20px;display:block" href="javascript:void(0);">展开</a>
+		<a id="aFloatTools_Hide" class="btnCtn" title="关闭在线客服" style="top:20px;display:none" href="javascript:void(0);">收缩</a>
+	  </div>
+	  <div id="divFloatToolsView" class="floatR" style="display: none;">
+		<div class="cn">
+		  <h3 class="titZx">在线客服</h3>
+		  <ul>
+			<li><span>参会咨询</span> <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2850787623&site=qq&menu=yes"><img border="0" src="${staticRoot}/xccf/img/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+			<li><span>合作咨询</span> <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2850787623&site=qq&menu=yes"><img border="0" src="${staticRoot}/xccf/img/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+			<li style="border:none;"><span>电话：400-009-2889</span> </li>
+		  </ul>
+		</div>
+		<div class="weiPanel">
+		  <ul>
+			<li><div class="qrcode"><img src="${staticRoot}/xccf/img/qrcode_wecorp.jpg" /></div><span>全球新财富论坛<br/>微信公众号</span></li>
+			<li><div class="qrcode"><img src="${staticRoot}/xccf/img/qrcode_weboss.jpg" /></div><span>董事长柳志伟<br/>微信公众平台</span></li>
+		  </ul>
+		</div>
+	  </div>
+	</div>
+	<script>
+		$(function(){
+			$("#aFloatTools_Show").click(function(){
+				$('#divFloatToolsView').animate({width:'show',opacity:'show'},100,function(){$('#divFloatToolsView').show();});
+				$('#aFloatTools_Show').hide();
+				$('#aFloatTools_Hide').show();				
+			});
+			$("#aFloatTools_Hide").click(function(){
+				$('#divFloatToolsView').animate({width:'hide', opacity:'hide'},100,function(){$('#divFloatToolsView').hide();});
+				$('#aFloatTools_Show').show();
+				$('#aFloatTools_Hide').hide();	
+			});
+		});
+	</script>
+	<!--在线客服代码end-->
+	
+	<script type="text/javascript" src="js/swipe.js"></script>
+	<script type="text/javascript">
+		var slide = document.getElementById('mySlide');
+		window.mySwipe = Swipe(slide, {auto : 3000});         /*自动轮播*/
+	</script>
+</body>
+</html>
+
