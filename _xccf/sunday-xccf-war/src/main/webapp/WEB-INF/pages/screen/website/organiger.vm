@@ -117,8 +117,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="prev" onclick='mySwipe.prev()'><img src="img/Bprev.png" /></div>
-				<div class="next" onclick='mySwipe.next()'><img src="img/Bnext.png" /></div>
+				<div class="prev" onclick='mySwipe.prev()'><img src="${staticRoot}/xccf/img/Bprev.png" /></div>
+				<div class="next" onclick='mySwipe.next()'><img src="${staticRoot}/xccf/img/Bnext.png" /></div>
 			</div>
 		</div>
 	</div>

@@ -6,7 +6,19 @@
 <meta property="wb:webmaster" content="d07450928f2d3ec0" />
 <link rel="shortcup icon" href="${staticRoot}/xccf/images/icon.ico"/>
 <link rel="stylesheet" href="${staticRoot}/xccf/css/index.css" type="text/css" media="screen" />
-<title>首页</title>
+<title>
+	#if($!{columnValue} == 0)首页
+	#elseif($!{columnValue} == 1)论坛介绍
+	#elseif($!{columnValue} == 2)新闻中心
+	#elseif($!{columnValue} == 3)顶尖领袖团
+	#elseif($!{columnValue} == 4)拟邀请嘉宾
+	#elseif($!{columnValue} == 5)组织机构
+	#elseif($!{columnValue} == 6)论坛日程
+	#elseif($!{columnValue} == 7)合作媒体
+	#elseif($!{columnValue} == 8)总策划人
+	#elseif($!{columnValue} == 9)联系方式
+	#end
+</title>
 <script src="${staticRoot}/xccf/js/jquery.js"></script>
     <!--  兼容IE8以下的HTML5 标签-->
     <!-[if lt IE 8]>
@@ -21,22 +33,22 @@
 			<div class="navPanel">
 				<div class="nav">
 					<ul class="oneUL">
-						<li class="on"><a href="index.html">首页</a></li>
-						<li><a href="about.html">论坛介绍</a></li>
-						<li><a href="news.html">新闻中心</a></li>
-						<li><a href="leader.html">顶尖领袖团</a></li>
-						<li><a href="guest.html">拟邀请嘉宾</a></li>
-						<li class="oneLI"><a href="structure.html">组织机构</a>
+						<li #if($!{columnValue} == 0) class="on" #end ><a href="/xccf/index">首页</a></li>
+						<li #if($!{columnValue} == 1) class="on" #end ><a href="/xccf/about/index">论坛介绍</a></li>
+						<li #if($!{columnValue} == 2) class="on" #end ><a href="/xccf/news/index">新闻中心</a></li>
+						<li #if($!{columnValue} == 3) class="on" #end ><a href="/xccf/leader/index">顶尖领袖团</a></li>
+						<li #if($!{columnValue} == 4) class="on" #end ><a href="/xccf/guest/index">拟邀请嘉宾</a></li>
+						<li class="oneLI #if($!{columnValue} == 5) on #end"><a href="/xccf/structure/index">组织机构</a>
 							<ul>
 								<li><a href="structure.html#id=1">主办机构</a></li>
 								<li><a href="structure.html#id=2">独家承办机构</a></li>
 								<li><a href="structure.html#id=3">特邀承办机构</a></li>
 							</ul>
 						</li>
-						<li><a href="program.html">论坛日程</a></li>
-						<li><a href="cooperation.html">合作媒体</a></li>
-						<li><a href="organiger.html">总策划人</a></li>
-						<li><a href="contact.html">联系方式</a></li>
+						<li #if($!{columnValue} == 6) class="on" #end ><a href="/xccf/program/index">论坛日程</a></li>
+						<li #if($!{columnValue} == 7) class="on" #end ><a href="/xccf/cooperation/index">合作媒体</a></li>
+						<li #if($!{columnValue} == 8) class="on" #end ><a href="/xccf/organiger/index">总策划人</a></li>
+						<li #if($!{columnValue} == 9) class="on" #end ><a href="/xccf/contact/index">联系方式</a></li>
 					</ul>
 				</div>
 			</div>
@@ -101,7 +113,7 @@
 	</script>
 	<!--在线客服代码end-->
 	
-	<script type="text/javascript" src="js/swipe.js"></script>
+	<script type="text/javascript" src="${staticRoot}/xccf/js/swipe.js"></script>
 	<script type="text/javascript">
 		var slide = document.getElementById('mySlide');
 		window.mySwipe = Swipe(slide, {auto : 3000});         /*自动轮播*/

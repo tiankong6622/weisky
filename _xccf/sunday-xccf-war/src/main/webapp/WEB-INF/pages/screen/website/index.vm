@@ -332,8 +332,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="prev" onclick='mySwipe.prev()'><img src="img/Sprev.png" /></div>
-					<div class="next" onclick='mySwipe.next()'><img src="img/Snext.png" /></div>
+					<div class="prev" onclick='mySwipe.prev()'><img src="${staticRoot}/xccf/img/Sprev.png" /></div>
+					<div class="next" onclick='mySwipe.next()'><img src="${staticRoot}/xccf/img/Snext.png" /></div>
 				</div>
 			</li>
 		</ul>
