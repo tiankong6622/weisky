@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.sunday.xccf.dao.TicketMemberMapper">
+
+	<resultMap id="ticketMemberBeanMap" type="com.hz.sunday.xccf.orm.TicketMemberBean">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="company" column="company" />
+		<result property="post" column="post" />
+		<result property="phone" column="phone" />
+		<result property="goal" column="goal" />
+		<result property="make" column="make" />
+	</resultMap>
+
+	<sql id="TICKET_MEMBER_SQL">
+		name,company,post,phone,goal,make
+	</sql>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.hz.sunday.xccf.orm.TicketMemberBean"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		ticket_member(
+		<include refid="TICKET_MEMBER_SQL" />
+		)VALUES(#{name},#{company},#{post},#{phone},#{goal},#{make})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.hz.sunday.xccf.orm.TicketMemberBean">
+		update ticket_member set id=#{id}
+		<if test="name != null">
+		    <![CDATA[ ,name= #{name}]]>
+		</if>
+		<if test="company != null">
+		    <![CDATA[ ,company = #{company}]]>
+		</if>
+		<if test="post != null">
+		    <![CDATA[ ,post = #{post}]]>
+		</if>
+		<if test="phone != null">
+		    <![CDATA[ ,phone = #{phone}]]>
+		</if>
+		<if test="goal != null">
+		    <![CDATA[ ,goal = #{goal}]]>
+		</if>
+		<if test="make != null">
+		    <![CDATA[ ,make = #{make}]]>
+		</if>
+		where id =#{id}
+	</update>
+
+	<!-- 获取客户分页数据 -->
+	<select id="findAll" parameterType="java.util.HashMap"
+		resultMap="ticketMemberBeanMap">
+		select id,
+		<include refid="TICKET_MEMBER_SQL" />
+		from ticket_member
+		<where>
+			1=1
+			<if test="name != null and name != ''">
+				<![CDATA[ and name like CONCAT('%',#{name},'%')]]>
+			</if>
+			<if test="company != null and company != ''">
+				<![CDATA[ and company like CONCAT('%',#{company},'%')]]>
+			</if>
+			<if test="post != null and post != ''">
+				<![CDATA[ and post like CONCAT('%',#{post},'%')]]>
+			</if>
+		</where>
+		<if test="rowStart != null and pageSize != null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+
+	<!-- 获取客户记录总条数 -->
+	<select id="findCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Long">
+		select COUNT(*) FROM ticket_member
+		<where>
+			1=1
+			<if test="name != null and name != ''">
+				<![CDATA[ and name like CONCAT('%',#{name},'%')]]>
+			</if>
+			<if test="company != null and company != ''">
+				<![CDATA[ and company like CONCAT('%',#{company},'%')]]>
+			</if>
+			<if test="post != null and post != ''">
+				<![CDATA[ and post like CONCAT('%',#{post},'%')]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据ID，获取客户信息 -->
+	<select id="findById" resultMap="ticketMemberBeanMap">
+		select id,
+		<include refid="TICKET_MEMBER_SQL" />
+		from ticket_member
+		where id=#{id}
+	</select>
+
+</mapper>
+	

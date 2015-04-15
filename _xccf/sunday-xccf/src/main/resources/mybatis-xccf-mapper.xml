@@ -20,4 +20,9 @@
 		<property name="sqlSessionFactory" ref="xccfSessionFactory" />
 	</bean>
 	
+	<bean id="ticketMemberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hz.sunday.xccf.dao.TicketMemberMapper" />
+		<property name="sqlSessionFactory" ref="xccfSessionFactory" />
+	</bean>
+	
 </beans>
