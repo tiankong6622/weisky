@@ -115,6 +115,8 @@
 	
 	<script type="text/javascript" src="${staticRoot}/xccf/js/swipe.js"></script>
 	<script type="text/javascript">
+		var elem = document.getElementById('mySwipe');
+		window.mySwipe = Swipe(elem, {auto : 3000});         /*自动轮播*/
 		var slide = document.getElementById('mySlide');
 		window.mySwipe = Swipe(slide, {auto : 3000});         /*自动轮播*/
 	</script>
