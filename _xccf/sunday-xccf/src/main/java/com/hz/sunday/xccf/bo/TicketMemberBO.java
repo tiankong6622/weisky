@@ -47,38 +47,12 @@ public class TicketMemberBO {
 	}
 
 	/**
-	 * 根据ID，获取报名信息
-	 */
-	public TicketMemberBean findById(Long id) {
-		return ticketMemberMapper.findById(id);
-	}
-
-	/**
 	 * 新增报名信息
 	 * 
 	 * @param ticket
 	 */
 	public void insert(TicketMemberBean ticket) {
 		ticketMemberMapper.insert(ticket);
-	}
-
-	/**
-	 * 更新报名信息
-	 * 
-	 * @param ticket
-	 */
-	public void update(TicketMemberBean ticket) {
-		ticketMemberMapper.update(ticket);
-
-	}
-
-	/**
-	 * 根据ID，删除报名信息
-	 * 
-	 * @param id
-	 */
-	public void deleteById(Long id) {
-		ticketMemberMapper.deleteById(id);
 	}
 
 }

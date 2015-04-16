@@ -13,15 +13,11 @@ import org.javafans.web.controller.BaseController;
 import org.javafans.web.springmvc.controller.WebControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hz.sunday.xccf.bo.TicketMemberBO;
 import com.hz.sunday.xccf.orm.TicketMemberBean;
-import com.hz.yisheng.commondata.constants.DialogMode;
 
 /**
  * 报名管理
@@ -52,31 +48,9 @@ public class TicketMemberController extends BaseController {
 	}
 
 	/**
-	 * 跳转新增、编辑页面
-	 * 
-	 * @param mode
-	 * @param id
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/{mode}/dispatch")
-	public String dispatch(@PathVariable String mode,
-			@RequestParam(required = false) Long id, Model model) {
-		model.addAttribute("mode", mode);
-		if (DialogMode.EDIT_MODE.equals(mode)) {
-			model.addAttribute("column", ticketMemberBO.findById(id));
-		} else if (DialogMode.VIEW_MODE.equals(mode)) {
-			model.addAttribute("column", ticketMemberBO.findById(id));
-			return "/column/viewColumn";
-		}
-		return "/column/columnDlg";
-	}
-
-	/**
 	 * 新增
 	 * 
 	 * @param ticketMemberBean
-	 * @param logos
 	 * @param request
 	 * @param response
 	 */
@@ -92,43 +66,5 @@ public class TicketMemberController extends BaseController {
 		}
 	}
 
-	/**
-	 * 更新
-	 * 
-	 * @param ticketMemberBean
-	 * @param logos
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping("/update")
-	public void update(@ModelAttribute TicketMemberBean ticketMemberBean,
-			HttpServletRequest request, HttpServletResponse response) {
-		try {
-			ticketMemberBO.update(ticketMemberBean);
-			JSONUtils.objToJSON(response, 1);
-		} catch (Exception e) {
-			e.printStackTrace();
-			JSONUtils.objToJSON(response, 0);
-		}
-	}
-
-	/**
-	 * 根据ID，删除信息
-	 * 
-	 * @param id
-	 * @param response
-	 * @param model
-	 */
-	@RequestMapping("/deleteById/{id}")
-	public void deleteById(@PathVariable("id") Long id,
-			HttpServletResponse response, Model model) {
-		try {
-			ticketMemberBO.deleteById(id);
-			JSONUtils.objToJSON(response, 1);
-		} catch (Exception e) {
-			e.printStackTrace();
-			JSONUtils.objToJSON(response, 0);
-		}
-	}
 
 }
