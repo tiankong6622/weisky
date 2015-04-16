@@ -32,6 +32,7 @@ CREATE TABLE `ticket_member` (
   `post` varchar(16) NOT NULL COMMENT '职务',
   `phone` varchar(11) NOT NULL COMMENT '手机',
   `goal` varchar(64) NOT NULL COMMENT '意向',
-  `make` varchar(648) NOT NULL COMMENT '预留字段',
+  `number` int(20) NOT NULL COMMENT '人数',
+  `make` varchar(648) default NULL COMMENT '预留字段',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='获取门票的人员信息';

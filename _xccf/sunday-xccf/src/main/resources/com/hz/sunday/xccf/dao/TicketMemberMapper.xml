@@ -9,11 +9,12 @@
 		<result property="post" column="post" />
 		<result property="phone" column="phone" />
 		<result property="goal" column="goal" />
+		<result property="number" column="number" />
 		<result property="make" column="make" />
 	</resultMap>
 
 	<sql id="TICKET_MEMBER_SQL">
-		name,company,post,phone,goal,make
+		name,company,post,phone,goal,number,make
 	</sql>
 
 	<!-- 新增 -->
@@ -22,7 +23,7 @@
 		insert into
 		ticket_member(
 		<include refid="TICKET_MEMBER_SQL" />
-		)VALUES(#{name},#{company},#{post},#{phone},#{goal},#{make})
+		)VALUES(#{name},#{company},#{post},#{phone},#{goal},#{number},#{make})
 	</insert>
 
 	<!-- 更新 -->
@@ -42,6 +43,9 @@
 		</if>
 		<if test="goal != null">
 		    <![CDATA[ ,goal = #{goal}]]>
+		</if>
+		<if test="number != null">
+		    <![CDATA[ ,number = #{number}]]>
 		</if>
 		<if test="make != null">
 		    <![CDATA[ ,make = #{make}]]>

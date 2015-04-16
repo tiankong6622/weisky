@@ -23,6 +23,8 @@ public class TicketMemberBean extends BaseAdminEntity {
 	private String phone;
 	/** 意向 */
 	private String goal;
+	/** 人数*/
+	private Integer number;
 	/** 预留字段 */
 	private String make;
 
@@ -64,6 +66,14 @@ public class TicketMemberBean extends BaseAdminEntity {
 
 	public void setGoal(String goal) {
 		this.goal = goal;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 	public String getMake() {
