@@ -1,7 +1,7 @@
 #set( $layout = "/layout/web-layout.vm")
 
 <div class="banner"><a href="#"><img src="${staticRoot}/xccf/images/banner.jpg" /></a></div>
-<div class="wrapper">
+<div class="wrapper">   
 	<div class="leftWrapper">
 		<div class="focus">
 			<div class="ProPic">
