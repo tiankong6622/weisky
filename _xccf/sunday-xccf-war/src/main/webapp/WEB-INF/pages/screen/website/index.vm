@@ -1,5 +1,36 @@
 #set( $layout = "/layout/web-layout.vm")
 
+<script>
+function doRegister(){
+	var name = $("#userName").val();
+	var company = $("#company").val();
+	var post = $("#post").val();
+	var phone = $("#phone").val();
+	var number = $("#number").val();
+	
+	var obj = document.getElementsByName('goal');
+	var goal = "";
+	for(var i=0; i<obj.length; i++){    
+		if(obj[i].checked) {
+			goal += obj[i].value + ",";  //如果选中，将value添加到变量s中    
+		}
+	}   
+	
+	if(jQuery.trim(name)=="" ||  jQuery.trim(company)=="" || jQuery.trim(post)=="" || jQuery.trim(phone)=="" || jQuery.trim(number)=="" || jQuery.trim(goal)==""){
+		alert("姓名，公司，职务，手机，您的意向，人数都是必填项~");
+		return;
+	}
+	jQuery.post("/admin/ticket/add",{name:name,company:company,post:post,phone:phone,number:number,goal:goal},function(data){
+		if (data == "1") {
+			alert("信息提交成功~");
+			window.location.href = "/xccf/index"
+		} else {
+			alert("信息提交失败~");
+		}
+	});
+}
+</script>
+
 <div class="banner"><a href="#"><img src="${staticRoot}/xccf/images/banner.jpg" /></a></div>
 <div class="wrapper">   
 	<div class="leftWrapper">
@@ -58,7 +89,19 @@
 		</div>
 		<div class="item hdmp">
 			<h1>如何获得门票？</h1>
-			<div class="list"><img src="${staticRoot}/xccf/images/hdmp.jpg" />
+			<div class="list" style="background:url(${staticRoot}/xccf/images/hdmp.jpg) no-repeat center 0;width: 680px;height: 395px;">
+				<input id="userName" name="name" class="easyui-validatebox" data-options="required:true" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 29px;"/>
+				<input id="company" name="company" class="easyui-validatebox" data-options="required:true" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 9px;"/>
+				<input id="post" name="post" class="easyui-validatebox" data-options="required:true" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 9px;"/>
+				<input id="phone" name="phone" class="easyui-validatebox" data-options="required:true,validType:'mobile'" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 9px;"/>
+				<input type="checkbox" name="goal" value="报名参加论坛" style="margin-left: 396px;margin-top: 49px; width: 22px;height: 15px;"/>
+				<input type="checkbox" name="goal" value="我想要加盟这个项目" style="margin-left: 91px; width: 22px;height: 15px;"/>
+				<input type="checkbox" name="goal" value="借助这个平台推广自己的产品" style="margin-left: 396px;margin-top: 10px; width: 22px;height: 15px;"/>
+				<input type="checkbox" name="goal" value="其他" style="margin-left: 169px; width: 22px;height: 15px;"/>
+				<input id="number" name="number" class="easyui-validatebox" data-options="required:true,validType:'number'" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 5px;"/>
+				<a href="javascript:doRegister()">
+					<img src="${staticRoot}/xccf/img/btn_submit.png" style="margin-left: 449px; margin-top: 24px;"/>
+				</a>
 			</div>
 		</div>
 		<div class="item ltyc">
