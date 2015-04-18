@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hz.sunday.xccf.dao.MessageInfoMapper">
-	<resultMap type="com.hz.sunday.xccf.orm.MessageInfo" id="MessageInfo_RESULT">
-		<id property="id" column="id"/>
+
+	<resultMap id="messageInfoMap" type="com.hz.sunday.xccf.orm.MessageInfo">
+		<id property="id" column="id" />
 		<result property="title" column="title" />
 		<result property="subhead" column="subhead" />
 		<result property="summary" column="summary" />
 		<result property="comment" column="comment" />
 		<result property="mtype" column="m_type" />
 		<result property="creator" column="creator" />
-	    <result property="createTime" column="create_time" />
-	    <result property="updater" column="updater" />
-	    <result property="updateTime" column="update_time" />
-	    <result property="reource" column="reource" />
-	    <result property="actionTime" column="action_time" />
-	    <result property="actionTime2" column="action_time2" />
-	    <result property="actionAddr" column="action_addr" />
+		<result property="createTime" column="create_time" />
+		<result property="updater" column="updater" />
+		<result property="updateTime" column="update_time" />
+		<result property="reource" column="reource" />
+		<result property="actionTime" column="action_time" />
+		<result property="actionTime2" column="action_time2" />
+		<result property="actionAddr" column="action_addr" />
 	</resultMap>
-	
-	<sql id="MessageInfo_SQL">
+
+	<sql id="MESSAGE_INFO_SQL">
 		title,subhead,summary,comment,m_type,creator,create_time,updater,update_time,reource,action_time,action_addr,action_time2
 	</sql>
-	
-	<insert id="insert" parameterType="com.hz.sunday.xccf.orm.MessageInfo" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
-		insert into message_info(<include refid="MessageInfo_SQL"/>) 
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.hz.sunday.xccf.orm.MessageInfo"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into message_info(
+		<include refid="MESSAGE_INFO_SQL" />
+		)
 		values(#{title},#{subhead},#{summary},#{comment},#{mtype},#{creator},NOW(),#{updater},NOW(),#{reource},
 		#{actionTime},#{actionAddr},#{actionTime})
 	</insert>
-	
+
+	<!-- 更新 -->
 	<update id="update" parameterType="com.hz.sunday.xccf.orm.MessageInfo">
 		update message_info set update_time = NOW()
 		<if test=" title !=null and title != ''">
@@ -62,85 +68,77 @@
 		</if>
 		where id= #{id}
 	</update>
-	
+
+	<!-- 根据ID，删除一条数据 -->
 	<delete id="delete" parameterType="java.util.List">
-		delete from message_info where id = #{id}
+		delete from message_info where
+		id = #{id}
 	</delete>
-	
-	<select id="getCount" parameterType="java.util.HashMap" resultType="Long">
+
+	<!-- 获取总记录数 -->
+	<select id="getCount" parameterType="java.util.HashMap"
+		resultType="Long">
 		select count(id) from message_info
 		<where>
-			<if test=" mobile !=null and mobile != ''">
-				<![CDATA[ and mobile =#{mobile}]]>
-			</if>
-			<if test=" passw !=null and passw != ''">
-				<![CDATA[ and passw =#{passw}]]>
-			</if>
-			<if test=" email !=null and email != ''">
-				<![CDATA[ and email =#{email}]]>
-			</if>
-			<if test=" ctype !=null and ctype != ''">
-				<![CDATA[ and ctype =#{ctype}]]>
-			</if>
-			<if test=" comment !=null and comment != ''">
-				<![CDATA[ and comment =#{comment}]]>
-			</if>
-			<if test=" updater !=null and updater != ''">
-				<![CDATA[ and updater =#{updater}]]>
-			</if>
-			<if test=" actionTime !=null and actionTime != ''">
-				<![CDATA[ and action_time =#{actionTime}]]>
-			</if>
-			<if test=" actionTime2 !=null and actionTime2 != ''">
-				<![CDATA[ and action_time2 =#{actionTime2}]]>
-			</if>
-			<if test=" actionAddr !=null and actionAddr != ''">
-				<![CDATA[ and action_addr =#{actionAddr}]]>
-			</if>
-		</where>
-	</select>
-	
-	<select id="getList" parameterType="java.util.HashMap" resultMap="MessageInfo_RESULT">
-		select id,<include refid="MessageInfo_SQL"/> from message_info
-		<where>
 			<if test=" title !=null and title != ''">
-				<![CDATA[ and title =#{title}]]>
-			</if>
-			<if test=" subhead !=null and subhead != ''">
-				<![CDATA[ and subhead =#{subhead}]]>
-			</if>
-			<if test=" summary !=null and summary != ''">
-				<![CDATA[ and summary =#{summary}]]>
-			</if>
-			<if test=" comment !=null and comment != ''">
-				<![CDATA[ and comment =#{comment}]]>
+				<![CDATA[ and title like CONCAT('%',#{title},'%')]]>
 			</if>
 			<if test=" mtype !=null and mtype != ''">
 				<![CDATA[ and m_type =#{mtype}]]>
 			</if>
 			<if test=" actionTime !=null and actionTime != ''">
-				<![CDATA[ and action_time =#{actionTime}]]>
+				<![CDATA[ and action_time = #{actionTime}]]>
 			</if>
-			<if test=" actionTime2 !=null and actionTime2 != ''">
-				<![CDATA[ and action_time2 =#{actionTime2}]]>
-			</if>
-			<if test=" actionAddr !=null and actionAddr != ''">
-				<![CDATA[ and action_addr =#{actionAddr}]]>
+			<if test=" startTime !=null and startTime != ''">
+				<![CDATA[ and DATE_FORMAT(action_time, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
 			</if>
 		</where>
-		order by id desc
+	</select>
+
+	<!-- 获取分页数据 -->
+	<select id="getList" parameterType="java.util.HashMap"
+		resultMap="messageInfoMap">
+		select id,
+		<include refid="MESSAGE_INFO_SQL" />
+		from message_info
+		<where>
+			<if test=" title !=null and title != ''">
+				<![CDATA[ and title like CONCAT('%',#{title},'%')]]>
+			</if>
+			<if test=" mtype !=null and mtype != ''">
+				<![CDATA[ and m_type =#{mtype}]]>
+			</if>
+			<if test=" actionTime !=null and actionTime != ''">
+				<![CDATA[ and action_time = #{actionTime}]]>
+			</if>
+			<if test=" startTime !=null and startTime != ''">
+				<![CDATA[ and DATE_FORMAT(action_time, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+			</if>
+		</where>
+		<if test="menuType == null">
+			order by create_time DESC
+		</if>
+		<if test=" menuType !=null and menuType != ''">
+			order by action_time ASC
+		</if>
 		<if test="rowStart!=null and pageSize!=null">
 			<![CDATA[limit #{rowStart},#{pageSize}]]>
 		</if>
 	</select>
-	
-	<select id="getSingleDetail" parameterType="Long" resultMap="MessageInfo_RESULT">
-		select id,<include refid="MessageInfo_SQL"/> from message_info where id=#{id}
+
+	<!-- 根据ID，获取一条数据 -->
+	<select id="getSingleDetail" parameterType="Long" resultMap="messageInfoMap">
+		select id,
+		<include refid="MESSAGE_INFO_SQL" />
+		from message_info where id=#{id}
 	</select>
-	
-	<select id="getByMtype" parameterType="int" resultMap="MessageInfo_RESULT">
-		select id,<include refid="MessageInfo_SQL"/> from message_info where m_type=#{mtype} order by id desc
+
+	<!-- 根据消息类型，获取数据 -->
+	<select id="getByMtype" parameterType="int" resultMap="messageInfoMap">
+		select id,
+		<include refid="MESSAGE_INFO_SQL" />
+		from message_info where m_type=#{mtype} order by id desc
 	</select>
-	
-	
+
+
 </mapper>

@@ -1,15 +1,10 @@
 package com.hz.sunday.xccf.web.admin;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
-import org.javafans.dto.page.PageQueryUtils;
-import org.javafans.web.AjaxUtils;
-import org.javafans.web.JsonPageUtils;
 import org.javafans.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,121 +19,67 @@ import com.hz.yisheng.commondata.bo.AttachementBO;
 import com.hz.yisheng.commondata.orm.Attachement;
 
 /**
- * 新闻、通知公告、相关资料
- * @author WeiSky
- *
+ * 信息管理
+ * 
+ * @author huanglei
+ * @date 2015年4月18日
+ * @version V1.0
  */
 @Controller
-@RequestMapping("/admin/messinfo")
+@RequestMapping("/admin/msgInfo")
 public class MessageInfoController extends BaseController{
+	
+	/** 轮番页面*/
+	private static final String TURN_PAGE = "/xccf/news/lunbo-img";
 	
 	@Autowired
 	private MessageInfoBO messageInfoBO;
 	@Autowired
 	private AttachementBO attachementBO;
-
-	/**
-	 * 信息列表
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping("/list")
-	public void getList(HttpServletRequest request, HttpServletResponse response){
-		Map<String,Object> param = PageQueryUtils.preparePage(request);
-		List<MessageInfo> list = messageInfoBO.getList(param);
-		Long count = messageInfoBO.getCount(param);
-		JsonPageUtils.renderJsonPage(count, list, response);
-	}
 	
 	/**
-	 * 保存
-	 * @param request
-	 * @param response
-	 * @param customer
-	 */
-	@RequestMapping("/save")
-	public String save(@RequestParam(value="files", required=false) CommonsMultipartFile achmentFiles, 
-			@RequestParam(value="toUrl",required=false) String toUrl,Model model,
-			HttpServletRequest request, HttpServletResponse response, MessageInfo messageNotice){
-		try{
-			
-			if(messageNotice.getId() != null){
-				messageInfoBO.update(messageNotice);
-			}else{
-				messageInfoBO.insert(messageNotice);
-			}
-			
-			//对附件的操作
-			if(achmentFiles != null){
-				List<Attachement> files = attachementBO.prepareAttachement(achmentFiles);
-				if(files != null && files.size() > 0){
-					for(Attachement a : files){
-						a.setType("messnoti" + messageNotice.getMtype());//设置附件类型
-						a.setObjId(String.valueOf(messageNotice.getId()));//设置附件所属项目的id
-					}
-					attachementBO.batchIn(files);
-				}
-			}
-			model.addAttribute("message", "success");//保存成功
-		}catch(Exception e){
-			e.printStackTrace();
-			model.addAttribute("message", "failed");//保存失败
-		}
-		if(!StringUtils.isBlank(toUrl)){
-			return "/xccf/messinfo/" + toUrl;
-		}else{
-			return "/xccf/messinfo/admin-single-detail";
-		}
-	}
-	
-	/**
-	 * 获取单条信息
-	 * @return
-	 */
-	@RequestMapping("/getSingleDetail")
-	public String getSingleDetail(@RequestParam("id") Long id, @RequestParam(value="toUrl",required=false) String toUrl, 
-			Model model, HttpServletRequest request, HttpServletResponse response){
-		MessageInfo mn = messageInfoBO.getSingleDetail(id);
-		if(mn != null){
-			String mtype = "messnoti" + mn.getMtype();
-			List<Attachement> list = attachementBO.findBy(String.valueOf(id), mtype);
-			model.addAttribute("mnattach", list);
-			model.addAttribute("messnoti", mn);
-		}
-		if(!StringUtils.isBlank(toUrl)){
-			return "/xccf/messinfo/" + toUrl;
-		}else{
-			return "/xccf/messinfo/admin-single-detail";
-		}
-	}
-	
-	/**
-	 * 删除
-	 * @param id
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping("/delete")
-	public void delete(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response){
-		try{
-			messageInfoBO.delete(id);
-			AjaxUtils.renderText(response, "1");//删除成功
-		}catch (Exception e) {
-			e.printStackTrace();
-			AjaxUtils.renderText(response, "0");//删除失败
-		}
-	}
-	
-	/**
-	 * 前端轮播的图片
-	 * @param achmentFiles
+	 * 跳转轮番图片新增页面
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@RequestMapping("/toLunBoPage")
-	public String toLunBoPage(HttpServletRequest request, HttpServletResponse response){
-		return "/xccf/messinfo/lunbo-img";
+	public String toLunBoPage(HttpServletRequest request, HttpServletResponse response) {
+		return TURN_PAGE;
 	}
 	
+	/**
+	 * 保存
+	 * 
+	 * @param achmentFiles
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @param messageInfo
+	 * @return
+	 */
+	@RequestMapping("/saveImg")
+	public String saveImg(@RequestParam("files") CommonsMultipartFile[] achmentFiles, Model model,
+			HttpServletRequest request, HttpServletResponse response, MessageInfo messageInfo){
+		try{
+			//对附件的操作
+			List<Attachement> files = attachementBO.prepareAttachement(achmentFiles);
+			if(files != null && files.size() > 0){
+				for(Attachement attachement : files){
+					messageInfo.setTitle(attachement.getFileName());
+					messageInfoBO.insert(messageInfo);
+					attachement.setType("messnoti" + messageInfo.getMtype());//设置附件类型
+					attachement.setObjId("-10");//设置id
+				}
+				attachementBO.batchIn(files);
+			}
+			
+			model.addAttribute("message", "success");//保存成功
+		}catch(Exception e){
+			e.printStackTrace();
+			model.addAttribute("message", "failed");//保存失败
+		}
+		return TURN_PAGE;
+	}
 }
