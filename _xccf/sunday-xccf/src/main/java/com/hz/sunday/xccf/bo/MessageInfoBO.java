@@ -84,10 +84,16 @@ public class MessageInfoBO {
 					info.setSchedule(month + "月" + day + "日" + "	" + TimeUtils.getWeekOfDate(info.getActionTime()));
 				}
 			}
-		} else if(mType == ColumnType.NEWS_TYPE || mType == ColumnType.TURN_IMAGE) {// 新闻中心、轮番图片
+		} else if(mType == ColumnType.NEWS_TYPE ) {// 新闻中心
 			if (null != list && list.size() > 0) {
 				for (MessageInfo info : list) {
 					info.setAttList(attachementBO.findBy(String.valueOf(info.getId()), "messnoti" + mType));
+				}
+			}
+		} else if (mType == ColumnType.TURN_IMAGE) {// 轮番图片
+			if (null != list && list.size() > 0) {
+				for (MessageInfo info : list) {
+					info.setAttList(attachementBO.findBy(String.valueOf("-10"), "messnoti" + mType));
 				}
 			}
 		}
