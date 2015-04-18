@@ -6,13 +6,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.javafans.dto.page.PageQueryUtils;
 import org.javafans.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.google.common.collect.Maps;
 import com.hz.sunday.xccf.bo.MessageInfoBO;
 import com.hz.sunday.xccf.constants.ColumnType;
 import com.hz.sunday.xccf.orm.MessageInfo;
@@ -45,8 +45,9 @@ public class NewsController extends BaseController {
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("columnValue", ColumnType.NEWS_TYPE);
 		
-		Map<String,Object> queryMap = Maps.newHashMap();
+		Map<String, Object> queryMap = PageQueryUtils.preparePage(request);
 		queryMap.put("mtype", ColumnType.NEWS_TYPE);
+		
 		
 		List<MessageInfo> newsList = messageInfoBO.getList(queryMap);
 		Long count = messageInfoBO.getCount(queryMap);
