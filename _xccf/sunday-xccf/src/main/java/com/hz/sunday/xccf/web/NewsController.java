@@ -53,7 +53,7 @@ public class NewsController extends BaseController {
 		Long count = messageInfoBO.getCount(queryMap);
 		
 		model.addAttribute("newsList", newsList);
-		model.addAttribute("count", count);
+		model.addAttribute("count", count); 
 
 		return WEBSITE_NEWS;
 	}

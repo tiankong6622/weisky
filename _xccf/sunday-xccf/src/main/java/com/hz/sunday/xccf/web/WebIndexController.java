@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.javafans.dto.page.PageQueryUtils;
 import org.javafans.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,8 +48,9 @@ public class WebIndexController extends BaseController {
 		model.addAttribute("columnValue", ColumnType.INDEX_TYPE);
 		
 		// 新闻中心信息
-		Map<String,Object> newsMap = Maps.newHashMap();
+		Map<String, Object> newsMap = PageQueryUtils.preparePage(request);
 		newsMap.put("mtype", ColumnType.NEWS_TYPE);
+		newsMap.put("pageSize", 5);
 		List<MessageInfo> newsList = messageInfoBO.getList(newsMap);
 		Long newsCount = messageInfoBO.getCount(newsMap);
 		model.addAttribute("newsList", newsList);
