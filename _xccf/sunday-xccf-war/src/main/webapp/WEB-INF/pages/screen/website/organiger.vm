@@ -7,10 +7,10 @@
 			<ul>
 				<li>
 					<div class="pic">
-						<a href="organiger.html"><img src="${staticRoot}/xccf/images/ceo.jpg" /></a>
+						<a href="#"><img src="${staticRoot}/xccf/images/ceo.jpg" /></a>
 					</div>
 					<div class="nameContent">
-						<div class="title"><a href="organiger.html">柳志伟</a></div>
+						<div class="title"><a href="#">柳志伟</a></div>
 						<div class="content">全球中小企业联盟副主席，中华柳氏文化促进会总会副秘书长，浙商全国理事会主席团主席浙江爱心事业基金会“最美浙江”专项基金管理委员会主任，浙江省河北商会发起人及常务副会长，浙江熙川控股集团有限公司董事长。</div>
 					</div>
 				</li>

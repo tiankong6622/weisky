@@ -36,7 +36,7 @@
 <body>
 	<div class="header">
 		<header class="common-header">
-			<div class="logo"><a class="logo-href" href="index.html"></a></div>
+			<div class="logo"><a class="logo-href" href="/xccf/index"></a></div>
 			<div class="navPanel">
 				<div class="nav">
 					<ul class="oneUL">
@@ -47,9 +47,9 @@
 						<li #if($!{columnValue} == 4) class="on" #end ><a href="/xccf/guest/index">拟邀请嘉宾</a></li>
 						<li class="oneLI #if($!{columnValue} == 5) on #end"><a href="/xccf/structure/index">组织机构</a>
 							<ul>
-								<li><a href="structure.html#id=1">主办机构</a></li>
-								<li><a href="structure.html#id=2">独家承办机构</a></li>
-								<li><a href="structure.html#id=3">特邀承办机构</a></li>
+								<li><a href="index#id=1">主办机构</a></li>
+								<li><a href="index#id=2">独家承办机构</a></li>
+								<li><a href="index#id=3">特邀承办机构</a></li>
 							</ul>
 						</li>
 						<li #if($!{columnValue} == 6) class="on" #end ><a href="/xccf/program/index">论坛日程</a></li>

@@ -59,11 +59,11 @@ function doRegister(){
     					<li>
 							#foreach($item in $!{ft.attList})
 								<div class="pic">
-									<a href="NewsDetail.html"><img src="${imageRoot}/$!{item.path}" width="200px" height="120px"/></a>
+									<a href="#"><img src="${imageRoot}/$!{item.path}" width="200px" height="120px"/></a>
 								</div>
 							#end
     						<div class="nameContent">
-    							<div class="title"><a href="NewsDetail.html">$!{ft.title}</a></div>
+    							<div class="title"><a href="#">$!{ft.title}</a></div>
     							<div class="time">$!timeUtils.format($!{ft.actionTime},"yyyy-MM-dd")</div>
     							<div class="content">$!{ft.comment}</div>
     						</div>
@@ -157,56 +157,56 @@ function doRegister(){
 				<ul>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_01.jpg" /></a>
+							<a href="/xccf/leader/index"><img src="${staticRoot}/xccf/images/pic_01.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">德国前总统</div>
-							<div class="title"><a href="NewsDetail.html">霍斯特·克勒</a></div>
+							<div class="title"><a href="/xccf/leader/index">霍斯特·克勒</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_02.jpg" /></a>
+							<a href="/xccf/leader/index"><img src="${staticRoot}/xccf/images/pic_02.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">法国前总理</div>
-							<div class="title"><a href="NewsDetail.html">让-皮埃尔·拉法兰</a></div>
+							<div class="title"><a href="/xccf/leader/index">让-皮埃尔·拉法兰</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_03.jpg" /></a>
+							<a href="/xccf/leader/index"><img src="${staticRoot}/xccf/images/pic_03.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">全球中小企业联盟主席</div>
-							<div class="title"><a href="NewsDetail.html">卡洛斯·马格里诺斯</a></div>
+							<div class="title"><a href="/xccf/leader/index">卡洛斯·马格里诺斯</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_04.jpg" /></a>
+							<a href="/xccf/leader/index"><img src="${staticRoot}/xccf/images/pic_04.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">中国前外交部部长</div>
-							<div class="title"><a href="NewsDetail.html">李肇星</a></div>
+							<div class="title"><a href="/xccf/leader/index">李肇星</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_05.jpg" /></a>
+							<a href="/xccf/leader/index"><img src="${staticRoot}/xccf/images/pic_05.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">中国银监会前主席</div>
-							<div class="title"><a href="NewsDetail.html">刘明康</a></div>
+							<div class="title"><a href="/xccf/leader/index">刘明康</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_06.jpg" /></a>
+							<a href="/xccf/leader/index"><img src="${staticRoot}/xccf/images/pic_06.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">中国前商务参赞</div>
-							<div class="title"><a href="NewsDetail.html">何伟文</a></div>
+							<div class="title"><a href="/xccf/leader/index">何伟文</a></div>
 						</div>
 					</li>
 				</ul>
@@ -218,52 +218,52 @@ function doRegister(){
 				<ul>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_07.jpg" /></a>
+							<a href="/xccf/guest/index"><img src="${staticRoot}/xccf/images/pic_07.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">汉能控股集团董事长</div>
-							<div class="title"><a href="NewsDetail.html">李河君</a></div>
+							<div class="title"><a href="/xccf/guest/index">李河君</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_08.jpg" /></a>
+							<a href="/xccf/guest/index"><img src="${staticRoot}/xccf/images/pic_08.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">阿里巴巴集团董事局主席</div>
-							<div class="title"><a href="NewsDetail.html">马云</a></div>
+							<div class="title"><a href="/xccf/guest/index">马云</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_09.jpg" /></a>
+							<a href="/xccf/guest/index"><img src="${staticRoot}/xccf/images/pic_09.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">杭州哇哈哈集团董事长</div>
-							<div class="title"><a href="NewsDetail.html">宗庆后</a></div>
+							<div class="title"><a href="/xccf/guest/index">宗庆后</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_10.jpg" /></a>
+							<a href="/xccf/guest/index"><img src="${staticRoot}/xccf/images/pic_10.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">联想集团董事局名誉主席</div>
-							<div class="title"><a href="NewsDetail.html">柳传志</a></div>
+							<div class="title"><a href="/xccf/guest/index">柳传志</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_11.jpg" /></a>
+							<a href="/xccf/guest/index"><img src="${staticRoot}/xccf/images/pic_11.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">浙江能源集团董事长</div>
-							<div class="title"><a href="NewsDetail.html">吴国潮</a></div>
+							<div class="title"><a href="/xccf/guest/index">吴国潮</a></div>
 						</div>
 					</li>
 					<li>
 						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic_12.jpg" /></a>
+							<a href="/xccf/guest/index"><img src="${staticRoot}/xccf/images/pic_12.jpg" /></a>
 						</div>
 						<div class="nameContent">
 							<div class="content">神秘嘉宾</div>
@@ -281,10 +281,10 @@ function doRegister(){
 		<ul>
 			<li>
 				<div class="pic">
-					<a href="organiger.html"><img src="${staticRoot}/xccf/images/ceo.jpg" /></a>
+					<a href="/xccf/organiger/index"><img src="${staticRoot}/xccf/images/ceo.jpg" /></a>
 				</div>
 				<div class="nameContent">
-					<div class="title"><a href="organiger.html">柳志伟</a></div>
+					<div class="title"><a href="/xccf/organiger/index">柳志伟</a></div>
 					<div class="time">浙江熙川控股集团有限公司董事长</div>
 					<div class="content">全球中小企业联盟副主席，中华柳氏文化促进会总会副秘书长，浙商全国理事会主席团主席浙江爱心事业基金会“最美浙江”专项基金管理委员会主任，浙江省河北商会发起人及常务副会长，浙江熙川控股集团有限公司董事长。</div>
 				</div>

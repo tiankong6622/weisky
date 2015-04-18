@@ -10,11 +10,11 @@
     					<li>
 							#foreach($item in $!{ft.attList})
 								<div class="pic">
-									<a href="NewsDetail.html"><img src="${imageRoot}/$!{item.path}" width="200px" height="120px"/></a>
+									<a href="#"><img src="${imageRoot}/$!{item.path}" width="200px" height="120px"/></a>
 								</div>
 							#end
     						<div class="nameContent">
-    							<div class="title"><a href="NewsDetail.html">$!{ft.title}</a></div>
+    							<div class="title"><a href="#">$!{ft.title}</a></div>
     							<div class="time">$!timeUtils.format($!{ft.actionTime},"yyyy-MM-dd")</div>
     							<div class="content">$!{ft.comment}</div>
     						</div>
