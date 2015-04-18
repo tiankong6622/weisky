@@ -2,42 +2,26 @@
 
 <div id="newsSearchForm" style="padding:5px;height:auto">
 	<div style="margin-bottom:5px">
-		<a href="#"  onclick="addnews()" class="easyui-linkbutton" iconCls="icon-add" plain="true">发布新闻</a>
-		<a href="#"  onclick="addImgnews()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增轮播图片</a>
+		<a href="#"  onclick="addNews()" class="easyui-linkbutton" iconCls="icon-add" plain="true">发布新闻</a>
+		<a href="#"  onclick="addImgNews()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增轮播图片</a>
 	</div>
 	<div>
 		<form id="querynewsForm">
-			标题:<input class="easyui-validatebox" name="filter_S_title" style="width:100px">
-			信息类型:<select name="filter_I_mtype" style="width:150px">
-				<option value="">全部</option>
-				<option value="1" >新闻</option>
-				<option value="2" >通知公告</option>
-				<option value="3" >大赛介绍</option>
-				<option value="4" >参赛条件</option>
-				<option value="7" >报名渠道及方式</option>
-				<option value="8" >赛程安排</option>    
-				<option value="9" >政策支持</option>
-				<option value="10" >参赛资料下载</option>
-				<option value="5" >联系我们</option>
-				<option value="11" >初赛消息通知</option>
-				<option value="12" >复赛消息通知</option>
-				<option value="13" >决赛消息通知</option>
-				<option value="6" >前端轮播图片</option>
-	         </select>
+			标题：<input class="easyui-validatebox" name="filter_S_title"> &nbsp;&nbsp;
 			<a href="javascript:doSearchObject('newsTable','querynewsForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 		</form>
 	</div>
 </div>
 
-<div id="news_div" class="easyui-window" title="新闻信息" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:960px; height:650px; padding: 10px;">
-	<iframe src="#" id="news_ifr" marginwidth="0" marginheight="0" width="880px" height="580px" frameborder="0" scrolling="false" allowtransparency="true"></iframe>	
+<div id="news_div" class="easyui-window" title="新闻信息" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:900px; height:600px;">
+	<iframe src="#" id="news_ifr" marginwidth="0" marginheight="0" width="880px" height="550px" frameborder="0" scrolling="false" allowtransparency="true"></iframe>	
 </div>
 
 <table id="newsTable" style="width:1200px"></table>
 
 <script>
 	$('#newsTable').datagrid({   
-		url:'/admin/messinfo/list?filter_I_mtype=1',   
+		url:'/admin/news/list?filter_I_mtype=2',   
 		toolbar: '#newsSearchForm',
 		pagination:true,
 		singleSelect:true,
@@ -47,77 +31,51 @@
 					{field:'title',title:'标题',width:200},
 					{field:'subhead',title:'副标题',width:200},
 					{field:'summary',title:'摘要',width:150},
-					{field:'mtype',title:'信息类型',width:190,
-						formatter: function(value,row,index){
-							if(row.mtype == 1){
-								return "新闻";
-							}else if(row.mtype == 2){
-								return "通知公告";
-							}else if(row.mtype == 3){
-								return "大赛介绍";
-							}else if(row.mtype == 4){
-								return "参赛指南";
-							}else if(row.mtype == 7){
-								return "报名渠道及方式";
-							}else if(row.mtype == 8){
-								return "赛程安排";
-							}else if(row.mtype == 9){
-								return "政策支持";
-							}else if(row.mtype == 10){
-								return "参赛资料下载";
-							}else if(row.mtype == 5){
-								return "联系我们";
-							}else if(row.mtype == 6){
-								return "前端轮播图片";
-							}else if(row.mtype == 11){
-								return "初赛消息通知";
-							}else if(row.mtype == 11){
-								return "复赛消息通知";
-							}else if(row.mtype == 11){
-								return "决赛消息通知";
-							}else{
-								return "其他";
-							}
-						}
-					},
 					{field:'createTime',title:'创建时间',width:150},
-					{field:'operate',title:'操作',width:250,
+					{field:'operate',title:'操作',width:100,
 						formatter: function(value,row,index){
 							var retValue ="";
 							if(row.mtype != "6"){
-								retValue = outPutFunction("editnews",row.id,"编辑");
+								retValue = outPutFunction("editNews",row.id,"编辑") + "	";
 							}
-							retValue += outPutFunction("deletenews",row.id,"删除");
+							retValue += outPutFunction("deleteNewsById",row.id,"删除");
 							return retValue;
 						}
 					}
 				]]
 		});
 	
-	
-	function addnews(){
-		$("#news_ifr").attr("src","/admin/messinfo/getSingleDetail?id=0&toUrl=new-detail");
+	// 新增新闻
+	function addNews(){
+		$("#news_ifr").attr("src","/admin/news/add/dispatch");
 		$('#news_div').window('open');
 	}
 	
-	function addImgnews(){
-		$("#news_ifr").attr("src","/admin/messinfo/toLunBoPage");
+	// 新增首页轮番图片
+	function addImgNews(){
+		$("#news_ifr").attr("src","/admin/msgInfo/toLunBoPage");
 		$('#news_div').window('open');
 	}
 	
-	function editnews(uid){
-		$("#news_ifr").attr("src","/admin/messinfo/getSingleDetail?id="+uid+"&toUrl=new-detail");
+	// 编辑新闻
+	function editNews(id){
+		$("#news_ifr").attr("src","/admin/news/edit/dispatch?id=" + id);
 		$('#news_div').window('open');
 	}
 	
-	function deletenews(uid){
-		$.get("/admin/news/delete?id="+uid,function(data){
-			if(data == "0"){
-				$.messager.alert('Info', "删除失败", 'info');
-			}else{
-				 $("#newsTable").datagrid('reload'); 
+	// 删除
+	function deleteNewsById(id){
+		jQuery.messager.confirm("提示", "确定要删除该新闻吗？", function(r) {
+			if (r) {
+				jQuery.get("/admin/news/deleteById?id=" + id,function(data){
+					if(data == "0"){
+						jQuery.messager.alert('错误', "删除失败~", "error");
+					}else{
+						 $("#newsTable").datagrid('reload'); 
+					}
+				});
 			}
-		});
+		})
 	}
 	
 </script>

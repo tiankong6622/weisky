@@ -1,0 +1,72 @@
+<div style="margin:10px 0;"></div>
+
+<div id="programSearchForm" style="padding:5px;height:auto">
+	<div style="margin-bottom:5px">
+		<a href="#"  onclick="addProgram()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增日程</a>
+	</div>
+	<div>
+		<form id="queryProgramForm">
+			安排时间：<input class="easyui-datebox" name="filter_S_actionTime"> &nbsp;&nbsp;
+			<a href="javascript:doSearchObject('programTable','queryProgramForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</form>
+	</div>
+</div>
+
+<div id="program_div" class="easyui-window" title="日程信息" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:960px; height:600px; padding: 10px;">
+	<iframe src="#" id="program_ifr" marginwidth="0" marginheight="0" width="880px" height="540px" frameborder="0" scrolling="false" allowtransparency="true"></iframe>	
+</div>
+
+<table id="programTable" style="width:1200px"></table>
+
+<script>
+	$('#programTable').datagrid({   
+		url:'/admin/program/list?filter_I_mtype=6',   
+		toolbar: '#programSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		autoRowHeight:true,
+		columns:[[   
+					{field:'schedule',title:'计划时间',width:150},
+					{field:'comment',title:'议程',width:300},
+					{field:'operate',title:'操作',width:100,
+						formatter: function(value,row,index){
+							var retValue ="";
+							if(row.mtype != "2"){
+								retValue = outPutFunction("editProgram",row.id,"编辑") + "	";
+							}
+							retValue += outPutFunction("deleteProgramById",row.id,"删除");
+							return retValue;
+						}
+					}
+				]]
+		});
+	
+	// 新增
+	function addProgram(){
+		$("#program_ifr").attr("src","/admin/program/add/dispatch");
+		$('#program_div').window('open');
+	}
+	
+	// 编辑
+	function editProgram(id){
+		$("#program_ifr").attr("src","/admin/program/edit/dispatch?id=" + id);
+		$('#program_div').window('open');
+	}
+	
+	// 删除
+	function deleteProgramById(id){
+		jQuery.messager.confirm("提示", "确定要删除该日程吗？", function(r) {
+			if (r) {
+				jQuery.get("/admin/program/deleteById?id=" + id,function(data){
+					if(data == "0"){
+						jQuery.messager.alert('错误', "删除失败~", "error");
+					}else{
+						 $("#programTable").datagrid('reload'); 
+					}
+				});
+			}
+		})
+	}
+	
+</script>
