@@ -42,7 +42,9 @@ function doRegister(){
 							<div class='swipe-wrap'>
 								#foreach($ft in $!{imgList})
 									#foreach($item in $!{ft.attList})
-										<div><a href="javascript:void(0)"><img src="${imageRoot}/$!{item.path}" alt='' width="680px" height="390px"/></a><span></span></div>
+										 #if($velocityCount <= 5)
+												<div><a href="javascript:void(0)"><img src="${imageRoot}/$!{item.path}" alt='' width="680px" height="390px"/></a><span></span></div>
+										 #end
 									#end
 								#end
 							</div>
