@@ -1,0 +1,56 @@
+#set( $layout = "/layout/common-layout.vm")
+
+<script>
+	 #if("$!message"!="")
+		#if("$!message"=="success")
+			parent.jQuery('#program_div').window('close');
+			parent.jQuery("#programTable").datagrid('reload');
+		#else
+			jQuery.messager.alert('错误', "操作失败~", 'error');
+		#end
+	#end
+</script>
+
+<form action="/admin/program/save" method="post" id="programForm" enctype="multipart/form-data">
+	<input name="id" type="hidden" value="$!{messnoti.id}"/>
+	<input name="mtype" type="hidden" value="6"/>
+	<div class="box info-list">
+		<table class="unity-table" id="J_adboardList">
+			<tr>
+				<td style="width:120px">日程时间：</td>
+				<td style="width:320px"><input type="text" name="actionTime" value='$!timeUtils.format($!{messnoti.actionTime},"yyyy年MM月dd日")' style="width:500px" class="Wdate" onfocus="WdatePicker({minDate:'%y-%M-#{%d+1}'})" /></td>
+			</tr>
+			<tr>
+				<td style="width:120px">内容：</td>
+				<td style="width:320px" colspan="3">
+					<textarea id="_comment" name="comment">$!{messnoti.comment}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align: center">
+					<input type="button" style="width:60px;height:25px;" onclick="doSubmit()" value="确定"/>
+				</td>
+			</tr>
+    </div>
+</form>
+	
+<script>
+
+    function doSubmit(){
+    	$("#programForm").submit();
+    }
+     
+    var editor1 = KindEditor.create('textarea[id="_comment"]', {
+    	uploadJson:'${webPath}/kindEditorUpload',
+    	allowFileManager : true,
+    	width:"500px",
+    	height:"300px",
+    	afterBlur:function(){
+    	    this.html();
+    	},
+    	afterChange:function(){
+    	   $("#_comment").val(this.html());
+    	}
+    });
+ 
+</script>

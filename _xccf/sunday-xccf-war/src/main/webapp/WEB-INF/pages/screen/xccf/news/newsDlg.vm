@@ -1,41 +1,42 @@
 #set( $layout = "/layout/common-layout.vm")
+
 <script>
 	 #if("$!message"!="")
 		#if("$!message"=="success")
 			parent.jQuery('#news_div').window('close');
 			parent.jQuery("#newsTable").datagrid('reload');
 		#else
-			jQuery.messager.alert('Info', "操作失败！", 'info');
+			jQuery.messager.alert('错误', "操作失败~", 'error');
 		#end
 	#end
 </script>
-<form action="/admin/messinfo/save?toUrl=new-detail" method="post" id="messnotiform" enctype="multipart/form-data">
+
+<form action="/admin/news/save" method="post" id="newsForm" enctype="multipart/form-data">
 	<input name="id" type="hidden" value="$!{messnoti.id}"/>
-	<input name="mtype" type="hidden" value="1"/>
+	<input name="mtype" type="hidden" value="2"/>
 	<div class="box info-list">
 		<table class="unity-table" id="J_adboardList">
-			
 			<tr>
-				<td style="width:120px">标题:</td>
+				<td style="width:120px">标题：</td>
 				<td style="width:320px"><input type="text" name="title" value="$!{messnoti.title}" style="width:500px"/></td>
 			</tr>
 			<tr>
-				<td style="width:120px">副标题:</td>
+				<td style="width:120px">副标题：</td>
 				<td style="width:320px">
 					<input type="text" name="subhead" value="$!{messnoti.subhead}" style="width:500px"/>
 				</td>
 			</tr>
 			<tr>
-				<td style="width:120px">摘要:</td>
+				<td style="width:120px">摘要：</td>
 				<td style="width:320px"><input type="text" name="summary" value="$!{messnoti.summary}" style="width:500px"/></td>
 			</tr>
 			<tr>
-				<td style="width:120px">发布时间:</td>
+				<td style="width:120px">发布时间：</td>
 				<td style="width:320px"><input type="text" name="actionTime" value='$!timeUtils.format($!{messnoti.actionTime},"yyyy年MM月dd日")' style="width:500px" class="Wdate" onclick="WdatePicker()" /></td>
 			</tr>
-			<!--<tbody id="bxdtbdExp">
+			<tbody id="bxdtbdExp">
 				<tr id="firstTr">
-    				<td style="width:120px">附件:</td>
+    				<td style="width:120px">附件：</td>
     				<td style="width:320px">
 						<input type="file" name="files" /> #if("$!{mnattach}"=="") <a href="javascript:addTr()"><span>新增一行</span></a> #end <br/>
 						#foreach($item in $!{mnattach})
@@ -43,16 +44,16 @@
 						#end
 					</td>
     			</tr>
-			</tbody>-->
+			</tbody>
 			<tr>
-				<td style="width:120px">内容:</td>
+				<td style="width:120px">内容：</td>
 				<td style="width:320px" colspan="3">
 					<textarea id="_comment" name="comment">$!{messnoti.comment}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4" style="text-align: center">
-					<input type="button" style="width:60px;height:35px;" onclick="doSubmitmessnoti()" value="确定"/>
+					<input type="button" style="width:60px;height:25px;" onclick="doSubmit()" value="确定"/>
 				</td>
 			</tr>
     </div>
@@ -64,9 +65,9 @@
     function addTr(){
     	var trNode = $("#firstTr").clone();
         var _replaceHtml = trNode.html();
-        trNode=null;
-    	var trrep = '<tr id="firstTr'+currentDelId+'">';
-    	replaceHtml=trrep+_replaceHtml+'<td><a href="javascript:removeTr('+currentDelId+')">[删除]</a></td>';
+        trNode = null;
+    	var trrep = '<tr id="firstTr' + currentDelId + '">';
+    	replaceHtml = trrep + _replaceHtml + '<td><a href="javascript:removeTr(' + currentDelId + ')">[删除]</a></td>';
     	$("#bxdtbdExp").append(replaceHtml+"</tr>");
     	currentDelId--;
     };
@@ -76,15 +77,15 @@
     }
 
 
-    function doSubmitmessnoti(){
-    	$("#messnotiform").submit();
+    function doSubmit(){
+    	$("#newsForm").submit();
     }
      
     var editor1 = KindEditor.create('textarea[id="_comment"]', {
     	uploadJson:'${webPath}/kindEditorUpload',
     	allowFileManager : true,
     	width:"500px",
-    	height:"380px",
+    	height:"300px",
     	afterBlur:function(){
     	    this.html();
     	},

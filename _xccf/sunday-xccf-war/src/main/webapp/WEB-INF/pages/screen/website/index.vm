@@ -40,9 +40,11 @@ function doRegister(){
 				  <div class="index_ban">
 						<div id='mySwipe' class='swipe'>
 							<div class='swipe-wrap'>
-								<div><a href="javascript:void(0)"><img src="${staticRoot}/xccf/images/banner1.jpg" alt='' /></a><span>新华大宗举办“合规及投诉处理培训”会议</span></div>
-								<div><a href="javascript:void(0)"><img src="${staticRoot}/xccf/images/banner1.jpg" alt='' /></a><span>新华大宗举办“合规及投诉处理培训”会议</span></div>
-								<div><a href="javascript:void(0)"><img src="${staticRoot}/xccf/images/banner1.jpg" alt='' /></a><span>新华大宗举办“合规及投诉处理培训”会议</span></div>
+								#foreach($ft in $!{imgList})
+									#foreach($item in $!{ft.attList})
+										<div><a href="javascript:void(0)"><img src="${imageRoot}/$!{item.path}" alt='' width="680px" height="390px"/></a><span></span></div>
+									#end
+								#end
 							</div>
 						</div>
 					</div>
@@ -53,38 +55,22 @@ function doRegister(){
 			<h1>新闻中心</h1>
 			<div class="list">
 				<ul>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设，树开品牌飞速发展，铺进全国600个省市、地区，为了满足更多消费者更深层次的需求与答谢广大消费者的厚爱，在国庆到来之际，开开木门将拿出最好、最畅销的产品真情回馈活</div>
-						</div>
-					</li>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
-						</div>
-					</li>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
-						</div>
-					</li>
+					#foreach($ft in $!{newsList})
+    					<li>
+							#foreach($item in $!{ft.attList})
+								<div class="pic">
+									<a href="NewsDetail.html"><img src="${imageRoot}/$!{item.path}" width="200px" height="120px"/></a>
+								</div>
+							#end
+    						<div class="nameContent">
+    							<div class="title"><a href="NewsDetail.html">$!{ft.title}</a></div>
+    							<div class="time">$!timeUtils.format($!{ft.actionTime},"yyyy-MM-dd")</div>
+    							<div class="content">$!{ft.comment}</div>
+    						</div>
+    					</li>
+					#end
 				</ul>
-				<div class="moreList" onClick="window.open('news.html')">查看更多</div>
+				<div class="moreList" onClick="window.open('/xccf/news/index')">查看更多</div>
 			</div>
 		</div>
 		<div class="item hdmp">
@@ -94,7 +80,7 @@ function doRegister(){
 				<input id="company" name="company" class="easyui-validatebox" data-options="required:true" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 9px;"/>
 				<input id="post" name="post" class="easyui-validatebox" data-options="required:true" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 9px;"/>
 				<input id="phone" name="phone" class="easyui-validatebox" data-options="required:true,validType:'mobile'" style="border:1px solid #a09e99; width:196px; height:29px; line-height:28px; padding-left:3px;margin-left: 447px;margin-top: 9px;"/>
-				<input type="checkbox" name="goal" value="报名参加论坛" style="margin-left: 396px;margin-top: 49px; width: 22px;height: 15px;"/>
+				<input type="checkbox" name="goal" checked value="报名参加论坛" style="margin-left: 396px;margin-top: 49px; width: 22px;height: 15px;"/>
 				<input type="checkbox" name="goal" value="我想要加盟这个项目" style="margin-left: 91px; width: 22px;height: 15px;"/>
 				<input type="checkbox" name="goal" value="借助这个平台推广自己的产品" style="margin-left: 396px;margin-top: 10px; width: 22px;height: 15px;"/>
 				<input type="checkbox" name="goal" value="其他" style="margin-left: 169px; width: 22px;height: 15px;"/>
@@ -107,18 +93,16 @@ function doRegister(){
 		<div class="item ltyc">
 			<h1>论坛议程</h1>
 			<div class="list">
-				<dl>
-					<dt><span class="span74">7月4日 星期六</span></dt>
-					<dd><div class="text">佛法修福讲坛/企业品牌塑造、推广交流大会</div></dd>
-				</dl>
-				<dl>
-					<dt><span class="span75">7月5日 星期日</span></dt>
-					<dd><img src="${staticRoot}/xccf/images/ltyc.jpg" /></dd>
-				</dl>
-				<dl class="last">
-					<dt><span class="span76">7月6日 星期一</span></dt>
-					<dd><div class="text">千人企业家现场资源对接圆桌会议</div></dd>
-				</dl>
+				#foreach($ft in $!{programList})
+    				<dl #if($velocityCount == $!{proCount}) class="last" #end>
+    					<dt>
+    						<div style="background:url(${staticRoot}/xccf/img/hd.png) no-repeat 0;">
+    							<p style="margin-left: 20px;font-size: 20px;color: white;">$!{ft.schedule}</p>
+    						</div>
+    					</dt>
+    					<dd><div class="text">$!{ft.comment}</div></dd>
+    				</dl>
+    			#end
 			</div>
 		</div>
 	</div>

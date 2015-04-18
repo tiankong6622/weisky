@@ -9,6 +9,10 @@
 <link rel="stylesheet" type="text/css" href="${staticRoot}/comm/jquery-easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${staticRoot}/comm/jquery-easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="${staticRoot}/comm/jquery-easyui/demo/demo.css">
+	
+<link type="text/css" href="${staticRoot}/comm/css/common.css" rel="stylesheet" />
+<link type="text/css" href="${staticRoot}/comm/css/wbox.css" rel="stylesheet" />
+
 <script type="text/javascript" src="${staticRoot}/comm/oldAdmin/base.js"></script>
 <script type="text/javascript" src="${staticRoot}/comm/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${staticRoot}/comm/jquery-easyui/jquery-1.8.0.min.js"></script>

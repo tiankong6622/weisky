@@ -6,66 +6,20 @@
 			<h1>新闻中心</h1>
 			<div class="list">
 				<ul>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设，树开品牌飞速发展，铺进全国600个省市、地区，为了满足更多消费者更深层次的需求与答谢广大消费者的厚爱，在国庆到来之际，开开木门将拿出最好、最畅销的产品真情回馈活</div>
-						</div>
-					</li>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
-						</div>
-					</li>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
-						</div>
-					</li>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
-						</div>
-					</li>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
-						</div>
-					</li>
-					<li>
-						<div class="pic">
-							<a href="NewsDetail.html"><img src="${staticRoot}/xccf/images/pic1.jpg" /></a>
-						</div>
-						<div class="nameContent">
-							<div class="title"><a href="NewsDetail.html">新华大宗举办“合规及投诉处理培训”会议</a></div>
-							<div class="time">2015-03-13</div>
-							<div class="content">作为新华社全球商品定价权战略布局的重要项目，新华浙江大宗商品交易中心自成立以来始终将“合规、合法”运营作为立业之基、发展准绳。2014全年，新华大宗大力推动“公开、公平、公正”的“阳光交易平台”建设</div>
-						</div>
-					</li>
+					#foreach($ft in $!{newsList})
+    					<li>
+							#foreach($item in $!{ft.attList})
+								<div class="pic">
+									<a href="NewsDetail.html"><img src="${imageRoot}/$!{item.path}" width="200px" height="120px"/></a>
+								</div>
+							#end
+    						<div class="nameContent">
+    							<div class="title"><a href="NewsDetail.html">$!{ft.title}</a></div>
+    							<div class="time">$!timeUtils.format($!{ft.actionTime},"yyyy-MM-dd")</div>
+    							<div class="content">$!{ft.comment}</div>
+    						</div>
+    					</li>
+					#end
 				</ul>
 				<div class="moreList" onClick="getAjax()">查看更多</div>
 			</div>

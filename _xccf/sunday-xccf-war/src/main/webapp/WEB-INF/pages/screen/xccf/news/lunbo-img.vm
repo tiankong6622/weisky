@@ -1,0 +1,62 @@
+#set( $layout = "/layout/common-layout.vm")
+
+<script>
+	 #if("$!message"!="")
+		#if("$!message"=="success")
+			parent.jQuery('#news_div').window('close');
+			parent.jQuery("#newsTable").datagrid('reload');
+		#else
+			jQuery.messager.alert('错误', "操作失败~", 'error');
+		#end
+	#end
+</script>
+
+<form action="/admin/msgInfo/saveImg" method="post" id="msgInfoForm" enctype="multipart/form-data">
+	<input name="mtype" type="hidden" value="10"/>
+	<div class="box info-list">
+		<table class="unity-table" id="J_adboardList">
+			<div class="operate-btn">
+        		<ul>
+        			<li><a href="javascript:addTr()"><span>新增一行</span></a></li>
+        		</ul>
+        	</div>
+    		<tbody id="bxdtbdExp">
+				<tr id="firstTr">
+    				<td style="width:120px">附件:</td>
+    				<td style="width:320px">
+						<input type="file" name="files" /><br/>
+					</td>
+    			</tr>
+    		</tbody>
+    		<tfoot>
+    			<tr>
+					<td colspan="4" style="text-align: center">
+						<input type="button" style="width:60px;height:25px;" onclick="doSubmit()" value="确定"/>
+					</td>
+    			</tr>
+            </tfoot>
+    </div>
+</form>
+	
+<script>
+
+var currentDelId = -1;
+function addTr(){
+	var trNode = $("#firstTr").clone();
+    var _replaceHtml = trNode.html();
+    trNode = null;
+	var trrep = '<tr id="firstTr'+currentDelId+'">';
+	replaceHtml = trrep + _replaceHtml + '<td><a href="javascript:removeTr(' + currentDelId + ')">[删除]</a></td>';
+	$("#bxdtbdExp").append(replaceHtml + "</tr>");
+	currentDelId--;
+};
+
+function removeTr(id){
+	$("#firstTr"+id).remove();
+}
+
+function doSubmit(){
+	$("#msgInfoForm").submit();
+}
+ 
+</script>

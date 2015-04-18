@@ -4,18 +4,16 @@
 	<div class="item ltyc detail">
 		<h1>论坛日程</h1>
 		<div class="list">
-			<dl>
-				<dt><span class="span74">7月4日 星期六</span></dt>
-				<dd><div class="text">佛法修福讲坛/企业品牌塑造、推广交流大会</div></dd>
-			</dl>
-			<dl>
-				<dt><span class="span75">7月5日 星期日</span></dt>
-				<dd><img src="${staticRoot}/xccf/images/ltyc.jpg" /></dd>
-			</dl>
-			<dl class="last">
-				<dt><span class="span76">7月6日 星期一</span></dt>
-				<dd><div class="text">千人企业家现场资源对接圆桌会议</div></dd>
-			</dl>
+			#foreach($ft in $!{programList})
+				<dl #if($velocityCount == $!{count}) class="last" #end>
+					<dt>
+						<div style="background:url(${staticRoot}/xccf/img/hd.png) no-repeat 0;">
+							<p style="margin-left: 20px;font-size: 20px;color: white;">$!{ft.schedule}</p>
+						</div>
+					</dt>
+					<dd><div class="text">$!{ft.comment}</div></dd>
+				</dl>
+			#end
 		</div>
 	</div>
 </div>
