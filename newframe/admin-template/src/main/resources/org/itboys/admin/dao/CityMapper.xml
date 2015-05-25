@@ -1,0 +1,138 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itboys.admin.dao.CityMapper">
+
+	<resultMap id="cityRM" type="org.itboys.admin.entity.City">
+		<result property="id" column="id" />
+		<result property="parentId" column="parent_id" />
+		<result property="level" column="level" />
+		<result property="fullName" column="full_name" />
+		<result property="code" column="code" />
+		<result property="initial" column="initial" />
+		<result property="name" column="name" />
+		<result property="sort" column="sort" />
+	</resultMap>
+
+	<select id="getAll" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,sort initial from t_city
+	</select>
+
+	<select id="getCity" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,sort,initial from t_city where id =
+		#{id}
+	</select>
+	<insert id="insert"
+		parameterType="org.itboys.admin.entity.City"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into `t_city` (
+		name,level,parent_id,full_name,code,initial,sort
+		) value(#{name},#{level},#{parentId},#{fullName},#{code},#{initial},#{sort}
+		)
+	</insert>
+	<update id="update"
+		parameterType="org.itboys.admin.entity.City">
+		update `t_city` set id=#{id}
+		<if test=" name !=null and name !=''">
+			<![CDATA[ ,name=#{name}]]>
+		</if>
+		<if test=" sort !=null and sort !=''">
+			<![CDATA[ ,sort=#{sort}]]>
+		</if>
+		<if test=" level !=null and level !=''">
+			<![CDATA[ ,level=#{level}]]>
+		</if>
+		<if test=" parentId !=null and parentId !=''">
+			<![CDATA[ ,parent_id=#{parentId}]]>
+		</if>
+		<if test=" fullName !=null and fullName !=''">
+			<![CDATA[ ,full_name=#{fullName}]]>
+		</if>
+		<if test=" code !=null and code !=''">
+			<![CDATA[ ,code=#{code}]]>
+		</if>
+		<if test=" initial !=null and initial !=''">
+			<![CDATA[ ,initial=#{initial}]]>
+		</if>
+		where id = #{id}
+	</update>
+	<select id="list" parameterType="java.util.HashMap" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial,sort from t_city
+		<where>
+			<if test=" name !=null and name !=''">
+				<![CDATA[ and name=#{name}]]>
+			</if>
+			<if test=" level !=null ">
+				<![CDATA[ and level=#{level}]]>
+			</if>
+			<if test=" parentId !=null ">
+				<![CDATA[ and parent_id=#{parentId}]]>
+			</if>
+			<if test=" fullName !=null and fullName !=''">
+				<![CDATA[ and full_name=#{fullName}]]>
+			</if>
+			<if test=" code !=null and code !=''">
+				<![CDATA[ and code=#{code}]]>
+			</if>
+			<if test=" initial !=null and initial !=''">
+				<![CDATA[ and initial=#{initial}]]>
+			</if>
+		</where>
+		order by sort
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	<select id="count" parameterType="java.util.HashMap" resultType="java.lang.Long">
+		select count(*) from t_city
+		<where>
+			<if test=" name !=null and name !=''">
+				<![CDATA[ and name=#{name}]]>
+			</if>
+			<if test=" level !=null ">
+				<![CDATA[ and level=#{level}]]>
+			</if>
+			<if test=" parentId !=null ">
+				<![CDATA[ and parent_id=#{parentId}]]>
+			</if>
+			<if test=" fullName !=null and fullName !=''">
+				<![CDATA[ and full_name=#{fullName}]]>
+			</if>
+			<if test=" code !=null and code !=''">
+				<![CDATA[ and code=#{code}]]>
+			</if>
+			<if test=" initial !=null and initial !=''">
+				<![CDATA[ and initial=#{initial}]]>
+			</if>
+		</where>
+	</select>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from `t_city` where id=#{id}
+	</delete>
+	
+	<select id="getCitysByParentId" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial,sort from t_city where parent_id =
+		#{id}
+	</select>
+
+	<select id="getCityByName" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial,sort from t_city where name
+		like CONCAT('%',#{name},'%')
+	</select>
+
+	<select id="getCityByFullName" resultMap="cityRM">
+		select
+		id,name,level,parent_id,full_name,code,initial,sort from t_city where
+		full_name like CONCAT('%',#{fullName},'%')
+	</select>
+
+	<select id="getCItyList" resultMap="cityRM">
+		select * from t_city where
+		level = 1 order by CONVERT(name USING gbk) asc
+	</select>
+
+</mapper> -->

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COD-MS>
+	<SessionHead>
+		<Version>V1.0</Version>
+		<ServiceCode>COD603</ServiceCode>
+		<TransactionID>NEPCOD603201106214068358793</TransactionID>
+		<SrcSysID>yeepay</SrcSysID>
+		<DstSysID>NEP</DstSysID>
+		<ReqTime>20110621165623</ReqTime>
+		<ExtendAtt>
+			<Employee_ID>888801</Employee_ID>
+			<Employee_Name>阿斯蒂芬</Employee_Name>
+			<Company_Code>yeepay</Company_Code>
+			<Company_Name>易宝支付</Company_Name>
+		</ExtendAtt>
+		<HMAC>e9c02bbd7ca582596812b95b8c27ed4f</HMAC>
+	</SessionHead>
+	<SessionBody>
+		<ExtendAtt>
+				<Order_No>12222</Order_No>
+				<Receiver_No>99011</Receiver_No>
+				<BankCard_No>622588014523</BankCard_No>
+				<BankOrder_No>201207120001</BankOrder_No>
+				<Order_AMT>2000</Order_AMT>
+				<Pay_Type>1</Pay_Type>
+				<Yeepay_OrderId>001111</Yeepay_OrderId>
+				<Cheque_No>11</Cheque_No>
+				<Pay_Detail>水电费</Pay_Detail>
+		</ExtendAtt>
+	</SessionBody>
+</COD-MS>

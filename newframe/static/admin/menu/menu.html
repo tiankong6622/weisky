@@ -1,0 +1,119 @@
+<div style="margin: 10px 0;"></div>
+<div id="menuSearchForm" style="padding: 5px; height: auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="addMenu()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增菜单</a>
+	</div>
+	<form id="queryMenuForm">
+		<div>
+			菜单名称: <input class="easyui-validatebox" name="filter_S_name" style="width: 100px">
+			<a href="javascript:doSearchObject('menuTable','queryMenuForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</div>
+	</form>
+</div>
+
+
+
+<div id="add_menu" class="easyui-window" title="菜单管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width: 400px; height: 200px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminMenuForm" method="post" enctype="multipart/form-data" action="/admin/menu/save" name="adminMenuForm">
+			<input name="id" id="menuId" type="hidden" value="0"/>
+			<input name="parentId" type="hidden" id="parentId" value=""/>
+			<table>
+				<tr>
+					<td>名称</td>
+					<td><input type="text" autoComplete="off" name="menuName" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>排序</td>
+					<td><input type="text" autoComplete="off" name="sort" class="easyui-validatebox" type="text" data-options="required:true,validType:'number'"></td>
+				</tr>
+				<tr>
+					<td>url</td>
+					<td><input type="text" autoComplete="off" name="url" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+				<tr>
+					 <td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<table id="menuTable" style="width:1100px" class="easyui-treegrid"></table>
+
+<script>
+	
+	$('#menuTable').treegrid({
+		url:'/admin/menu/list',
+		idField: 'id',
+		treeField: 'menuName',
+		toolbar : '#menuSearchForm',
+		rownumbers : true,
+		columns : [[
+			{field : 'menuName',title : '名称',width:330},
+			{field : 'url',title : 'url',width:330},
+			{field : 'operate',title : '操作',width:390,
+				formatter : function(value, row, index) {
+					if(row._parentId<=0){
+						return outPutFunction("editMenu",row.id,"编辑")+outPutFunction("freezeMenu",row.id,"删除")+'[<a href="javascript:addChild('+row.id+')">新增子菜单</a>]';
+					}else{
+						return outPutFunction("editMenu",row.id,"编辑")+outPutFunction("freezeMenu",row.id,"删除");
+					}	
+				}
+			} 
+		]]
+	});
+
+	function addChild(oid){
+		$("#adminMenuForm").form('clear');
+		$('#add_menu').window('open');
+		$("#parentId").val(oid);
+		$("#menuId").val(0);
+	}
+	
+	function addMenu(){
+		$("#adminMenuForm").form('clear');
+		$("#menuId").val(0);
+		$("#parentId").val(0);
+		$('#add_menu').window('open');
+	}
+	
+	function editMenu(uid) {
+		$.post("/admin/menu/getMenu/"+uid, function(data) {
+			$('#add_menu').window('open');
+			$("#adminMenuForm").form('load',data);
+		});
+	}
+
+	function freezeMenu(uid) {
+		$.messager.confirm('菜单管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/admin/menu/delete/"+uid,{}, function(data) {
+					if (data=='success') {
+						$("#menuTable").treegrid('reload');
+					} else {
+						$.messager.alert('Info', "删除失败", 'info');
+					}
+				});
+			}
+		});
+	}
+
+	$('#adminMenuForm').form({
+		success : function(data) {
+			$('#add_menu').window('close');
+			var str = 'success';
+			if (data == str) {
+				$("#menuTable").treegrid('reload');
+				$(".easyui-validatebox").val('');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>
+

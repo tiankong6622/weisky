@@ -1,0 +1,284 @@
+BODY {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+DIV {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+FORM {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+P {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+IMG {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+UL {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+LI {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H1 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H2 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H3 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H4 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H5 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H6 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+DL {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+DT {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+DD {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+TEXTAREA {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 21px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+BODY {
+	FONT-FAMILY: "ËÎÌו"; COLOR: #000; FONT-SIZE: 12px
+}
+INPUT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+SELECT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+TABLE {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+IMG {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+UL {
+	ZOOM: 1; OVERFLOW: hidden
+}
+DL {
+	ZOOM: 1; OVERFLOW: hidden
+}
+LI {
+	LIST-STYLE-TYPE: none; LIST-STYLE-IMAGE: none
+}
+A {
+	COLOR: #0041d9; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #f60; TEXT-DECORATION: underline
+}
+.l {
+	FLOAT: left
+}
+.r {
+	FLOAT: right
+}
+.c {
+	HEIGHT: 0px; VISIBILITY: hidden; CLEAR: both; OVERFLOW: hidden
+}
+.z {
+	ZOOM: 1; OVERFLOW: hidden
+}
+.tal {
+	TEXT-ALIGN: left
+}
+.tar {
+	TEXT-ALIGN: right
+}
+.tac {
+	TEXT-ALIGN: center
+}
+.bdt {
+	BACKGROUND: url(../images/content_bg.png) #2f526d no-repeat left top
+}
+.page-tab UL LI A {
+	BACKGROUND-IMAGE: url(../images/bg_sprites.png); BACKGROUND-REPEAT: no-repeat; _background-image: url(../images/bg_sprites_png8.png)
+}
+.page-tab UL LI A SPAN {
+	BACKGROUND-IMAGE: url(../images/bg_sprites.png); BACKGROUND-REPEAT: no-repeat; _background-image: url(../images/bg_sprites_png8.png)
+}
+#header {
+	POSITION: relative; ZOOM: 1; BACKGROUND: url(../images/header_bg.png) repeat-x 0px 0px; HEIGHT: 87px; OVERFLOW: hidden
+}
+#header .page-tab {
+	POSITION: absolute; WIDTH: 1190px; OVERFLOW: hidden; TOP: 57px; LEFT: 10px
+}
+#header .page-tab UL {
+	WIDTH: 3000px
+}
+#header .page-tab UL LI {
+	FLOAT: left
+}
+#header .page-tab UL .hidden {
+	DISPLAY: none
+}
+#header .page-tab UL LI.cur {
+	
+}
+#header .page-tab UL LI A {
+	LINE-HEIGHT: 30px; DISPLAY: block; FLOAT: left; HEIGHT: 28px; COLOR: #000; CURSOR: pointer; TEXT-DECORATION: none
+}
+#header .page-tab UL LI A SPAN {
+	LINE-HEIGHT: 30px; DISPLAY: block; FLOAT: left; HEIGHT: 28px; COLOR: #000; CURSOR: pointer; TEXT-DECORATION: none
+}
+#header .page-tab UL LI.cur A {
+	HEIGHT: 30px; COLOR: #fff
+}
+#header .page-tab UL LI.cur A SPAN {
+	HEIGHT: 30px; COLOR: #fff
+}
+#header .page-tab UL LI A {
+	PADDING-LEFT: 25px; BACKGROUND-POSITION: left 0px
+}
+#header .page-tab UL LI A SPAN {
+	PADDING-RIGHT: 25px; BACKGROUND-POSITION: right 0px
+}
+#header .page-tab UL LI.cur A {
+	BACKGROUND-POSITION: left -32px
+}
+#header .page-tab UL LI.cur A SPAN {
+	BACKGROUND-POSITION: right -32px
+}
+#header .page-tab UL LI A:hover {
+	TEXT-DECORATION: underline
+}
+#header .page-tab UL LI.cur A {
+	TEXT-DECORATION: none
+}
+.logo {
+	POSITION: absolute; WIDTH: 500px; BACKGROUND: url(../images/header_bg_l.png) no-repeat left 0px; HEIGHT: 85px; TOP: 0px; LEFT: 0px
+}
+.logo IMG {
+	MARGIN: 4px 0px 0px 12px
+}
+.account {
+	POSITION: absolute; TEXT-ALIGN: right; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: auto; PADDING-RIGHT: 20px; HEIGHT: 42px; COLOR: #000; TOP: 0px; RIGHT: 0px; PADDING-TOP: 10px
+}
+.account A {
+	COLOR: #000
+}
+.account SELECT {
+	WIDTH: 150px
+}
+.account IMG {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 6px; PADDING-RIGHT: 6px; PADDING-TOP: 0px
+}
+.move {
+	POSITION: absolute; TOP: 57px; RIGHT: 18px
+}
+.move LI {
+	TEXT-INDENT: -999em; WIDTH: 27px; BACKGROUND: url(../images/move.png) no-repeat; FLOAT: left; HEIGHT: 28px; CURSOR: pointer
+}
+.move .pre {
+	BACKGROUND-POSITION: 0px 0px
+}
+.move .next {
+	BACKGROUND-POSITION: -27px 0px
+}
+#main {
+	
+}
+.bw {
+	BORDER-BOTTOM: #445a7f 1px solid; BORDER-LEFT: #445a7f 1px solid; BACKGROUND: #ffffff; BORDER-TOP: #445a7f 1px solid; BORDER-RIGHT: #445a7f 1px solid
+}
+.bn {
+	BORDER-BOTTOM: #b8b8b8 1px solid; BORDER-LEFT: #b8b8b8 1px solid; BACKGROUND: #417194; BORDER-TOP: #b8b8b8 1px solid; BORDER-RIGHT: #b8b8b8 1px solid
+}
+.p4 {
+	PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px
+}
+#mainleft {
+	Z-INDEX: 3; POSITION: relative; WIDTH: 170px; FLOAT: left
+}
+.ml_tt {
+	LINE-HEIGHT: 26px; PADDING-LEFT: 4px; BACKGROUND: url(../images/ml_tt_bg.gif) repeat-x 50% top; HEIGHT: 26px; COLOR: #fff; FONT-SIZE: 14px; FONT-WEIGHT: bold
+}
+.mll {ZOOM: 1; BACKGROUND: #f8f9fd; OVERFLOW: hidden}
+
+.mll DL {
+	BACKGROUND: url(../images/ml_tl_bg.gif) repeat-x 50% top
+}
+.mll A {
+	COLOR: #3b2d7b; TEXT-DECORATION: none
+}
+.mll A:hover {
+	COLOR: #000
+}
+.mll DT {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px
+}
+#mll DD {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px
+}
+.mll DT {
+	LINE-HEIGHT: 16px; HEIGHT: 16px; FONT-SIZE: 14px
+}
+.mll DT IMG {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 0px
+}
+.mll LI A {
+	LINE-HEIGHT: 21px; PADDING-LEFT: 20px; WIDTH: 144px; DISPLAY: block; HEIGHT: 25px; OVERFLOW: hidden
+}
+.mll LI A:hover {
+	BACKGROUND: url(../images/ml_ls_ho.gif) no-repeat
+}
+.mll LI.on {
+	BACKGROUND: url(../images/ml_ls_on.gif) no-repeat
+}
+.mll LI.on A {
+	COLOR: #000
+}
+#mainmiddle {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 2px; PADDING-RIGHT: 0px; CURSOR: pointer; PADDING-TOP: 200px
+}
+#mainright {
+	Z-INDEX: 1; POSITION: relative; MARGIN-LEFT: 200px
+}
+#mainright #mr_tt {
+	Z-INDEX: 9; POSITION: relative; PADDING-BOTTOM: 0px; PADDING-LEFT: 28px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: -2px; BACKGROUND: url(../images/mr_tt_bg.gif) no-repeat left top; HEIGHT: 22px; COLOR: #fff; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 6px
+}
+#mainright .bw {
+	Z-INDEX: 8; POSITION: relative
+}
+.syson {
+	DISPLAY: block
+}
+.syshide {
+	DISPLAY: none
+}
+.login_bg {
+	BACKGROUND: url(../images/login_bg.png) #0a223c repeat-x center top
+}
+.login_crm {
+	MARGIN: 180px auto auto; WIDTH: 464px; BACKGROUND: url(../images/login_crm_bg.jpg) no-repeat 50% top; HEIGHT: 224px; OVERFLOW: hidden
+}
+.login_sh {
+	MARGIN: 180px auto auto; WIDTH: 464px; BACKGROUND: url(../images/login_crm_bg.jpg) no-repeat 50% top; HEIGHT: 224px; OVERFLOW: hidden
+}
+.login_sh {
+	BACKGROUND-IMAGE: url(../images/login_sh_bg.jpg)
+}
+.login_tb {
+	MARGIN: 32px 0px 0px 182px
+}
+.login_ip {
+	BORDER-BOTTOM: #4f6269 1px solid; BORDER-LEFT: #4f6269 1px solid; WIDTH: 115px; HEIGHT: 20px; BORDER-TOP: #4f6269 1px solid; MARGIN-RIGHT: 5px; BORDER-RIGHT: #4f6269 1px solid
+}
+.login_sm {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 70px; BACKGROUND: url(../images/login_bt.jpg) no-repeat; HEIGHT: 49px; OVERFLOW: hidden; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.login_cp {
+	TEXT-ALIGN: center; MARGIN-TOP: 60px; FONT: 9px Arial; COLOR: #4b5b6e
+}

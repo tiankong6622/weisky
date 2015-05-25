@@ -1,0 +1,175 @@
+<div style="margin: 10px 0;"></div>
+<div id="orgSearchForm" style="padding: 5px; height: auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="addRootAdminOrg()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增部门</a>
+	</div>
+</div>
+
+<div id="add_org" class="easyui-window" title="部门管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:550px; height: 350px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminOrgForm" method="post" action="/admin/org/save">
+			<input name="id" id="orgId" type="hidden" value="0"/>
+			<input name="parentId" type="hidden" id="parentAdminDeptParentId" value=""/>
+			<table>
+				<tr id="parentAdminDeptTr" style="display:none">
+					<td>父部门</td>
+					<td id="parentAdminDeptTd"></td>
+				</tr>
+				<tr>
+					<td>名称</td>
+					<td><input type="text" autoComplete="off" name="name" class="easyui-validatebox" type="text"  style="width:250px"  data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td>选择城市</td>
+					<td>
+						<select id="provinceId" name="provinceId"></select>
+						<select id="districtId" name="districtId"></select>
+						<select id="cityId" name="cityId"></select>
+					</td>
+				</tr>
+				<tr>
+					<td>描述</td>
+					<td>
+						<textarea name="desc" class="easyui-validatebox" style="width:350px;height:120px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>是否指定区域</td>
+					<td>
+						<input name="isArea" type="radio" value="1">是
+						<input name="isArea" type="radio" value="0">否
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<div class="easyui-layout" style="width:1100px;height:550px;">
+		<div data-options="region:'east',split:true" title="分配分管区域" style="width:270px;" id="orgCitydiv">
+			<ul id="orgCityTree" class="easyui-tree" data-options="animate:true,checkbox:true"></ul>
+			<br/>
+			&nbsp;
+			<a href="javascript:doRealOrgAndCity()" id='orgCityHref' class="easyui-linkbutton"  style="display:none">确定</a> 
+		</div>
+		<div data-options="region:'center',title:'用户管理'">
+	<table id="orgTable" style="width:825px"></table>
+
+<script>
+	
+	$('#orgTable').treegrid({
+		url : '/admin/org/list',
+		toolbar : '#orgSearchForm',
+		idField: 'id',
+		treeField: 'name',
+		columns : [[
+			{field : 'name',title : '部门名称',width:565},
+			{field : 'operate',title : '操作',width:240,
+				formatter : function(value, row, index) {
+						var retOptrStr = outPutFunction("editOrg",row.id,"编辑")+outPutFunction("freezeOrg",row.id,"删除")
+						+'[<a href="javascript:addAdminChildOrg('+row.id+',\''+row.fullNamePath+'\')">新增子部门</a>]';
+						if(row.isArea==1){
+							retOptrStr=retOptrStr+'[<a href="javascript:doOrgRealArea('+row.id+',\''+row.name+'\')">分管区域</a>]';
+						}
+						return retOptrStr;
+				}
+			} 
+		]]
+	});
+	
+	function addRootAdminOrg(){
+		$('#add_org').window('open');
+		clearInputForm("adminOrgForm");
+		$("#adminOrgForm input[name='isArea'][value='0']").attr("checked",true);
+		$("#parentAdminDeptTr").hide();
+		$("#orgId").val(0);
+		$("#parentAdminDeptParentId").val(0);
+		doInitCitySelect("provinceId","districtId","cityId");
+	}
+
+	function addAdminChildOrg(oid,parentDeptName){
+		$('#add_org').window('open');
+		clearInputForm("adminOrgForm");
+		$("#adminOrgForm input[name='isArea'][value='0']").attr("checked",true);
+		$("#parentAdminDeptParentId").val(oid);
+		$("#orgId").val(0);
+		if($("#provinceId").val()==null){
+			doInitCitySelect("provinceId","districtId","cityId");
+		}
+		$("#parentAdminDeptTd").html(parentDeptName);
+		$("#parentAdminDeptTr").show();
+	}
+	
+	function editOrg(oid) {
+		$.post("/admin/org/getOrg/"+oid, function(data) {
+			if(data.parentId==0){
+				$("#parentAdminDeptTr").hide();
+			}
+			$('#add_org').window('open');
+			doInitCitySelect("provinceId","districtId","cityId",data.provinceId,data.districtId,data.cityId);
+			$("#adminOrgForm").form('load',data);
+		});
+	}
+
+	function freezeOrg(oid) {
+		$.messager.confirm('部门管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/admin/org/delete/"+oid, {}, function(data) {
+					if (data=='success') {
+						$("#orgTable").treegrid('reload');
+					} else {
+						$.messager.alert('Info', "删除失败", 'info');
+					}
+				});
+			}
+		});
+	}
+	var _current_org_id = null;
+	function doOrgRealArea(oid,oname){
+		_current_org_id=oid;
+		$('#orgCitydiv').panel({"title":"分配"+oname+"管辖地区"});
+		$('#orgCityTree').tree({
+			cascadeCheck:true,
+			onlyLeafCheck:false,
+			url:'/admin/org/city/getOrgRealCitys?orgId='+oid
+		}); 
+		$("#orgCityHref").show();
+		
+	}
+	function doRealOrgAndCity(){
+		var nodes = $('#orgCityTree').tree('getChecked');
+		var s = '';
+		for(var i=0; i<nodes.length; i++){
+			if (s != '') s += ',';
+				s += nodes[i].id;
+		}
+		jQuery.post("/admin/org/city/realOrgCitys",{orgId:_current_org_id,cityIds:s},function(data){
+			if(data=='success'){
+				$.messager.alert('Info', "操作成功", 'info');
+			}else{
+				$.messager.alert('Info', "操作失败", 'info');
+			}
+		})
+	}
+
+	$('#adminOrgForm').form({
+		success : function(data) {
+			$('#add_org').window('close');
+			if (data == 'success') {
+				$("#orgTable").treegrid('reload');
+				$(".easyui-validatebox").val('');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>
+</div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<toolbox>
+	<tool>
+		<key>timeUtils</key>
+		<scope>application</scope>
+		<class>org.itboys.commons.utils.time.TimeUtils</class>
+	</tool>
+	<tool>
+		<key>staticResource</key>
+		<scope>application</scope>
+		<class>org.itboys.framework.resource.StaticResource</class>
+	</tool>
+	<tool>
+		<key>perUtils</key>
+		<scope>application</scope>
+		<class>org.itboys.admin.tools.PermissionUtils</class>
+	</tool>
+</toolbox>

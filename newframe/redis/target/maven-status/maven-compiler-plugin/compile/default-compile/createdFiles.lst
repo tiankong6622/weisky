@@ -1,0 +1,5 @@
+org\itboys\redis\RedisClient.class
+org\itboys\redis\RedisConnect.class
+org\itboys\redis\RedisCacheClient.class
+org\itboys\redis\RedisConfig.class
+org\itboys\redis\RedisConstants.class

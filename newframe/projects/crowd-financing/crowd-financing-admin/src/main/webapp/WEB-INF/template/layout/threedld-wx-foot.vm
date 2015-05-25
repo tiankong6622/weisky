@@ -1,0 +1,39 @@
+	#parse($sub)
+	<script type="text/javascript" src="$!{staticRoot}/threedld/weixin/js/jquery-1.8.0.min.js"></script>
+	<div id="footer">
+        <a href="/wx/index?shopId=$!{shopId}" class="on" id="foot_index">
+        	<div class="pic"><img src="$!{staticRoot}/threedld/weixin/img/home_r.png" /></div>
+            <div class="topic">首页</div>
+        </a>
+        <a href="/car/getCarListByUserId" id="foot_car">
+        	<div class="pic"><img src="$!{staticRoot}/threedld/weixin/img/shopping.png" /></div>
+            <div class="topic">购物车</div>
+        </a>
+        <a href="ItemList.html" id="foot_order">
+        	<div class="pic"><img src="$!{staticRoot}/threedld/weixin/img/indent.png" /></div>
+            <div class="topic">订单</div>
+        </a>
+        <a href="master.html" id="foot_master">
+        	<div class="pic"><img src="$!{staticRoot}/threedld/weixin/img/distribute.png" /></div>
+            <div class="topic">东家</div>
+        </a>
+    </div>
+    
+    <script type="text/javascript">
+    	window.onload = function () {
+    		var bootCss = window.sessionStorage.getItem("footCss");
+    		
+    		if(bootCss !=null && bootCss.length > 0){
+    			jQuery("#footer a").each(function(){
+	    			jQuery(this).removeClass();
+	    		})
+	    		
+	    		switch(bootCss){
+	    			case "car" : jQuery("#foot_car").addClass("on");
+	    		}
+    		}
+    		
+    		
+			//window.sessionStorage.setItem("footCss", "car");//设置下一个底部被选中的标签
+		}
+    </script>

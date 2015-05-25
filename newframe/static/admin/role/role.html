@@ -1,0 +1,163 @@
+<div style="margin:10px 0;"></div>
+	<div id="roleSearchForm" style="padding:5px;height:auto">
+		<div style="margin-bottom:5px">
+			<a href="#" onclick="addRole()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增角色</a>
+		</div>
+		<div>
+			<form id="queryRoleForm">
+				角色名称:<input class="easyui-validatebox" name="filter_S_roleName" style="width:100px">
+				<a href="javascript:doSearchObject('roleTable','queryRoleForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+			</form>
+		</div>
+	</div>
+	
+	
+	<div id="add_role" class="easyui-window" title="角色管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px;height:200px;padding:10px;">
+		<div style="padding:10px 0 10px 60px">
+	    <form id="adminRoleForm" method="post" enctype="multipart/form-data" action="/admin/role/save">
+	    <input  name="id" id="roleId" type="hidden"  value="0"/>
+	    	<table>
+	    		<tr>
+					<td>角色名称:</td>
+					<td><input  name="name" autoComplete="off" id="name" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+				</tr>
+				<tr>
+					<td>描述:</td>
+					<td>
+						<textarea name="desc" class="easyui-validatebox" data-options="required:true" style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+	    		<tr>
+	                <td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+	            </tr>
+	    	</table>
+	    </form>
+	    </div>
+	</div>
+
+
+
+	<div class="easyui-layout" style="width:1100px;height:550px;">
+		<div data-options="region:'east',split:true" title="角色分配权限" style="width:200px;" id="xx-xx">
+			<ul id="modulePermissionTree" class="easyui-tree" data-options="animate:true,checkbox:true"></ul>
+			<br/>
+			<a href="javascript:void(0)" id='rolep' class="easyui-linkbutton"  style="display:none">确定</a> 
+		</div>
+		<div data-options="region:'center',title:'角色管理'">
+		
+		<table id="roleTable" style="heigth:auto;"></table>
+		
+<script>				
+	$('#roleTable').datagrid({   
+		url:'/admin/role/list',   
+		toolbar: '#roleSearchForm',
+		pagination:true,
+		singleSelect:true,
+		rownumbers:true,
+		autoRowHeight:true,
+		columns:[[   
+				{field:'name',title:'名称',width:150},
+				{field:'desc',title:'描述',width:200},
+				{
+					field:'operate',title:'操作',width:490,
+					formatter: function(value,row,index){
+					return outPutFunction("editRole",row.id,"编辑")+outPutFunction("freezeRole",row.id,"删除")+'[<a href="javascript:doCheckedMenuPermission('+row.id+',\''+row.name+'\')">分配菜单权限</a>][<a href="javascript:doCheckedRelPermission('+row.id+',\''+row.name+'\')">分配功能权限</a>]';
+				}
+			}
+		]]
+	});
+					
+	function editRole(rid){
+		$.post("/admin/role/getRole/"+rid,function(data){
+			$('#add_role').window('open');
+			$('#adminRoleForm').form('load',data);
+		});
+	}
+	
+	function addRole(){
+		$("#adminRoleForm").form('clear');
+		$("#roleId").val(0);
+		$('#add_role').window('open');
+	}
+					
+	
+	function freezeRole(rid){
+		$.messager.confirm('角色管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/admin/role/delete/"+rid,{},function(data){
+					if(data=='success'){
+						$("#roleTable").datagrid('reload'); 
+					}else{
+						$.messager.alert('Info', "删除失败", 'info');	
+					}
+				});
+			}
+		});
+	}
+					
+	$('#adminRoleForm').form({
+		success:function(data){
+			$('#add_role').window('close');
+			var str = 'success';
+			if(data == str){
+				$("#roleTable").datagrid('reload'); 
+				$(".easyui-validatebox").val('');
+			}else{
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});			
+</script>
+					
+<script>
+	var _current_admin_role_id = null;
+	function doCheckedRelPermission(_roleid,_rolename){
+			$('#xx-xx').panel({"title":"分配"+_rolename+"的权限"});
+			_current_admin_role_id=_roleid;
+			$('#modulePermissionTree').tree({
+				url:'/admin/role/getRolePermission/'+_roleid,
+				onlyLeafCheck:true
+			}); 
+			$("#rolep").show();
+			$('#rolep').unbind("click")
+			$("#rolep").click(function(){
+				doRelRolePermission('access');
+			})
+	}
+						
+	function doCheckedMenuPermission(_roleid,_rolename){
+		_current_admin_role_id=_roleid;
+		$('#xx-xx').panel({"title":"分配"+_rolename+"的菜单"});
+		$('#modulePermissionTree').tree({
+			url:'/admin/role/getMenuPermission/'+_roleid,
+			onlyLeafCheck:true
+		}); 
+		$("#rolep").show();
+		$('#rolep').unbind("click")
+		$("#rolep").click(function(){
+			doRelRolePermission('menu');
+		})
+	}
+
+	function doRelRolePermission(_roletype){
+		var nodes = $('#modulePermissionTree').tree('getChecked');
+		var s = '';
+		for(var i=0; i<nodes.length; i++){
+			if (s != '') s += ',';
+				s += nodes[i].id;
+		}
+		jQuery.post("/admin/role/relPermissionAndMenu",{roleId:_current_admin_role_id,permissionIds:s,types:_roletype},function(data){
+			if(data=='success'){
+				$.messager.alert('Info', "分配成功", 'info');
+			}else{
+				$.messager.alert('Info', "分配失败", 'info');
+			}
+		});
+	}
+</script>
+	</div>
+</div>

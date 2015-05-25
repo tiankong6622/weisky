@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    function jumpPage(pageNo){
+    	$("#pageNo").val(pageNo); 
+    	$("#mainForm").submit();
+    }
+    
+    function go(){
+    	$("#mainForm").submit();
+    }
+    var pageTotal=$!{page.totalPages};
+    var pageNo=$!{page.pageNo};
+    var modNo=pageNo%5;	//当前页除以10的余数
+    var initNo=(pageNo -modNo)+1;     //页数的开始
+    if (modNo==0){
+    	initNo=(pageNo - 5)+1;
+    }	
+    var totalNo=pageNo - modNo + 5; //页数的结束
+    if (modNo==0) totalNo=pageNo;
+    if (totalNo>pageTotal) totalNo=pageTotal; //结束的页数大于总页面，那么结束页数就为总页数
+    </script>
+	
+    <form id="mainForm" action="$!{pageurl}" method="post">
+    <input type="hidden" name="page.orderBy" id="orderBy" value="$!{page.orderBy}"/>
+    <input type="hidden" name="page.order" id="order" value="$!{page.order}" />
+    <input type="hidden" id="pageNo" name="page" value="$!{page.pageNo}"/>
+	
+   <ul><li><ul>
+    <li><a href="javascript:jumpPage(1)" class="sd">首页</a></li>
+    <li><a href="javascript:jumpPage(${page.prePage})" class="sd"  title="上一页">上一页</a></li> 
+    <script >
+    if (initNo>5 )
+    document.write('<li><a>……</a></li> ');
+    for (var i=initNo;i<=totalNo;i++){
+		if(i==initNo)
+		document.write("");
+    	if (i==pageNo){
+    	    document.write('<li><a href="#" onclick="javascript:jumpPage('+i+')"  >'+i+"&nbsp;&nbsp;"+'</a></li>&nbsp;');
+    	}else{
+    		document.write('<li><a href="#" onclick="javascript:jumpPage('+i+')"  >'+i+"&nbsp;&nbsp;"+'</a></li>');
+    	}	
+    }
+    if (totalNo<pageTotal)
+    document.write('<li><a>……</a></li> ');
+</script>
+	<li><a href="javascript:jumpPage(${page.nextPage})"  class="sd"   title="下一页">下一页</a></li>
+	<li><a href="javascript:jumpPage($!page.getTotalPages())" class="sd">末页</a></li>
+	</ul></li></ul>
+</FORM>

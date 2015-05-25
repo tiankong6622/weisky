@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- 支付宝 密钥 -->
+	<config key="alipayKey">cdil3mnlm0pm3nc3asqskpnt1rtnn3ak</config>
+	<!-- 支付宝 合作伙伴商户号  -->
+	<config key="alipayPartner">2088111107500541</config>
+	<!-- 支付宝同步回调URL -->
+	<config key="alipayReturnUrl">http://www.wuwei.com/order/alipayReturn</config>
+	<!-- 支付宝异步回调URL -->
+	<config key="alipayNotifyUrl">http://www.wuwei.com/order/alipayNotify</config>
+	<!-- 支付宝卖家的账号  -->
+	<config key="alipaySellerEmail">2960413403@qq.com</config>
+	<!-- 财付通 合作伙伴商户号  -->
+	<config key="tenpayPartner">${tenpay.partner}</config>
+	<!-- 财付通 密钥 -->
+	<config key="tenpayKey">${tenpay.key}</config>
+	<!-- 财付通同步回调URL -->
+	<config key="tenpayReturnUrl">${tenpay.return.url}</config>
+	<!-- 财付通异步回调URL -->
+	<config key="tenpayNotifyUrl">${tenpay.notify.url}</config>
+</configs>

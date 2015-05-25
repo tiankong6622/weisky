@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<config key="smsurl">http://sms.eloone.com/ylSend.do</config>
+	<config key="smsuid">shzyzlzs</config>
+	<config key="smspwd">Gdm94wlEMK</config>
+	<config key="smssnd">1011</config>
+	<config key="smsdomain">m.158world.com</config>
+</configs>

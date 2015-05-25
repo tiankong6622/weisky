@@ -1,0 +1,110 @@
+<div style="margin: 10px 0;"></div>
+<div id="postSearchForm" style="padding: 5px; height: auto">
+	<div style="margin-bottom: 5px">
+		<a href="#" onclick="addPost()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增职务</a>
+	</div>
+	<form id="queryPostForm">
+		<div>
+			职务名称: <input class="easyui-validatebox" name="filter_S_name" style="width: 100px">
+			<a href="javascript:doSearchObject('postTable','queryPostForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+		</div>
+	</form>
+</div>
+
+
+
+<div id="add_post" class="easyui-window" title="职务管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:450px; height: 300px; padding: 10px;">
+	<div style="padding: 10px 0 10px 60px">
+		<form id="adminPostForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8" action="/admin/post/save">
+			<input name="id" id="id" type="hidden" value="0" />
+			<table>
+				<tr>
+					<td>名称</td>
+					<td><input type="text" autoComplete="off" name="name" style="width:230px" class="easyui-validatebox" type="text" data-options="required:true"></td>
+				</tr>
+					<tr>
+					<td>职务级别</td>
+					<td><input type="text" autoComplete="off" name="level" class="easyui-validatebox" type="text" data-options="required:true,validType:'number'"></td>
+				</tr>
+				<tr>
+					<td>描述</td>
+					<td>
+						<textarea name="desc" class="easyui-validatebox" style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+
+<table id="postTable" style="width:1100px"></table>
+
+<script>
+	$('#postTable').datagrid({
+		url : '/admin/post/list',
+		toolbar : '#postSearchForm',
+		pagination : true,
+		singleSelect : true,
+		rownumbers : true,
+		autoRowHeight:true,
+		columns : [[
+			{field : 'id',title : '职务ID',width:100},
+			{field : 'name',title : '名称',width:330},
+			{field : 'desc',title : '描述',width:330},
+			{field : 'operate',title : '操作',width:250,
+				formatter : function(value, row, index) {
+						return outPutFunction("editPost",row.id,"编辑")+outPutFunction("freezePost",row.id,"删除");
+				}
+			} 
+		]]
+	});
+
+	function editPost(uid) {
+		$.post("/admin/post/getPost/"+uid, function(data) {
+			$('#add_post').window('open');
+			$("#adminPostForm").form('load',data);
+		});
+	}
+	
+	function addPost(){
+		$("#adminPostForm").form('clear');
+		$("#id").val(0);
+		$('#add_post').window('open');
+	}
+
+	function freezePost(uid) {
+		$.messager.confirm('职务管理',"确定要删除吗?",function(r){
+			if(r){
+				jQuery.post("/admin/post/delete/"+uid, {}, function(data) {
+						if (data == 'success') {
+							$("#postTable").datagrid('reload');
+						} else {
+							$.messager.alert('Info', "删除失败", 'info');
+						}
+				});							
+			}
+		});
+	}
+
+	$('#adminPostForm').form({
+		success : function(data) {
+			$('#add_post').window('close');
+			var str='success';
+			if (data==str) {
+				$("#postTable").datagrid('reload');
+				$(".easyui-validatebox").val('');
+			} else {
+				$.messager.alert('Info', "添加失败", 'info');
+			}
+		}
+	});
+</script>
+

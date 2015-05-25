@@ -1,0 +1,50 @@
+<div id="adminchangepass" style="padding:10px 0 10px 60px">
+	<form id="aUserChangePasstForm" method="post">
+		<table>
+			<tr>
+				<td>旧密码:</td>
+				<td><input name="oldpass" id="auoldpass" class="easyui-validatebox" type="password"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>新密码:</td>
+				<td><input name="newpass" id="aunewpass" class="easyui-validatebox" type="password"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>确认新密码</td>
+				<td><input name="upass" id="auupass" class="easyui-validatebox" type="password"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+	            <td>&nbsp;</td>
+	            <td>
+	            	<input type="button" onclick="submitUserPasswordForm()" value="提交"></input>
+	            	<input type="reset" value="重置" ></input>
+	            </td>
+	        </tr>
+		</table>
+	</form>
+</div>
+
+<script>  
+	function submitUserPasswordForm(){
+		var oldpass = $("#auoldpass").val();
+		var newpass = $("#aunewpass").val();
+		var upass = $("#auupass").val();
+		if($('#aUserChangePasstForm').form('validate')){
+			 jQuery.post("/admin/user/changepassword",{oldpass:oldpass,newpass:newpass,upass:upass},function(data){
+				if(data==1){
+					$.messager.alert('Info', "修改成功", 'info');
+					$("#mailwindowdiv").dialog('close');
+				}else if(data==2){
+					$.messager.alert('Info', "新密码输入不一致,请重新输入", 'info');
+					$("#aunewpass").val("");
+					$("#auupass").val("");
+					
+				}else{
+					$.messager.alert('Info', "旧密码输入有误,请重新输入", 'info');
+					$("#auoldpass").val("");
+				}
+			});
+		}
+	}
+	
+</script>

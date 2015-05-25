@@ -1,0 +1,36 @@
+﻿@charset "utf-8";
+body,td,th {font-size:12px;color:#333;}
+body {margin:0; padding:0; font-family:"宋体" Arial, Helvetica, sans-serif; background:#FFF;}
+ul,li,dl,dd,dt,h1,h2,h3,h4,h5,form{ padding:0; margin:0;}
+ul{ list-style-type:none}
+a:link {color: #333;text-decoration: none;}
+a:visited {text-decoration:none; color:#333;}
+a:hover {text-decoration:underline;color:#333;}
+
+
+
+/*top*/
+.bodydiv {background: url(../images/back.png) no-repeat; background-size:100% 100%; border:1px solid #ddd; position:absolute; width:100%;height:96%;}
+.navPg {display:block; position:absolute; left:8%; bottom:0px; right:8%; top:6%;}
+.navPgTb {float: left; width: 20%; height:32%;}
+.navPgTbBox1 {width:100%; text-align:center;}
+.navPgTbBox1 .ShowClick {width:80px;}
+.navPgTbBox1 .ShowClick a {cursor:pointer;text-decoration:none;}
+.navPgTbBox1 .MsgCount{display:none;width:100%;height:35px;margin:-15px 25px -20px 35px;line-height:35px;color:white;font-weight:900;font-size:14px;background:url(../default/images/MsgCount.png) no-repeat center;position:relative}
+.navPgTbBox1 a {cursor:pointer;text-decoration:none;}
+.navPgTbBox2 {width:100%; text-align:center; margin-top:5px; font-size:18px;font-weight: bold; color:#24553A;}
+.navPgTbBox3 {width:100%; text-align:center; margin-top:8px; color:#A0A0A0}
+.navPgMsgTk {display:none; position:absolute; left:25%; right:25%; top:10%;z-index:3;}
+
+#navMenu {display:block; position:absolute; left:10%; bottom:10px; height:50px; padding:0 5px; z-index:10}
+#navMenu li { float:left; position:relative; width:90px;background:url(../images/mkb.png) no-repeat}
+#navMenu li a { float:left;}
+#navMenu li a, #navMenu li span { color:#000; }
+#navMenu li.selected span { color:#FFF; }
+#navMenu li span { float:left; font-weight:bold; cursor:pointer; padding:0 30px;}
+#navMenu li a, #navMenu li span { line-height:50px; font-size:14px;}
+#navMenu li.selected { z-index:1;}
+#navMenu li#zy.selected a, #navMenu li#zy.selected a:hover { text-decoration:none; width:90px; background:url(../images/zyh.png) no-repeat;}
+#navMenu li.selected a, #navMenu li.selected a:hover { text-decoration:none; background:url(../images/mkh.png) no-repeat;}
+#navMenu li#sz.selected a, #navMenu li#sz.selected a:hover { text-decoration:none; width:90px; background:url(../images/szh.png) no-repeat;}
+#navMenu li.selected span { padding:0 30px;}

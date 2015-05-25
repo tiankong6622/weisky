@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+		default-lazy-init="true">
+
+	<description>Spring公共配置 </description>
+	
+	<context:component-scan base-package="org.itboys.mongodb.service,org.itboys.admin.service" />
+	<bean id="springContextHolder" class="org.itboys.framework.spring.context.SpringContextHolder" lazy-init="false"/>
+	<bean id="mongoClient" class="org.itboys.mongodb.core.MongoDBClientFactoryBean">
+		<property name="servers" value="120.24.57.181:27017" />
+		<property name="maxWaitTime" value="500" />
+		<property name="autoConnectRetry" value="true" />
+		<property name="connectionsPerHost" value="100" />
+		<property name="socketTimeout" value="10000" />
+		<property name="threadsAllowedToBlockForConnectionMultiplier" value="100" />
+	</bean>
+	<!-- 要扫描的实体包加到这里 -->
+ 	<bean id="morphia" class="org.itboys.mongodb.core.MorphiaEntities">
+ 		<property name="entityPackages">
+			<array>
+				<value>org.itboys.mongodb.entity</value>
+				<value>org.itboys.admin.entity</value>
+			</array>
+		</property>
+ 	</bean>
+ 	<bean id="mongoDatastore"  class="org.itboys.mongodb.core.MongoDataSource">
+		<constructor-arg ref="morphia" />
+		<constructor-arg ref="mongoClient" />
+		<!-- dbName -->
+		<constructor-arg value="test_admin" />
+		<!-- username and password 
+			<constructor-arg value="jungege" />
+			<constructor-arg value="haoshuai" />
+		-->
+	</bean>
+	
+	<bean id="adminDS" class="org.itboys.mongodb.core.MongoDataSourceFactoryBean">
+		<property name="mongoDataSourceBean" value="mongoDatastore" />
+	</bean>	
+	
+	<bean id="baseMongoDS" class="org.itboys.mongodb.core.MongoDataSourceFactoryBean">
+		<property name="mongoDataSourceBean" value="mongoDatastore" />
+	</bean>	
+</beans>

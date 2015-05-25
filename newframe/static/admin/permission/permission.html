@@ -1,0 +1,162 @@
+   <div style="margin:10px 0;"></div>
+	<div id="permissionSearchForm" style="padding:5px;height:auto">
+		<div style="margin-bottom:5px">
+			<a href="#"  onclick="addPermission()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增权限</a>
+		</div>
+		<div>
+			<form id="queryPermissionForm">
+				权限名称:<input class="easyui-validatebox" name="filter_S_name" style="width:100px">
+				权限CODE:<input class="easyui-validatebox" name="filter_S_code" style="width:100px">
+				<a href="javascript:doSearchObject('permissionTable','queryPermissionForm')" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+			</form>
+		</div>
+	</div> 
+	
+	
+	<div id="add_permission" class="easyui-window" title="权限管理" data-options="modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false" style="width:500px;height:350px;padding:10px;">
+		<div style="padding:10px 0 10px 60px">
+	    <form id="adminPermissionForm" method="post" enctype="multipart/form-data" action="/admin/permission/save">
+	    <input  name="id" id="permissionId" type="hidden" value="0"/>
+	    	<table>
+	    		<tr>
+					<td>功能模块:</td>
+					<td>
+					<select name="moduleId" id="moduleId">
+						<option value="0">--请选择功能模块--</option>
+					</select>
+					</td>
+				</tr>
+	    		<tr>
+					<td>权限名称:</td>
+					<td><input  name="name" autoComplete="off" class="easyui-validatebox" style="width:200px"  type="text"  data-options="required:true"></input></td>
+				</tr>
+				<tr>
+					<td>CODE值:</td>
+					<td><input  name="code" autoComplete="off" class="easyui-validatebox"  style="width:200px" type="text"  data-options="required:true"></input></td>
+				</tr>
+				<tr>
+					<td>类型:</td>
+					<td>
+						<input name="type" value="access" type="radio" checked="checked">访问权限
+						<input name="type" value="ui" type="radio">ui权限
+						<input name="type" value="vir" type="radio">虚拟权限
+					</td>
+				</tr>
+				<tr>
+					<td>描述:</td>
+					<td>
+						<textarea name="desc" class="easyui-validatebox"  style="width:230px;height:50px;"></textarea>
+					</td>
+				</tr>
+	    		<tr>
+	                <td>&nbsp;</td>
+	            	<td>
+	            		<input type="submit" value="提交"></input>
+	            		<input type="reset" value="重置" ></input>
+	           		</td>
+	            </tr>
+	    	</table>
+	    </form>
+	    </div>
+	</div>
+	
+	
+<table id="permissionTable" style="width:1100px"></table>
+	
+<script>
+	$(document).ready(function () {
+		$.get("/admin/module/getModuleList",function(data){
+			if(data!=null){
+				jQuery("#moduleId").empty;
+				html = '';
+				var objJson = data.list;
+				for(var i=0;i<objJson.length;i++){
+					html = "<option id='"+objJson[i].id+"' value='"+objJson[i].id+"'>"+objJson[i].name+"</option>"; 
+					jQuery("#moduleId").append(html);
+				}
+			}else{
+				jQuery("#moduleId").empty;
+				jQuery("#moduleId").append("<option value=\"\">--请选择--</option>");
+			}
+		});
+	});
+</script>
+	
+	
+	
+<script>
+		$('#permissionTable').datagrid({   
+			url:'/admin/permission/list',   
+			toolbar: '#permissionSearchForm',
+			singleSelect:true,
+			pagination : true,
+			rownumbers:true,
+			columns:[[   
+				{field:'name',title:'名称',width:200},
+				{field:'code',title:'code',width:220},
+				{field:'desc',title:'权限描述',width:245},
+				{field:'type',title:'权限类型',width:100,
+					formatter: function(value,row,index){
+						if(row.type=='access'){
+							return '访问权限';
+						}else if(row.type=='ui'){
+							return '展示权限';
+						}else if(row.type=='vir'){
+							return '虚拟权限';
+						}else{
+							return row.type;
+						}
+					}
+				},
+				{
+					field:'operate',title:'操作',width:260,
+					formatter: function(value,row,index){
+							return outPutFunction("editPermission",row.id,"编辑")+outPutFunction("freezePermission",row.id,"删除");
+					}
+				}
+			]]
+		});
+		
+		function editPermission(pid){
+			$.post("/admin/permission/getPermission/"+pid,function(data){
+				$('#add_permission').window('open');
+				$("#adminPermissionForm").form('load',data);
+			});
+		}
+		
+		function addPermission(){
+			$("#adminPermissionForm").form('clear');
+			$("#permissionId").val(0);
+			$('#add_permission').window('open');
+		}
+		
+		function freezePermission(pid){
+			$.messager.confirm('权限管理',"确定要删除吗?",function(r){
+				if(r){
+					jQuery.post("/admin/permission/delete/"+pid,{},function(data){
+		    			if(data=='success'){
+							 $("#permissionTable").datagrid('reload'); 
+						}else{
+							$.messager.alert('Info', "删除失败", 'info');
+						}
+		    		});
+				}
+			});
+		}
+		
+		
+		$('#adminPermissionForm').form({
+			   success:function(data){
+			       $('#add_permission').window('close');
+			       var str = 'success';
+			       if(data == str){
+			    	   $("#permissionTable").datagrid('reload'); 
+			    	   $(".easyui-validatebox").val('');
+			       }else{
+			    	   $.messager.alert('Info', "添加失败", 'info');
+			       }
+			   }
+		});
+		
+		
+</script>

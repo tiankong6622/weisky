@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>三级分销管理系统</title>
+<meta name="Keywords" content="三级分销管理系统" />
+<meta name="Description" content="三级分销管理系统" />
+<link href="/newstorebusiness/css/css.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="$!{staticRoot}/newstorebusiness/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="$!{staticRoot}/newstorebusiness/js/jquery.form.js"></script> 
+<script type="text/javascript" src="$!{staticRoot}/newstorebusiness/js/common.js"></script>
+
+<link rel="stylesheet" href="$!{staticRoot}/kindeditor-4.1.7/themes/default/default.css" />
+<script charset="utf-8" src="$!{staticRoot}/kindeditor-4.1.7/kindeditor-min.js"></script>
+<script charset="utf-8" src="$!{staticRoot}/kindeditor-4.1.7/lang/zh_CN.js"></script>
+<script type="text/javascript" src="$!{staticRoot}/jquery-easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="$!{staticRoot}/jquery-easyui/myself-easyui-tools.js"></script>
+<script type="text/javascript" src="$!{staticRoot}/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+
+</head>
+<body>
+<div id="header">
+ <div class="login_logo fl">
+  <ul>
+   <!-- <li><img src="/newstorebusiness/images/logo.gif" /></li> -->
+   <li class="word">三级分销管理系统</li>
+   </ul> 
+  </div>
+  <div class="user fr"> $!session.getAttribute("userName")| <a href="/site/logout">退出</a></div>
+ </div> 
+<div id="contenter">
+ <div class="content clearfix">
+  <div class="leftNav">
+   <ul id="menu">
+    <li><a id="shopMenu" href="/site/shop">店铺管理</a></li>
+    <li><a id="productMenu" href="/site/product/pro">商品管理</a></li>
+    <li><a id="orderMenu" href="/site/order?mark=-1">订单管理</a></li>
+    <li><a id="withMenu" href="/site/withdraw">红包管理</a></li>
+    <li><a id="memberMenu" href="/site/member">会员管理</a></li> 
+	<li><a id="messageMenu" href="/site/message/getMessage?page=1">消息管理</a></li> 
+   </ul>
+  </div>
+  
+	$screen_content
+	
+	<div id="footer">
+  电话：400-800-8888 周一至周六 9:00-18:00    <br />
+[三级分销管理系统]<br />
+浙ICP备14005836号
+</div>
+</body>
+</html>
+    <script>
+	var sessionOut = "$!session.getAttribute("userName")";
+	if(sessionOut=='' || sessionOut ==null){
+		alert("登陆超时,请重新登录");
+		window.location.href = "/site/logout";
+	}
+	</script>

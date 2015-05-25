@@ -1,0 +1,123 @@
+
+	<div style="padding:10px 0 10px 60px" id="updateUserMsg">
+	   <form id="uadminUserUpdateForm" method="post" action="admin/user/simpleUpdate" enctype="multipart/form-data">
+	   <input  name="id" type="hidden"/>
+	   <input  name="orgId" type="hidden" value=""/>
+	   <input  name="postId" type="hidden" value=""/>
+	   <input  name="type" type="hidden" value=""/>
+	   <input name="userOrgPostIsManager" type="hidden" value="1"/>
+	    <table>
+			<tr>
+				<td>用户名:</td>
+				<td><input name="username" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>姓名:</td>
+				<td><input name="name" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input name="enamil" autoComplete="off" class="easyui-validatebox" type="text"  data-options="validType:'email'"></input></td>
+			</tr>
+			<tr>
+				<td>手机号码:</td>
+				<td><input name="mobi" autoComplete="off" class="easyui-validatebox" type="text"  data-options="required:true"></input></td>
+			</tr>
+			<tr>
+				<td>头像:</td>
+				<td>
+					<input name="logos" type="file"  data-options="required:true"></input>
+				</td>
+			</tr>
+			<tr id="uadminUserLogtr" style="display: none;">
+				<td>&nbsp;</td>
+				<td id="uadminUserLogSpan">
+				</td>
+			</tr>
+			<tr>
+				<td>选择城市</td>
+				<td>
+					<select id="uprovinceId" name="provinceId"></select>
+					<select id="udistrictId" name="districtId"></select>
+					<select id="ucityId" name="cityId"></select>
+				</td>
+			</tr>
+			<tr>
+				<td>生日:</td>
+				<td><input class="easyui-datebox"  name="birthday" style="width:80px"></input></td>
+			</tr>
+			<tr>
+				<td>性别:</td>
+				<td>
+					<input name="sex" class="easyui-validatebox" type="radio" value="1">男
+					<input name="sex" class="easyui-validatebox" type="radio" value="2">女
+				</td>
+			</tr>
+			<tr style="display:none;">
+				<td>是否管理者:</td>
+				<td>
+				    <input name="userOrgPostId" value="" type="hidden">
+					<input name="userOrgPostIsManager" value="0" type="radio" checked>是
+					<input name="userOrgPostIsManager" value="1" type="radio"></input>不是
+				</td>
+			</tr>
+			<!-- <input name="userOrgPostId" value="" type="hidden" /> -->
+			<!-- <input name="userOrgPostIsManager" value="0" type="hidden" /> -->
+			<tr>
+	            <td>&nbsp;</td>
+	            <td>
+	            	<input type="submit" value="提交"></input>
+	            	<input type="reset" value="重置" ></input>
+	            </td>
+	        </tr>
+		</table>
+	  </form>
+	</div>
+		<div data-options="region:'center',title:'用户管理',iconCls:'icon-ok'">
+	
+<script>
+
+	$.ajax({
+		url:'/admin/user/getUpdateUserInfo',
+		success:function(data){
+			data.id=data.adminUser.id;
+			data.username=data.adminUser.username;
+			data.name=data.adminUser.name;
+			data.password=data.adminUser.password;
+			data.enamil=data.adminUser.enamil;
+			data.birthday=data.adminUser.birthday;
+			data.mobi=data.adminUser.mobi;
+			data.sex=data.adminUser.sex;
+			data.orgId=data.adminUser.orgId;
+			data.postId=data.adminUser.postId;
+			data.type=data.adminUser.type;
+			if(data.userOrgPost && data.userOrgPost!=null){
+				data.userOrgPostId=data.userOrgPost.id;
+				data.userOrgPostIsManager=data.userOrgPost.isManager;
+			}
+			doInitCitySelect("uprovinceId","udistrictId","ucityId",data.adminUser.provinceId,data.adminUser.districtId,data.adminUser.cityId);
+			$("#uadminUserLogtr").show();
+			if(data.logo){
+				var ipth = img_path+data.logo;
+				$("#uadminUserLogSpan").html('<a href="'+ipth+'" target="_blank"><img src="'+ipth+'" width="80"/></a>');
+			}
+			$('#uadminUserUpdateForm').form('load',data);
+		}
+			
+	});
+	
+	$("#uadminUserUpdateForm").form({
+		success:function(rec){
+			if(rec=="success"){
+				parent.$("#mailwindowdiv").window('close');
+				jQuery.messager.alert("提示","修改成功！");
+			}else{
+				jQuery.messager.alert("提示","修改失败！");
+			}
+		}
+	})
+
+
+
+</script>
+	</div>

@@ -1,0 +1,6 @@
+org\itboys\solr\client\SolrClient.class
+org\itboys\solr\doc2dto\SolrDocument2DataObject.class
+org\itboys\solr\server\HttpSolrServerFactoryBean.class
+org\itboys\solr\config\HttpSolrServerConfig.class
+org\itboys\solr\config\SolrCloudServerConfig.class
+org\itboys\solr\server\CloudSolrServerFactoryBean.class

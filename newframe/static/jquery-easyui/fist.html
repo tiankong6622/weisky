@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Full Layout - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+	<script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="jquery.easyui.min.js"></script>
+
+	<style type="text/css"> 
+		.sunday-menu-div div { 
+			height:22px;
+			text-align:center;
+			padding-top:5px;
+		} 
+		.sunday-menu-div div a{ 
+			text-decoration: none;
+		} 
+		.menu-selected{
+			border: 1px dashed #06f 1px; 
+			background-color: #FFFFBF;
+		}
+	</style>
+	<script>
+		jQuery(document).ready(function() {  
+			$(".sunday-menu-div div").hover(
+			  function () {
+				$(this).addClass("menu-selected");
+			  },
+			  function () {
+				$(this).removeClass("menu-selected");
+			  }
+			);
+		});
+	</script>
+</head>
+<body class="easyui-layout">
+   <!-- 头部开始 -->
+   <div region="north" border="false" style="BACKGROUND:#E6E6FA;height: 65px; padding: 1px; overflow: hidden;">
+	   <table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+		 <td align="left" style="vertical-align:text-bottom" >
+			 <img src="images/logo.png"  alt="">
+		 </td>
+		 <td align="right" nowrap>
+		  <table>
+		   <tr>
+			<td valign="top" height="50">
+			 <span style="color: #CC33FF">当前用户:</span><span style="color: #666633">(xxxx) </span>
+			 <span style="color: #CC33FF">角色:</span><span style="color: #666633">系统管理员</span>
+			 <span style="color: #CC33FF">部门:</span><span style="color: #666633">XXX中心</span>
+			 <span style="color: #CC33FF">职务:</span><span style="color: #666633">XXXX</span>
+			</td>
+		   </tr>
+		   <td>
+			<div style="position: absolute; right: 0px; bottom: 0px;">
+			 <a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_kzmbMenu" iconCls="icon-help">控制面板</a><a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_zxMenu" iconCls="icon-back">注销</a>
+			</div>
+			<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
+			 <div onclick="openwindow('用户信息','admin/user/detail')">
+			  个人信息
+			 </div>
+			 <div class="menu-sep"></div>
+			 <div onclick="add('修改密码','admin/user/changepassword')">
+			  修改密码
+			 </div>
+			</div>
+			<div id="layout_north_zxMenu" style="width: 100px; display: none;">
+			 <div class="menu-sep"></div>
+			 <div onclick="exit('logout','确定退出该系统吗 ?',1);">
+			  退出系统
+			 </div>
+			</div>
+		   </td>
+		   </tr>
+		  </table>
+		 </td>
+		 <td align="right">
+		  &nbsp;&nbsp;&nbsp;
+		 </td>
+		</tr>
+	   </table>
+  </div>
+ <!-- 头部结束 -->
+ 
+ <!-- 菜单开始 -->
+	<div data-options="region:'west',split:true,title:'导航菜单'" style="width:180px;">
+		<div class="easyui-accordion" style="width:172px;padding-left:0px">
+			<div title="About" data-options="iconCls:'icon-ok'" style="overflow:auto;" class="sunday-menu-div">
+				<div><a href="javascript:doOpenMenu('tree_manager.html',11,'菜单管理')">菜单管理</a></div>
+				<div><a href="javascript:doOpenMenu('custompager.html',11,'列表测试')">列表测试</a></div>
+				<div><a href="javascript:doOpen()">塞德里克福建</a></div>
+				<div><a href="javascript:doOpen()">塞德里克福建</a></div>
+			</div>
+			<div title="About" data-options="iconCls:'icon-ok'" style="overflow:auto;" class="sunday-menu-div">
+				<div><a href="javascript:doOpen()">塞德里克福建</a></div>
+				<div><a href="javascript:doOpen()">塞德里克福建</a></div>
+				
+			</div> 
+			<div title="About" data-options="iconCls:'icon-ok'" style="overflow:auto;" class="sunday-menu-div">
+				<div><a href="javascript:doOpen()">塞德里克福建</a></div>
+				<div><a href="javascript:doOpen()">塞德里克福建</a></div>
+				
+			</div> 
+			<div title="About" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+				<h3 style="color:#0099FF;">Accordion for jQuery</h3>
+				<p>Accordion is a part of easyui framework for jQuery. It lets you define your accordion component on web page more easily.</p>
+			</div>
+			<div title="Help" data-options="iconCls:'icon-help'" style="padding:10px;">
+				<p>The accordion allows you to provide multiple panels and display one at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p> 		
+			</div>
+			
+		</div>
+	</div>
+	
+	<!-- 主体tab -->
+	<div data-options="region:'center'">
+		<div class="easyui-tabs" id="main-tabs-div">
+			<div title="首页面板">
+				<p style="font-size:14px">欢迎使用管理系统.</p>
+			</div>
+		</div>
+	</div>
+	<script>
+		function doOpenMenu(menu_url,menuId,menuName){
+			jQuery.get(menu_url,function(data){
+				if (!$('#main-tabs-div').tabs('exists', menuName)) {
+					$('#main-tabs-div').tabs('add',{
+						title: menuName,
+						content: data,
+						closable: true
+					});
+				}else{
+					$('#main-tabs-div').tabs('select', menuName);
+				}
+				
+			});
+		}
+	</script>
+</body>
+</html>

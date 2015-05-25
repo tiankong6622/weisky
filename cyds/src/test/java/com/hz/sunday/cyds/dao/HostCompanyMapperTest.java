@@ -1,5 +1,7 @@
 package com.hz.sunday.cyds.dao;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,4 +20,10 @@ public class HostCompanyMapperTest extends BaseDAOTest{
 		hostCompanyMapper.insert(hc);
 		System.out.println(hc.getId());
 	}
+	
+	@Test
+	public void testGethcType(){
+		/*List<Integer> hcd = hostCompanyMapper.gethcType();
+		System.out.println(hcd.size());
+*/	}
 }

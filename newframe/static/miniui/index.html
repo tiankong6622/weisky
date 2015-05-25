@@ -1,0 +1,156 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>项目管理平台</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="/miniui/scripts/boot.js" type="text/javascript"></script>
+    <script src="/miniui/demo/core.js" type="text/javascript"></script>
+    <style type="text/css">
+    html, body{
+        margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
+    }
+    .header
+    {
+        background:url(/miniui/demo/header.gif) repeat-x;
+    }
+    .header div
+    {
+        font-family:'Trebuchet MS',Arial,sans-serif;
+        font-size:25px;line-height:60px;padding-left:10px;font-weight:bold;color:#333;        
+    }    
+    body .header .topNav
+    {
+        position:absolute;right:8px;top:10px;        
+        font-size:12px;
+        line-height:25px;
+    }
+    .header .topNav a
+    {
+        text-decoration:none;
+        color:#222;
+        font-weight:normal;
+        font-size:12px;
+        line-height:25px;
+        margin-left:3px;
+        margin-right:3px;
+    }
+    .header .topNav a:hover
+    {
+        text-decoration:underline;
+        color:Blue;
+    }   
+     .mini-layout-region-south img
+    {
+        vertical-align:top;
+    }
+    </style>
+</head>
+<body>
+<div class="mini-layout" style="width:100%;height:100%;">
+    <div title="north" region="north" class="header" bodyStyle="overflow:hidden;" height="80" showHeader="false" showSplit="false">
+        <div>这里放logo</div>
+        <div class="topNav">    
+            <a href="../index.html">首页</a> |
+            <a href="../demo/index.html">在线示例</a> |
+            <a href="../docs/api/index.html">Api手册</a> |            
+            <a href="../docs/tutorial/index.html">开发教程</a> |
+            <a href="../docs/quickstart/index.html">快速入门</a>
+        </div>
+
+        <div style="position:absolute;right:12px;bottom:5px;font-size:12px;line-height:25px;font-weight:normal;">
+            <span style="color:Red;font-family:Tahoma">（推荐Blue）</span>选择皮肤：
+            <select id="selectSkin" onchange="onSkinChange(this.value)" style="width:100px;" >
+                <option value="">Default</option>
+                <option value="blue">Blue</option>
+                <option value="gray">Gray</option>
+                <option value="olive2003">Olive2003</option>
+                <option value="blue2003">Blue2003</option>
+                <option value="blue2010">Blue2010</option>
+		<option value="bootstrap">Bootstrap</option>
+            </select>
+        </div>
+    </div>
+    <div showHeader="false" region="south" style="border:0;text-align:center;" height="25" showSplit="false">
+        Copyright © 杭州圣代网络科技
+    </div>
+    <div region="west" title="在线演示" showHeader="true" bodyStyle="padding-left:1px;" showSplitIcon="true" width="230" minWidth="100" maxWidth="350">
+        <ul id="demoTree" class="mini-tree" showTreeIcon="true" style="width:100%;height:100%;"
+             enableHotTrack="true" onbeforeexpand="onBeforeExpand" >
+            <li><a href="overview.html" target="main">Overview</a></li>
+            <li>
+			    <span expanded="true">快速入门</span>
+			    <ul>    
+                    <li>
+			            <span expanded="false">性能测试 <span style="color:Red;">New!</span></span>	
+			            <ul>
+                            <li><a href="../BigTest/120-form.html" target="_blank">表单：120 控件 </a></li>
+                            <li><a href="../BigTest/300-datagrid.html" target="_blank">表格：300 行 </a></li>
+                            <li><a href="../BigTest/10000-datagrid.html" target="_blank">表格：10000 行 </a></li>
+                            <li><a href="../BigTest/10000-tree.html" target="_blank">Tree：10000 节点 </a></li>                    
+                            <li><a href="../BigTest/10000-treegrid.html" target="_blank">TreeGrid：10000 节点 </a></li>  
+                        </ul>             
+
+		            </li>
+                    <li>
+			            <span expanded="true">典型界面  </span>
+			            <ul>
+                            <li><a href="datagrid/pager.html" target="main">表单查询 </a></li>
+                            <li><a href="datagrid/celledit.html" target="main">表格维护：快速</a></li>
+                            <li><a href="datagrid/datagrid.html" target="main">表格维护：弹出</a></li>
+                            <li><a href="datagrid/detailgrid.html" target="main">表格联动</a></li>
+                            <li><a href="tree/detailgrid.html" target="main">树形联动</a></li>
+                            <li><a href="tree/actiontree.html" target="main">树形维护 </a></li>
+                            <li><a href="buttonedit/selectGrid.html" target="main" >弹出选择：表格 </a></li>                            
+                            <li><a href="buttonedit/selectTree.html" target="main" >弹出选择：树 </a></li>                            
+                        <!--    <li><a href="combobox/linkage-combo.html" target="main">下拉联动选择 </a></li>
+                            <li><a href="listbox/moveitems.html" target="main">列表双向移动 </a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+  
+        </ul>        
+    </div>
+    <div title="center" region="center" style="border:0;">
+        <div id="mainTabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" 
+            onactivechanged="onTabsActiveChanged" 
+        >
+            <div title="Demo">
+                	这里放陈老师
+            </div>
+            <div title="Code">
+              		 这里放陈老师2
+            </div>
+        </div>        
+    </div>
+
+    
+</div>
+<span style="display:none">
+<script src="/miniui/scripts/tongji.js" type="text/javascript"></script>
+</span>
+</body>
+</html>
+<script type="text/javascript">
+    mini.parse();
+    function onBeforeExpand(e) {
+        var tree = e.sender;
+        var nowNode = e.node;
+        var level = tree.getLevel(nowNode);
+
+        var root = tree.getRootNode();        
+        tree.cascadeChild(root, function (node) {
+            if (tree.isExpandedNode(node)) {
+                var level2 = tree.getLevel(node);
+                if (node != nowNode && !tree.isAncestor(node, nowNode) && level == level2) {
+                    tree.collapseNode(node, true);
+                }
+            }
+        });
+
+    }
+       
+</script>
+

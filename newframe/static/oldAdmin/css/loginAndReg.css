@@ -1,0 +1,31 @@
+/*login*/
+/*8-07*/#login{clear:both;overflow:hidden;zoom:1;width:370px;padding-left:50px;padding-bottom:20px;}
+#login form div{clear:both;overflow:hidden;zoom:1; margin-top:15px;color:#999;}
+.login_tex{width:307px;height:32px;border:1px solid #CCC;}
+#login form a{text-decoration:none;color:#999;margin-left:15px;}
+.login_but{border:0;width:270px;height:34px;background:url(../images/74.jpg) no-repeat; cursor:pointer;margin-top:13px;margin-left:30px;}
+
+.team{clear:both;overflow:hidden;zoom:1; margin-top:30px;color:#999;}
+.team p{line-height:180%;}
+.team p a{text-decoration:none;color:#666;}
+
+.regist{width:115px;height:32px;margin-left:150px;border:4px solid #E8E8E8;margin-bottom:10px;}
+
+/*register*/
+#register{background-color:#fff;clear:both;overflow:hidden;zoom:1;border:4px solid #E8E8E8;width:992px;margin:0 auto;padding-bottom:30px;margin-top:20px;}
+#register h3{clear:both;overflow:hidden;zoom:1;height:30px;line-height:30px;background-color:#F7F7F7;}
+#register h3 strong{float:left; font-family:"微软雅黑";font-weight:normal;font-size:14px;padding-left:20px;}
+#register h3 span{float:right;padding-right:20px;font-weight:normal;font-size:12px;}
+#register h3 span a{text-decoration:none;color:#005AA0;}
+#divreg{padding-left:280px;}
+#divreg  div{font-family:"微软雅黑";clear:both;overflow:hidden;zoom:1; margin-top:25px;color:#999;}
+#divreg  div label{line-height:34px;color:#999;font-size:14px;text-align:right;width:100px;display:block;float:left;margin-right:10px;}
+
+
+.reg_text1{width:270px;height:34px;border:1px solid #CCC;background:url(../images/77.jpg) no-repeat right;}
+.reg_text2{width:270px;height:34px;border:1px solid #CCC;background:url(../images/78.jpg) no-repeat right;}
+.agree{margin-left:110px;}
+.agree a{text-decoration:none;color:#005AA0;}
+.reg_but{margin-left:110px;border:0;width:270px;height:36px;background:url(../images/79.jpg) no-repeat; cursor:pointer;}
+
+

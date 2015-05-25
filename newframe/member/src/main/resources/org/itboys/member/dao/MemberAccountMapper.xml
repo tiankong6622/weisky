@@ -1,0 +1,68 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itboys.member.dao.MemberAccountMapper">
+
+	 <resultMap id="memberAccountMap" type="org.itboys.member.entity.mysql.MemberAccount" >
+	    <result property="id" column="id" />
+	    <result property="memberId" column="member_id" />
+	    <result property="amount" column="amount"/>
+	    <result property="inorout" column="inorout" />
+	    <result property="createTime" column="create_time" />
+	    <result property="objId" column="obj_id" />
+	    <result property="objType" column="obj_type" />
+	    <result property="remark" column="remark" />
+	    <result property="remainAmount" column="remain_amount"/>
+	  </resultMap>
+	  
+	  <sql id="SELECT_MEMBERACCOUNT_CONDITION">
+		from member_account
+		<where>
+			<if test="memberId!=null">
+				<![CDATA[ and member_id=#{memberId} ]]>
+			</if>
+			<if test="inorout !=null">
+				<![CDATA[ and inorout=#{inorout} ]]>
+			</if>
+			<if test="objType !=null">
+				<![CDATA[ and obj_type=#{objType} ]]>
+			</if>
+			<if test="objId !=null">
+				<![CDATA[ and obj_id=#{objId} ]]>
+			</if>
+			<if test="remark !=null">
+				<![CDATA[ and remark=#{remark} ]]>
+			</if>
+		</where>
+	</sql>
+	
+	  <select id="list" resultMap="memberAccountMap" >
+		select id,member_id,amount,inorout,create_time,obj_id,obj_type,remark,remain_amount
+		<include refid="SELECT_MEMBERACCOUNT_CONDITION"/>
+		<if test="rowStart!=null and pageSize!=null">
+			<![CDATA[limit #{rowStart},#{pageSize}]]>
+		</if>
+	</select>
+	
+	<select id="count" resultType="long">
+	  	select count(*) 
+	  	<include refid="SELECT_MEMBERACCOUNT_CONDITION"/>
+	  </select>
+	  
+	  <insert id="insert" parameterType="org.itboys.member.entity.mysql.MemberAccount">
+	  	insert into member_account(member_id,amount,inorout,create_time,obj_id,obj_type,remark,remain_amount) 
+	  	values(#{memberId},#{amount},#{inorout},now(),#{objId},#{objType},#{remark},#{remainAmount})
+	  </insert>
+	  
+	  <delete id="delete" parameterType="long">
+	  	delete from member_account where id=#{id}
+	  </delete>
+	  
+	  
+	   <update id="update" parameterType="org.itboys.member.entity.mysql.MemberAccount">
+	  	update member_account set remark=#{remark}
+	  	<if test="objId !=null">
+			<![CDATA[ , obj_id=#{objId} ]]>
+		 </if>
+		 where remark=#{remark}
+	  </update>
+</mapper> -->

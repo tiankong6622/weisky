@@ -1,0 +1,61 @@
+[{
+	"id":1,
+	"text":"菜单管理",
+	"children":[{
+		"id":11,
+		"text":"AAA管理",
+		"children":[{
+			"id":111,
+			"text":"是东风公"
+
+		},{
+			"id":112,
+			"text":"但范甘说"
+		},{
+			"id":113,
+			"text":"勾三搭四"
+		}]
+	},{
+		"id":12,
+		"text":"BBB管理",
+		"children":[{
+			"id":121,
+			"text":"Intel"
+		},{
+			"id":122,
+			"text":"Java",
+			"attributes":{
+				"p1":"Custom Attribute1",
+				"p2":"Custom Attribute2"
+			}
+		},{
+			"id":123,
+			"text":"电饭锅是"
+		},{
+			"id":124,
+			"text":"Games",
+			"checked":true
+		}]
+	},{
+		"id":122,
+		"text":"CCC管理",
+		"children":[{
+			"id":1212,
+			"text":"大范甘迪发"
+		},{
+			"id":1222,
+			"text":"asd",
+			"attributes":{
+				"p1":"Custom Attribute1",
+				"p2":"Custom Attribute2"
+			}
+		},{
+			"id":1232,
+			"text":"M阿士大夫e"
+		},{
+			"id":1242,
+			"text":"Games",
+			"checked":true
+		}]
+	}]
+}]

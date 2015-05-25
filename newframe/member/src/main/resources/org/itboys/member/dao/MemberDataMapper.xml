@@ -1,0 +1,77 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itboys.member.dao.MemberDataMapper">
+
+	 <resultMap id="memberDataMap" type="org.itboys.member.entity.mysql.MemberData" >
+	    <result property="memberId" column="member_id" />
+	    <result property="amount" column="amount"/>
+	    <result property="amount1" column="amount1" />
+	    <result property="amount2" column="amount2" />
+	    <result property="amount3" column="amount3" />
+	    <result property="amount4" column="amount4" />
+	    <result property="buyCount" column="buy_count" />
+	    <result property="count1" column="count1"/>
+	    <result property="count2" column="count2"/>
+	    <result property="count3" column="count3" />
+	    <result property="count4" column="count4"/>
+	  </resultMap>
+	  
+	  <update id="updatePay">
+	  	update member_data set amount=amount-#{totalFee},amount2=amount2+#{totalFee},amount3=amount3+#{totalFee},buy_count=buy_count+1 where member_id=#{memberId} and amount <![CDATA[ >= ]]> #{totalFee}
+	  </update>
+	  
+	  <select id="findByMemberId" resultMap="memberDataMap" parameterType="long">
+	  	select member_id,amount,amount1,amount2,amount3,amount4,buy_count,
+	  		count1,count2,count3,count4
+	  		from member_data where member_id=#{memberId}
+	  </select>
+	  
+	  <insert id="insert" parameterType="org.itboys.member.entity.mysql.MemberData">
+	  	insert into member_data(member_id,amount,amount1,amount2,amount3,amount4,buy_count,
+	  		count1,count2,count3,count4) 
+	  	values(#{memberId},#{amount},#{amount1},#{amount2},#{amount3},#{amount4},#{buyCount},
+	  	#{count1},#{count2},#{count3},#{count4})
+	  </insert>
+	  
+	  <update id="update" parameterType="org.itboys.member.entity.mysql.MemberData">
+	  	update member_data set member_id=#{memberId}
+	  	<if test="amount !=null">
+			<![CDATA[ , amount=#{amount} ]]>
+		 </if>
+		<if test="amount1 !=null">
+			<![CDATA[ , amount1=#{amount1} ]]>
+		 </if>
+		 <if test="amount2 !=null">
+			<![CDATA[ , amount2=#{amount2} ]]>
+		 </if>
+		 <if test="amount3 !=null">
+			<![CDATA[ , amount3=#{amount3} ]]>
+		 </if>
+		 <if test="amount4 !=null">
+			<![CDATA[ , amount4=#{amount4} ]]>
+		 </if>
+		 <if test="buyCount !=null">
+			<![CDATA[ , buy_count=#{buyCount} ]]>
+		 </if>
+		 <if test="amount !=null">
+			<![CDATA[ , amount=#{amount} ]]>
+		 </if>
+		 <if test="count1 !=null">
+			<![CDATA[ , count1=#{count1} ]]>
+		 </if>
+		 <if test="count2 !=null">
+			<![CDATA[ , count2=#{count2} ]]>
+		 </if>
+		 <if test="count3 !=null">
+			<![CDATA[ , count3=#{count3} ]]>
+		 </if>
+		 <if test="count4 !=null">
+			<![CDATA[ , count4=#{count4} ]]>
+		 </if>
+		 where member_id=#{memberId}
+	  </update>
+	  
+	  <delete id="delete" parameterType="long">
+	  	delete from member_data where member_id=#{memberId}
+	  </delete>
+</mapper> -->

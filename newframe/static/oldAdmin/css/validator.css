@@ -1,0 +1,36 @@
+.onShow {
+	PADDING-RIGHT: 15px; DISPLAY: inline; PADDING-LEFT: 25px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: middle; LINE-HEIGHT: 22px; PADDING-TOP: 0px; ZOOM: 1; WHITE-SPACE: nowrap
+}
+.onFocus {
+	PADDING-RIGHT: 15px; DISPLAY: inline; PADDING-LEFT: 25px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: middle; LINE-HEIGHT: 22px; PADDING-TOP: 0px; ZOOM: 1; WHITE-SPACE: nowrap
+}
+.onError {
+	PADDING-RIGHT: 15px; DISPLAY: inline; PADDING-LEFT: 25px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: middle; LINE-HEIGHT: 22px; PADDING-TOP: 0px; ZOOM: 1; WHITE-SPACE: nowrap
+}
+.onCorrect {
+	PADDING-RIGHT: 15px; DISPLAY: inline; PADDING-LEFT: 25px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: middle; LINE-HEIGHT: 22px; PADDING-TOP: 0px; ZOOM: 1; WHITE-SPACE: nowrap
+}
+.onLoad {
+	PADDING-RIGHT: 15px; DISPLAY: inline; PADDING-LEFT: 25px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: middle; LINE-HEIGHT: 22px; PADDING-TOP: 0px; ZOOM: 1; WHITE-SPACE: nowrap
+}
+#morerotation_ul LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#moreprice_ul LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.onShow {
+	BACKGROUND: url(../images/onShow.gif) no-repeat
+}
+.onFocus {
+	BORDER-RIGHT: rgb(64,179,255) 1px solid; BORDER-TOP: rgb(64,179,255) 1px solid; BACKGROUND: url(../images/onFocus.gif) #e9f0ff no-repeat; BORDER-LEFT: rgb(64,179,255) 1px solid; BORDER-BOTTOM: rgb(64,179,255) 1px solid
+}
+.onError {
+	BORDER-RIGHT: rgb(255,140,64) 1px solid; BORDER-TOP: rgb(255,140,64) 1px solid; BACKGROUND: url(../images/onError.gif) #fff2e9 no-repeat; BORDER-LEFT: rgb(255,140,64) 1px solid; BORDER-BOTTOM: rgb(255,140,64) 1px solid
+}
+.onCorrect {
+	BORDER-RIGHT: rgb(77,191,0) 1px solid; BORDER-TOP: rgb(77,191,0) 1px solid; BACKGROUND: url(../images/onCorrect.gif) #e9ffeb no-repeat; BORDER-LEFT: rgb(77,191,0) 1px solid; BORDER-BOTTOM: rgb(77,191,0) 1px solid
+}
+.onLoad {
+	BORDER-RIGHT: rgb(77,191,0) 1px solid; BORDER-TOP: rgb(77,191,0) 1px solid; BACKGROUND: url(../images/onLoad.gif) #e9ffeb no-repeat 3px 3px; BORDER-LEFT: rgb(77,191,0) 1px solid; BORDER-BOTTOM: rgb(77,191,0) 1px solid
+}

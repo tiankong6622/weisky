@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.itboys</groupId>
+    <artifactId>itboys-modules</artifactId>
+    <version>1.0</version>
+  </parent>
+  <groupId>com.hz.sunday.getui</groupId>
+  <artifactId>sunday-getui-template</artifactId>
+  <version>1.0</version>
+  <name>sunday-getui-template 手机APP推送模块  使用个推来处理</name>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <repositories>
+	<repository>
+		<id>nexus</id>
+		<name>Team Nexus Repository</name>
+		<url>http://112.16.79.176:8200/nexus/content/repositories/snapshots</url>
+	</repository>
+  </repositories>
+  
+  <dependencies>
+  	<dependency>
+		<groupId>org.itboys</groupId>
+		<artifactId>mongodb</artifactId>
+		<version>1.0</version>
+	</dependency>
+	<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+	<dependency>
+			<groupId>org.itboys</groupId>
+			<artifactId>commons</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.itboys</groupId>
+			<artifactId>admin-template</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.itboys</groupId>
+			<artifactId>web-data</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.itboys</groupId>
+			<artifactId>framework</artifactId>
+			<version>1.0</version>
+		</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- <dependency>
+	  <groupId>org.apache</groupId>
+	  <artifactId>commons-codec</artifactId>
+	  <version>1.9</version>
+	</dependency> -->
+	<dependency>
+	  <groupId>org.apache</groupId>
+	  <artifactId>commons-httpclient</artifactId>
+	  <version>3.0.1</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache</groupId>
+	  <artifactId>commons-logging</artifactId>
+	  <version>1.0.3</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.gexin.platform</groupId>
+	  <artifactId>gexin-rp-sdk-base</artifactId>
+	  <version>2.0.0.18</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.gexin.platform</groupId>
+	  <artifactId>gexin-rp-sdk-http</artifactId>
+	  <version>3.0.0.7</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.gexin.platform</groupId>
+	  <artifactId>gexin-rp-sdk-template</artifactId>
+	  <version>2.0.0.7</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.codehaus</groupId>
+	  <artifactId>jackson-all</artifactId>
+	  <version>1.8.5</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.google.protobuf</groupId>
+	  <artifactId>protobuf-java</artifactId>
+	  <version>2.5.0</version>
+	</dependency>
+  </dependencies>
+  
+  <build>
+  	 <finalName>sunday-getui-template</finalName>
+  	 <plugins>
+  	 	<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<configuration>
+				<skip>true</skip>
+			</configuration>
+		</plugin>
+  	 </plugins>
+  </build>
+  
+</project>

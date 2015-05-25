@@ -1,7 +1,5 @@
 package com.hz.sunday.cyds.dao;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,11 +18,6 @@ public class RunProjectMapperTest extends BaseDAOTest{
 	public void testInsert(){
 		RunProject rp = new RunProject();
 		rp.setArea("vvv");
-		rp.setEnteBuildTime(new Date());
-		rp.setRegisCapital(new BigDecimal(20));
-		rp.setIncome(new BigDecimal(30));
-		rp.setIncomeCapital(new BigDecimal(40));
-		rp.setScore(new BigDecimal(10));
 		runProjectMapper.insert(rp);
 		System.out.println(rp.getId());
 	}
